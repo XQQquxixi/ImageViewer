@@ -7,3 +7,14 @@ What happens when a new tag is created?
 
 Which class is keeping track of the association between tags and files?
 
+In which class does execution start?
+
+How to keep track of all existed tags?
+
+How to keep track of all existed names?
+
+How do we navigate to a specific file by its tags?
+
+How to keep track of tags after the application is quit?
+
+Which class is responsible for moving files?
