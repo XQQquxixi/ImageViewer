@@ -1,0 +1,9 @@
+1. Someone to learn JavaFX.[Xueqing Yang]
+
+2. Write the class TagManager.
+
+3. Write the class Image.
+
+4. Write the class ImageManager.
+
+5. Figure out how to move files in directories.
