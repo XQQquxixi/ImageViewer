@@ -1,9 +1,19 @@
 1. Someone to learn JavaFX.[Xueqing Yang]
 
-2. Write the class TagManager.
+2. Write the class TagManager(responsible for storing a set of tags, creating and deleting tags, and should be serializable).
 
-3. Write the class Image.
+3. Write the class Image(responsible for storing a set of tags, adding new tags, renaming, storing all the past names and tags, going back to a past name and a past set of tags, moving to another directory, and should be serializable and observable).
 
-4. Write the class ImageManager.
+4. Write the class ImageManager(responsible for viewing all the images under a specific directory).
 
-5. Figure out how to move files in directories.
+5. Write the class Main.
+
+6. Write Junit Tests
+
+7. Implement logging system(old name, new name, and timestamp)
+
+8. Create UML diagram of our project.
+
+9. Raise an exception if user move or rename using OS.
+
+10. Write help.txt(instructions on running and compiling our project using command line)
