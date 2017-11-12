@@ -14,7 +14,30 @@ public class TagManager {
             file.createNewFile();
         }
     }
-    
+
+    public ArrayList<String> getTagList() {
+        return new ArrayList<>(tagList);
+    }
+
+    public void addTag(String tag) throws IOException {
+        if(!tagList.contains(tag)) {
+            tagList.add(tag);
+            saveToFile(filePath);
+        } else {
+            System.out.println("This tag already existed.");
+        }
+
+    }
+
+    public void removeTag(String tag) throws IOException {
+        if(tagList.contains(tag)) {
+            tagList.remove(tag);
+            saveToFile(filePath);
+        } else {
+            System.out.println("No such tag.");
+        }
+
+    }
 
     public void saveToFile(String filePath) throws IOException {
 
