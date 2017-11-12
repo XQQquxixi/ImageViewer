@@ -5,8 +5,15 @@ import java.util.Observer;
 
 public class Image extends Observable {
     private String name;
-    private File file;     // Since Image is essentially a file.
+    private File file;
+    private ArrayList<String> currentTags;
     private ArrayList<Observer> observers = new ArrayList<>();
+
+    public Image(File file) {
+        this.name = file.getName();
+        this.file = file;
+        currentTags = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
@@ -23,14 +30,11 @@ public class Image extends Observable {
             System.out.println("File rename failed");
         }
         this.name = name;
-        //file = newFile;
+        file = newFile;
         setChanged();
         notifyObservers(oldName);
     }
 
-    public void addObserver(Observer observer) {
-        observers.add(observer);
-    }
 
     public void notifyObservers(String oldName) {
         for (Observer o: observers) {
@@ -44,3 +48,10 @@ public class Image extends Observable {
 
 
 }
+
+
+// how to add a tag to an image.
+// if adding tags happens here, every time you instantiate Image, have to call tagmanager.
+// if adding tags happens in tagmanager, have to pass Image as a param, image should implement correspondingn method that will eventually
+// call setname.
+
