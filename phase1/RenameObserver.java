@@ -5,13 +5,13 @@ public class RenameObserver implements Observer {
 
     private Image image;
     private StringBuilder logs = new StringBuilder();
-    private static final  String filePath = "./logs.txt";    // ser or txt?
+    private String filePath;
 
 
     public RenameObserver(Image image) throws IOException, ClassNotFoundException {
         this.image = image;
         this.image.addObserver(this);
-
+        this.filePath = "./log_"+ image.toString()+".ser";
 
         File file = new File(filePath);
         if (file.exists()) {
@@ -37,7 +37,8 @@ public class RenameObserver implements Observer {
     }
 
     public void add(Image image, String nameOld, long time) {
-        logs.append(nameOld + image.getName() + Long.toString(time));
+        String newLog = nameOld + " " + image.getName() + " " + Long.toString(time);
+        logs.append(newLog);
         logs.append(System.lineSeparator());
 
         // RenameObserver the addition of a student.
@@ -60,12 +61,6 @@ public class RenameObserver implements Observer {
         output.close();
     }
 
-    @Override
-    public String toString() {
-        String result = "";
-        return result;
-    }
-
 
     public void update(Observable o, Object oldName) {
         Date date = new Date();
@@ -86,5 +81,9 @@ public class RenameObserver implements Observer {
         }
 
 
+    }
+
+    public StringBuilder getLogs() {
+        return logs;
     }
 }
