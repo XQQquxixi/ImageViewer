@@ -73,7 +73,29 @@ public class Image extends Observable implements Serializable {
     return name;
   }
 
+  public void addTag(String tag){
+    if (currentTags.contains(tag)){
+      System.out.println("This tag is already in here!");
+    } else {
+      currentTags.add(tag);
+      this.setName(this.fullName + " @" + tag);
+      if (!TagManager.tagList.contains(tag)){
+        TagManager.addTag(tag);
+      }
+    }
+  }
 
+  public void deleteTag(String tag){
+    if (currentTags.contains(tag)){
+      currentTags.remove(tag);
+      int index = fullName.lastIndexOf(" @"+tag);
+      String newName = fullName.substring(0, index) +
+          fullName.substring(index + (" @" + tag).length()+1, fullName.length());
+      this.setName(newName);
+    } else {
+      System.out.println("No such tag in this photo!");
+    }
+  }
 }
 
 // how to add a tag to an image.
