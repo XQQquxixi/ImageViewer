@@ -26,11 +26,10 @@ public class Image extends Observable implements Serializable {
    */
   private ArrayList<String> currentTags;
 
-
   /**
    * The observers.
    */
-  private ArrayList<Observer> observers = new ArrayList<>();
+  private ArrayList<LogObserver> observers = new ArrayList<>();
 
   public Image(File file) throws IOException, ClassNotFoundException {
     this.file = file;
@@ -40,8 +39,8 @@ public class Image extends Observable implements Serializable {
     if (file.getName().contains("@")) {
       // Modified before
       String path = file.getAbsolutePath();
-      File ser =new File(
-          path.substring(0, path.lastIndexOf(File.separator) + 1)+this.name+".ser");
+      File ser = new File(
+          path.substring(0, path.lastIndexOf(File.separator) + 1) + this.name + ".ser");
       if (ser.exists() && ser.isFile()) {
         // There is a .ser file
         Image reload = readFromFile(ser);
@@ -144,10 +143,24 @@ public class Image extends Observable implements Serializable {
     Files.move(oldPath, Paths.get(newPath));
     file = new File(newPath);
     String serPath =
-        oldPath.toString().substring(0, oldPath.toString().lastIndexOf(File.separator)+1)
+        oldPath.toString().substring(0, oldPath.toString().lastIndexOf(File.separator) + 1)
             + name + ".ser";
     Files.delete(Paths.get(serPath));
     notifyObservers(name);
+  }
+
+  public ArrayList<String> getLogs() {
+//    String path = this.file.getAbsolutePath();
+//    File ser = new File(
+//        path.substring(0, path.lastIndexOf(File.separator) + 1)
+//            + "log_" + this.name + ".ser");
+//
+    StringBuilder logs = new StringBuilder();
+    for (LogObserver o : observers) {
+      logs.append(o.getLogs());
+    }
+    String result = logs.toString();
+    return new ArrayList<>(Arrays.asList(result.split(System.lineSeparator())));
   }
 
 
@@ -157,4 +170,3 @@ public class Image extends Observable implements Serializable {
 // if adding tags happens here, every time you instantiate Image, have to call tagmanager.
 // if adding tags happens in tagmanager, have to pass Image as a param, image should implement correspondingn method that will eventually
 // call setname.
-
