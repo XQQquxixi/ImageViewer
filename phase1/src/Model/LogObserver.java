@@ -42,7 +42,7 @@ public class LogObserver implements Observer {
   }
 
   public void add(Image image, String nameOld, long time) {
-    String newLog = nameOld + " " + image.getName() + " " + Long.toString(time);
+    String newLog = nameOld + "," + image.getName() + "," + Long.toString(time);
     logs.append(newLog);
     logs.append(System.lineSeparator());
 
@@ -83,9 +83,9 @@ public class LogObserver implements Observer {
     // update log name
     String absolutePath = ((Image) o).getFile().getAbsolutePath();
     String fileName = ((Image) o).getName();
-    File newFile = new File(
-        absolutePath.substring(0, absolutePath.lastIndexOf(File.separator)) + File.separator
-            + "log_" + fileName + ".ser");
+    String newFilePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator))
+        + File.separator + "log_" + fileName + ".ser";
+    File newFile = new File(newFilePath);
     file.renameTo(newFile);
     file = newFile;
 
