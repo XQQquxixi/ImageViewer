@@ -3,11 +3,12 @@ import java.util.ArrayList;
 
 public class TagManager {
 
-  private ArrayList<String> tagList;
-  private static final String filePath = "./tagManager.ser";
+  public static ArrayList<String> tagList;
+  private static String filePath = "./tm.ser";
 
   public TagManager() throws ClassNotFoundException, IOException {
     tagList = new ArrayList<>();
+
     File file = new File(filePath);
     if (file.exists()) {
       readFromFile(filePath);
@@ -20,7 +21,7 @@ public class TagManager {
     return new ArrayList<>(tagList);
   }
 
-  public void addTag(String tag) throws IOException {
+  public static void addTag(String tag) throws IOException {
     if (!tagList.contains(tag)) {
       tagList.add(tag);
       saveToFile(filePath);
@@ -30,7 +31,7 @@ public class TagManager {
 
   }
 
-  public void removeTag(String tag) throws IOException {
+  public static void removeTag(String tag) throws IOException {
     if (tagList.contains(tag)) {
       tagList.remove(tag);
       saveToFile(filePath);
@@ -40,7 +41,7 @@ public class TagManager {
 
   }
 
-  public void saveToFile(String filePath) throws IOException {
+  public static void saveToFile(String filePath) throws IOException {
 
     OutputStream file = new FileOutputStream(filePath);
     OutputStream buffer = new BufferedOutputStream(file);
@@ -51,7 +52,7 @@ public class TagManager {
     output.close();
   }
 
-  public void readFromFile(String path) throws ClassNotFoundException {
+  public static void readFromFile(String path) throws ClassNotFoundException {
 
     try {
       InputStream file = new FileInputStream(path);

@@ -1,9 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observable;
@@ -12,14 +7,9 @@ import java.util.Observer;
 public class Image extends Observable implements Serializable {
 
   /**
-   * the name part of file's name.
+   * the name of file.
    */
   private String name;
-
-  /**
-   * The full name of file.
-   */
-  private String fullName;
 
   /**
    * this image file.
@@ -38,6 +28,7 @@ public class Image extends Observable implements Serializable {
   private ArrayList<Observer> observers = new ArrayList<>();
 
   public Image(File file) {
+    this.name = file.getName();
     this.file = file;
     currentTags = new ArrayList<>();
   }
@@ -46,18 +37,27 @@ public class Image extends Observable implements Serializable {
     return name;
   }
 
+  public File getFile() {
+    return file;
+  }
+
   public void setName(String name) {
     String oldName = this.name;
     String absolutePath = file.getAbsolutePath();
     String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
     File newFile = new File(path + File.separator + name);
+    int i = 1;
+    while (newFile.exists()) {
+      path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
+      newFile = new File(path + File.separator + name + Integer.toString(i++));
+    }
     if (file.renameTo(newFile)) {
       System.out.println("File rename success");
     } else {
       System.out.println("File rename failed");
     }
     this.name = name;
-    file = newFile;
+    this.file = newFile;
     setChanged();
     notifyObservers(oldName);
   }
@@ -73,29 +73,31 @@ public class Image extends Observable implements Serializable {
     return name;
   }
 
-  public void addTag(String tag){
-    if (currentTags.contains(tag)){
-      System.out.println("This tag is already in here!");
-    } else {
-      currentTags.add(tag);
-      this.setName(this.fullName + " @" + tag);
-      if (!TagManager.tagList.contains(tag)){
-        TagManager.addTag(tag);
-      }
-    }
-  }
+   public void addTag(String tag) throws IOException {
+   if (currentTags.contains(tag)){
+   System.out.println("This tag is already in here!");
+   } else {
+   currentTags.add(tag);
+   this.setName(this.name + " @" + tag);
+   if (!TagManager.tagList.contains(tag)){
+   TagManager.addTag(tag);
+   }
+   }
+   }
 
-  public void deleteTag(String tag){
-    if (currentTags.contains(tag)){
-      currentTags.remove(tag);
-      int index = fullName.lastIndexOf(" @"+tag);
-      String newName = fullName.substring(0, index) +
-          fullName.substring(index + (" @" + tag).length()+1, fullName.length());
-      this.setName(newName);
-    } else {
-      System.out.println("No such tag in this photo!");
-    }
-  }
+   public void deleteTag(String tag){
+   if (currentTags.contains(tag)){
+   currentTags.remove(tag);
+   int index = name.lastIndexOf(" @"+tag);
+   String newName = name.substring(0, index) +
+   name.substring(index + (" @" + tag).length()+1, name.length());
+   this.setName(newName);
+   } else {
+   System.out.println("No such tag in this photo!");
+   }
+   }
+
+
 }
 
 // how to add a tag to an image.

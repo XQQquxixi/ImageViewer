@@ -1,19 +1,21 @@
 import java.io.*;
 import java.util.*;
 
-public class RenameObserver implements Observer {
+public class LogObserver implements Observer {
 
     private Image image;
     private StringBuilder logs = new StringBuilder();
-    private String filePath;
+    private File file;
 
 
-    public RenameObserver(Image image) throws IOException, ClassNotFoundException {
+    public LogObserver(Image image) throws IOException, ClassNotFoundException {
         this.image = image;
         this.image.addObserver(this);
-        this.filePath = "./log_"+ image.toString()+".ser";
 
-        File file = new File(filePath);
+        String absolutePath = image.getFile().getAbsolutePath();
+        String filePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator)) + File.separator + "log_" + image.getName() + ".ser";
+        this.file = new File(filePath);
+
         if (file.exists()) {
             readFromFile(filePath);
         } else {
@@ -21,7 +23,7 @@ public class RenameObserver implements Observer {
         }
     }
 
-    public void readFromFile(String path) throws ClassNotFoundException {
+    public void readFromFile(String filePath) throws ClassNotFoundException {
 
         try {
             InputStream file = new FileInputStream(filePath);
@@ -41,7 +43,7 @@ public class RenameObserver implements Observer {
         logs.append(newLog);
         logs.append(System.lineSeparator());
 
-        // RenameObserver the addition of a student.
+        // LogObserver the addition of a student.
         System.out.println("Added a new renaming " + image.toString());
     }
 
@@ -66,22 +68,24 @@ public class RenameObserver implements Observer {
         Date date = new Date();
         long time = date.getTime();
 
-        try {
-            readFromFile(filePath);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        // add new log entry
+        if (!((Image) o).getName().equals(oldName)) {
+            add((Image) o, (String) oldName, time);
+            try {
+                saveToFile(file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        add((Image) o, (String) oldName, time);
-
-        try {
-            saveToFile(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        // update log name
+        String absolutePath = ((Image) o).getFile().getAbsolutePath();
+        String fileName = ((Image) o).getName();
+        File newFile = new File(absolutePath.substring(0, absolutePath.lastIndexOf(File.separator)) + File.separator + "log_" + fileName + ".ser");
+        file.renameTo(newFile);
+        file = newFile;
 
     }
+
 
     public StringBuilder getLogs() {
         return logs;
