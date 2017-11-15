@@ -22,7 +22,7 @@ public class ImageView {
     public Button PREV;
     public Button NEXT;
     public Button CLOSE;
-    public Button Delet;
+    public Button Delete;
     public Button Add;
     private Image SelectedImage;
     @FXML
