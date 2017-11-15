@@ -31,7 +31,7 @@ public class ConfirmBox {
         for (String tag : list) {
             SelectedImage.addTag(tag);
         }
-        initDate(SelectedImage);
+        initDate(Select edImage);
     }
 
     public void AddNewTag() throws IOException {
