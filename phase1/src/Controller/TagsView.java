@@ -26,6 +26,7 @@ public class TagsView {
         listOfTags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+
     public void DeleteSelectedTags() throws IOException {
         ObservableList<String> listForDelete = listOfTags.getSelectionModel().getSelectedItems();
         for (String tag : listForDelete) {
