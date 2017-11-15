@@ -56,6 +56,10 @@ public class Image extends Observable implements Serializable {
     }
   }
 
+  public ArrayList<String> getCurrentTags() {
+    return currentTags;
+  }
+
   private void writeToFile() {
     try {
       ObjectOutputStream serOut =
@@ -114,7 +118,7 @@ public class Image extends Observable implements Serializable {
     return name;
   }
 
-  public void addTag(String tag) throws IOException {
+  public void addTag(String tag) throws IOException{
     if (currentTags.contains(tag)) {
       System.out.println("This tag is already in here!");
     } else {

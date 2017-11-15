@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
+            fx:controller="Controller.ImageView">
+    <bottom>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <ButtonBar prefHeight="60.0" prefWidth="598.0">
+                    <buttons>
+                        <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="202.0" text="PREV" fx:id="PREV"
+                                onAction="#GoBack"/>
+                        <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" text="Move To Directory"
+                                fx:id="Move" onAction="#MoveFile"/>
+                        <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="511.0" text="NEXT" fx:id="NEXT"
+                                onAction="#GoNext"/>
+                        <Button mnemonicParsing="false" prefHeight="41.0" text="CLOSE" fx:id="CLOSE" onAction="#Exit"/>
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </HBox>
+    </bottom>
+    <left>
+        <VBox prefHeight="254.0" prefWidth="116.0" BorderPane.alignment="CENTER">
+            <children>
+                <ListView prefHeight="312.0" prefWidth="157.0" fx:id="listView"/>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                        <Button mnemonicParsing="false" text="DELETE" fx:id="Delete" onAction="#DeleteTag"/>
+                        <Button minWidth="39.0" mnemonicParsing="false" prefHeight="0.0" text="ADD" fx:id="Add"
+                                onAction="#OpenConfirmBox"/>
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <VBox prefHeight="300.0" prefWidth="252.0" BorderPane.alignment="CENTER">
+            <children>
+                <TextField prefHeight="27.0" prefWidth="398.0"/>
+                <ImageView fitHeight="273.0" fitWidth="428.0" pickOnBounds="true" preserveRatio="true" fx:id="show"/>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
