@@ -3,10 +3,14 @@ package Controller;
 import Model.Image;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -14,12 +18,12 @@ public class ConfirmBox {
     public Button Confirm;
     public Button add;
     @FXML
-    ListView Tags;
+    ListView<String> Tags;
     @FXML
     TextField newTag;
     private Image SelectedImage;
 
-    public void initDate(Image image) {
+    void initDate(Image image) {
         SelectedImage = image;
         Tags.getItems().addAll(SelectedImage.getCurrentTags());
         Tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -31,7 +35,14 @@ public class ConfirmBox {
         for (String tag : list) {
             SelectedImage.addTag(tag);
         }
-        initDate(SelectedImage);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ImageView.fxml"));
+        Parent GoBackImageView = loader.load();
+        Scene ImageView = new Scene(GoBackImageView);
+        ImageViewController controller = loader.getController();
+        controller.initDate(SelectedImage);
+        Stage Window = (Stage) Confirm.getScene().getWindow();
+        Window.setScene(ImageView);
     }
 
     public void AddNewTag() throws IOException {
@@ -39,6 +50,8 @@ public class ConfirmBox {
         if (input != null) {
             SelectedImage.addTag(input);
         }
+        initDate(SelectedImage);
+
     }
 
 }

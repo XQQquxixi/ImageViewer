@@ -86,20 +86,24 @@ public class Image extends Observable implements Serializable {
   }
 
 
-  public String getName() {
+    public String getName() {
     return name;
   }
 
-  public File getFile() {
+    public File getFile() {
     return file;
   }
   
-  public String getExtension(){
+    public String getExtension(){
     String absolutePath = file.getAbsolutePath();
     return absolutePath.substring(absolutePath.lastIndexOf("."), absolutePath.length() - 1);
     }
 
-  public void setName(String name) {
+    public ArrayList<String> getCurrentTags() {
+        return currentTags;
+    }
+
+    public void setName(String name) {
     String oldName = this.name;
     String absolutePath = file.getAbsolutePath();
     String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));

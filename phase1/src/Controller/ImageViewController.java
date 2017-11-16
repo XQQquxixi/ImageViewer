@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
 
-public class ImageView {
+public class ImageViewController {
     public Button Move;
     public Button PREV;
     public Button NEXT;
@@ -26,16 +26,16 @@ public class ImageView {
     public Button Add;
     private Image SelectedImage;
     @FXML
-    private ListView listView;
+    private ListView<String> listView;
     @FXML
     private javafx.scene.image.ImageView show;
 
-    public void initDate(Image image) throws MalformedURLException {
+    void initDate(Image image){
         SelectedImage = image;
         Collection<String> col = image.getCurrentTags();
         listView.getItems().addAll(col);
         File imageFile = image.getFile();
-        javafx.scene.image.Image image1 = new javafx.scene.image.Image(imageFile.toURL().toString());
+        javafx.scene.image.Image image1 = new javafx.scene.image.Image(imageFile.toURI().toString());
         show.setImage(image1);
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
@@ -70,9 +70,13 @@ public class ImageView {
     }
 
     public void OpenConfirmBox() throws IOException {
-        Parent AddTagParent = FXMLLoader.load(getClass().getResource("ConfirmBox.fxml"));
-        Scene ConfirmBox = new Scene(AddTagParent);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ConfirmBox.fxml"));
+        Parent AddTags = loader.load();
+        Scene Box = new Scene(AddTags);
+        ConfirmBox controller = loader.getController();
+        controller.initDate(SelectedImage);
         Stage Window = (Stage) Add.getScene().getWindow();
-        Window.setScene(ConfirmBox);
+        Window.setScene(Box);
     }
 }
