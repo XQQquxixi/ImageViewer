@@ -10,26 +10,25 @@ import java.util.logging.Logger;
 public class LogObserver implements Observer {
 
   private Image image;
-  private StringBuilder logs = new StringBuilder();
+  private StringBuilder contents = new StringBuilder();
   private File file;
   private static final Logger logger =
-          Logger.getLogger(LogObserver.class.getName());
+          Logger.getLogger(Log.class.getName());
   private static final Handler consoleHandler = new ConsoleHandler();
 
 
-  public LogObserver(Image image) throws IOException, ClassNotFoundException {
+  public Log(Image image) throws IOException, ClassNotFoundException {
     this.image = image;
     this.image.addObserver(this);
     logger.setLevel(Level.ALL);
     consoleHandler.setLevel(Level.ALL);
     logger.addHandler(consoleHandler);
 
-    String absolutePath = image.getFile().getAbsolutePath();
-    String filePath =
-        absolutePath.substring(0, absolutePath.lastIndexOf(File.separator)) + File.separator
-            + "log_" + image.getName() + ".ser";
-    this.file = new File(filePath);
+    //String absolutePath = "./logs";
+    //String filePath = absolutePath + File.separator + image.getName() + ".txt";
+    String filePath = "./" + image.getName() + ".txt";
 
+    this.file = new File(filePath);
     if (file.exists()) {
       readFromFile(filePath);
     } else {
@@ -44,17 +43,17 @@ public class LogObserver implements Observer {
       InputStream buffer = new BufferedInputStream(file);
       ObjectInput input = new ObjectInputStream(buffer);
 
-      logs = (StringBuilder) input.readObject();
+      contents = (StringBuilder) input.readObject();
       input.close();
     } catch (IOException ex) {
-      logger.log(Level.WARNING, "Cannot read from input.");
+      logger.log(Level.WARNING, "Cannot read from logs.");
     }
   }
 
-  public void add(Image image, String nameOld, long time) {
-    String newLog = nameOld + "," + image.getName() + "," + Long.toString(time);
-    logs.append(newLog);
-    logs.append(System.lineSeparator());
+  public void add(Image image, String nameOld, String time) {
+    String newLog = nameOld + "," + image.getName() + "," + time;
+    contents.append(newLog);
+    contents.append(System.lineSeparator());
 
     // LogObserver the addition of a student.
     logger.log(Level.FINE, "Added a new renaming " + image.toString());
@@ -72,37 +71,37 @@ public class LogObserver implements Observer {
     ObjectOutput output = new ObjectOutputStream(buffer);
 
     // serialize the Map
-    output.writeObject(logs);
+    output.writeObject(contents);
     output.close();
   }
 
 
   public void update(Observable o, Object oldName) {
-    Date date = new Date();
-    long time = date.getTime();
+    Date now = new Date();
+    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    String date = dt.format(now);
 
-    // add new log entry
-    if (!((Image) o).getName().equals(oldName)) {
-      add((Image) o, (String) oldName, time);
-      try {
-        saveToFile(file.getAbsolutePath());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
     // update log name
-    String absolutePath = ((Image) o).getFile().getAbsolutePath();
-    String fileName = ((Image) o).getName();
-    String newFilePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator))
-        + File.separator + "log_" + fileName + ".ser";
+    String fileName = ((Image) o).getName() + ".txt";
+    String newFilePath = "./" + fileName;
     File newFile = new File(newFilePath);
-    file.renameTo(newFile);
+    if (file.renameTo(newFile)) {
+      logger.log(Level.FINE, "log file updated successfully.");
+    } else {
+      logger.log(Level.WARNING, "failed to update log file");
+    }
     file = newFile;
 
+    add((Image) o, (String) oldName, date);
+    try {
+      saveToFile(newFilePath);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
 
-  public StringBuilder getLogs() {
-    return logs;
+  public String getLogs() {
+    return contents.toString();
   }
 }
