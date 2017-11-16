@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Image extends Observable implements Serializable {
 
@@ -31,10 +35,18 @@ public class Image extends Observable implements Serializable {
    */
   private ArrayList<LogObserver> observers = new ArrayList<>();
 
+  private static final Logger logger =
+          Logger.getLogger(Image.class.getName());
+  private static final Handler consoleHandler = new ConsoleHandler();
+
   public Image(File file) throws IOException, ClassNotFoundException {
     this.file = file;
     currentTags = new ArrayList<>();
     this.name = file.getName();
+
+    logger.setLevel(Level.ALL);
+    consoleHandler.setLevel(Level.ALL);
+    logger.addHandler((consoleHandler));
 
     if (file.getName().contains("@")) {
       // Modified before
@@ -54,10 +66,6 @@ public class Image extends Observable implements Serializable {
         writeToFile();
       }
     }
-  }
-
-  public ArrayList<String> getCurrentTags() {
-    return currentTags;
   }
 
   private void writeToFile() {
@@ -97,9 +105,9 @@ public class Image extends Observable implements Serializable {
       newFile = new File(path + File.separator + name + Integer.toString(i++));
     }
     if (file.renameTo(newFile)) {
-      System.out.println("File rename success");
+      logger.log(Level.FINE, "rename successfully");
     } else {
-      System.out.println("File rename failed");
+      logger.log(Level.WARNING, "File rename failed");
     }
     this.name = name;
     this.file = newFile;
@@ -118,7 +126,7 @@ public class Image extends Observable implements Serializable {
     return name;
   }
 
-  public void addTag(String tag) throws IOException{
+  public void addTag(String tag) throws IOException {
     if (currentTags.contains(tag)) {
       System.out.println("This tag is already in here!");
     } else {
@@ -138,7 +146,7 @@ public class Image extends Observable implements Serializable {
           name.substring(index + (" @" + tag).length() + 1, name.length());
       this.setName(newName);
     } else {
-      System.out.println("No such tag in this photo!");
+      logger.log(Level.WARNING, "No such tag in this photo!");
     }
   }
 

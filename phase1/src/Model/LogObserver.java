@@ -2,17 +2,27 @@ package Model;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LogObserver implements Observer {
 
   private Image image;
   private StringBuilder logs = new StringBuilder();
   private File file;
+  private static final Logger logger =
+          Logger.getLogger(LogObserver.class.getName());
+  private static final Handler consoleHandler = new ConsoleHandler();
 
 
   public LogObserver(Image image) throws IOException, ClassNotFoundException {
     this.image = image;
     this.image.addObserver(this);
+    logger.setLevel(Level.ALL);
+    consoleHandler.setLevel(Level.ALL);
+    logger.addHandler(consoleHandler);
 
     String absolutePath = image.getFile().getAbsolutePath();
     String filePath =
@@ -37,7 +47,7 @@ public class LogObserver implements Observer {
       logs = (StringBuilder) input.readObject();
       input.close();
     } catch (IOException ex) {
-      System.out.println("Cannot read from input.");
+      logger.log(Level.WARNING, "Cannot read from input.");
     }
   }
 
@@ -47,7 +57,7 @@ public class LogObserver implements Observer {
     logs.append(System.lineSeparator());
 
     // LogObserver the addition of a student.
-    System.out.println("Added a new renaming " + image.toString());
+    logger.log(Level.FINE, "Added a new renaming " + image.toString());
   }
 
   /**

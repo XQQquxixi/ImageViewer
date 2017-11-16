@@ -2,14 +2,24 @@ package Model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TagManager {
 
   public static ArrayList<String> tagList;
   private static String filePath = "./tm.ser";
+  private static final Logger logger =
+          Logger.getLogger(TagManager.class.getName());
+  private static final Handler consoleHandler = new ConsoleHandler();
 
   public TagManager() throws ClassNotFoundException, IOException {
     tagList = new ArrayList<>();
+    logger.setLevel(Level.ALL);
+    consoleHandler.setLevel(Level.ALL);
+    logger.addHandler(consoleHandler);
 
     File file = new File(filePath);
     if (file.exists()) {
@@ -28,7 +38,7 @@ public class TagManager {
       tagList.add(tag);
       saveToFile(filePath);
     } else {
-      System.out.println("This tag already existed.");
+      logger.log(Level.WARNING, "This tag already existed.");
     }
 
   }
@@ -38,7 +48,7 @@ public class TagManager {
       tagList.remove(tag);
       saveToFile(filePath);
     } else {
-      System.out.println("No such tag.");
+      logger.log(Level.WARNING,"No such tag.");
     }
 
   }
@@ -64,7 +74,7 @@ public class TagManager {
       tagList = (ArrayList<String>) input.readObject();
       input.close();
     } catch (IOException ex) {
-      System.out.println("Cannot find the file.");
+      logger.log(Level.WARNING,"Cannot find the file.");
     }
   }
 }
