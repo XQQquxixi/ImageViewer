@@ -25,7 +25,7 @@
             </font>
         </Label>
         <Button fx:id="ok" layoutX="476.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="26.0" prefWidth="106.0" text="OK" />
-        <Button layoutX="27.0" layoutY="350.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Edit Tags" />
+        <Button fx:id="editTags" layoutX="27.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonEditTags" prefHeight="26.0" prefWidth="82.0" text="Edit Tags" />
         <Label layoutX="300.0" layoutY="23.0" prefHeight="36.0" prefWidth="281.0" text="Please select a picture:">
             <font>
                 <Font size="18.0" />
