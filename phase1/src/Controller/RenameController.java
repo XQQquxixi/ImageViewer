@@ -56,6 +56,11 @@ public class RenameController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: should get the list of previous names from model
+        ArrayList<String> logs = image.getLogs();
+        logs.remove(0);
+        for (String log : logs) {
+            listOfPrevNames.add(log.split(",")[0]);
+        }
         listOfPrevNames.add("haha");
         listOfPrevNames.add("hehe");
         listOfPrevNames.add("heihei");
