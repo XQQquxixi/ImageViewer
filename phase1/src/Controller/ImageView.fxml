@@ -14,10 +14,10 @@
     <bottom>
         <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                  <Button fx:id="NEXT" mnemonicParsing="false" onAction="#GoNext" prefHeight="50.0" prefWidth="200.0" text="NEXT" />
-                  <Button fx:id="Move" mnemonicParsing="false" onAction="#MoveFile" prefHeight="50.0" prefWidth="200.0" text="MOVE" />
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="RENAME" />
                   <Button fx:id="PREV" mnemonicParsing="false" onAction="#GoBack" prefHeight="50.0" prefWidth="200.0" text="PREV" />
+                  <Button fx:id="Move" mnemonicParsing="false" onAction="#MoveFile" prefHeight="50.0" prefWidth="200.0" text="MOVE" />
+                  <Button fx:id="rename" mnemonicParsing="false" onAction="#Rename" prefHeight="50.0" prefWidth="200.0" text="RENAME" />
+                  <Button fx:id="NEXT" mnemonicParsing="false" onAction="#GoNext" prefHeight="50.0" prefWidth="200.0" text="NEXT" />
                   <Button fx:id="CLOSE" mnemonicParsing="false" onAction="#Exit" prefHeight="50.0" prefWidth="200.0" text="CLOSE" />
             </children>
          <padding>
