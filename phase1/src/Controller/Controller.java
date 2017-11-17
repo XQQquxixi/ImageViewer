@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -50,6 +51,11 @@ public class Controller {
             alert.setContentText("Wrong Directory!!! Please check and enter again.");
             alert.showAndWait();
         }
+    }
+
+    public void MouseClickList(MouseEvent event) {
+        Image image = new Image(nameToPath.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
+        iv1.setImage(image);
     }
 
 }
