@@ -30,7 +30,7 @@ public class ImageViewController {
     @FXML
     private javafx.scene.image.ImageView show;
 
-    public void GetImage(File image) {
+    void GetImage(File image) {
         try {
             SelectedImage = new Image(image);
         } catch (IOException e) {
@@ -38,9 +38,10 @@ public class ImageViewController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        initData(SelectedImage);
     }
 
-    void initDate(Image image){
+    void initData(Image image){
         SelectedImage = image;
         Collection<String> col = image.getCurrentTags();
         listView.getItems().addAll(col);
@@ -76,7 +77,7 @@ public class ImageViewController {
         for (String tag : delete) {
             SelectedImage.deleteTag(tag);
         }
-        initDate(SelectedImage);
+        initData(SelectedImage);
     }
 
     public void OpenConfirmBox() throws IOException {
@@ -85,7 +86,7 @@ public class ImageViewController {
         Parent AddTags = loader.load();
         Scene Box = new Scene(AddTags);
         ConfirmBox controller = loader.getController();
-        controller.initDate(SelectedImage);
+        controller.initData(SelectedImage);
         Stage Window = (Stage) Add.getScene().getWindow();
         Window.setScene(Box);
     }

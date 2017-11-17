@@ -23,7 +23,7 @@ public class ConfirmBox {
     TextField newTag;
     private Image SelectedImage;
 
-    void initDate(Image image) {
+    void initData(Image image) {
         SelectedImage = image;
         Tags.getItems().addAll(SelectedImage.getCurrentTags());
         Tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -40,7 +40,7 @@ public class ConfirmBox {
         Parent GoBackImageView = loader.load();
         Scene ImageView = new Scene(GoBackImageView);
         ImageViewController controller = loader.getController();
-        controller.initDate(SelectedImage);
+        controller.initData(SelectedImage);
         Stage Window = (Stage) Confirm.getScene().getWindow();
         Window.setScene(ImageView);
     }
@@ -50,7 +50,7 @@ public class ConfirmBox {
         if (input != null) {
             SelectedImage.addTag(input);
         }
-        initDate(SelectedImage);
+        initData(SelectedImage);
 
     }
 
