@@ -39,21 +39,21 @@ public class ImageViewController {
     @FXML
     private javafx.scene.image.ImageView show;
 
-    private Image SelectedImage;
+    private Image selectedImage;
 
     void GetImage(File image) {
         try {
-            SelectedImage = new Image(image);
+            selectedImage = new Image(image);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        initData(SelectedImage);
+        initData(selectedImage);
     }
 
     void initData(Image image){
-        SelectedImage = image;
+        selectedImage = image;
         Collection<String> col = image.getCurrentTags();
         listView.getItems().addAll(col);
         File imageFile = image.getFile();
@@ -63,6 +63,7 @@ public class ImageViewController {
     }
 
     public void GoBack() {
+
     }
 
     public void Rename(ActionEvent event) throws IOException {
@@ -70,7 +71,7 @@ public class ImageViewController {
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
         RenameController rename = loader.getController();
-        rename.getImage(SelectedImage);
+        rename.getImage(selectedImage);
         primaryStage.setTitle("Rename");
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.showAndWait();
@@ -82,7 +83,7 @@ public class ImageViewController {
         File selectedDirectory =
                 directoryChooser.showDialog(Move.getScene().getWindow());
         String path = selectedDirectory.getAbsolutePath();
-        SelectedImage.move(path);
+        selectedImage.move(path);
     }
 
     public void GoNext() {
@@ -97,9 +98,9 @@ public class ImageViewController {
     public void DeleteTag() throws MalformedURLException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
         for (String tag : delete) {
-            SelectedImage.deleteTag(tag);
+            selectedImage.deleteTag(tag);
         }
-        initData(SelectedImage);
+        initData(selectedImage);
     }
 
     public void OpenConfirmBox() throws IOException {
@@ -108,7 +109,7 @@ public class ImageViewController {
         Parent AddTags = loader.load();
         Scene Box = new Scene(AddTags);
         ConfirmBox controller = loader.getController();
-        controller.initData(SelectedImage);
+        controller.initData(selectedImage);
         Stage Window = (Stage) Add.getScene().getWindow();
         Window.setScene(Box);
     }
