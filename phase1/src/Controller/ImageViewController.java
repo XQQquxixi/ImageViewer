@@ -70,7 +70,7 @@ public class ImageViewController {
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
         RenameController rename = loader.getController();
-        rename.getImage();
+        rename.getImage(SelectedImage);
         primaryStage.setTitle("Rename");
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.showAndWait();
