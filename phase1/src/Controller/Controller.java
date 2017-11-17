@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -40,6 +41,9 @@ public class Controller implements Initializable{
 
     @FXML
     private Button ok;
+
+    @FXML
+    private Button editTags;
 
     private Map<String, File> nameToFile = new HashMap<>();
 
@@ -88,6 +92,14 @@ public class Controller implements Initializable{
         primaryStage.show();
 //        }
 
+    }
+
+    public void ButtonEditTags(ActionEvent event) throws IOException {
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("TagsView.fxml"));
+        primaryStage.setTitle("Edit All Tags");
+        primaryStage.setScene(new Scene(root, 280, 500));
+        primaryStage.showAndWait();
     }
 
     File getPrevImage(File curImage) throws IndexOutOfBoundsException {
