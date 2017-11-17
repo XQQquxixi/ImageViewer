@@ -30,6 +30,16 @@ public class ImageViewController {
     @FXML
     private javafx.scene.image.ImageView show;
 
+    public void GetImage(File image) {
+        try {
+            SelectedImage = new Image(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     void initDate(Image image){
         SelectedImage = image;
         Collection<String> col = image.getCurrentTags();
