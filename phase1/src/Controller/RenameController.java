@@ -4,9 +4,11 @@ import Model.Image;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,9 @@ public class RenameController implements Initializable{
 
     @FXML
     private ChoiceBox<String> prevNames;
+
+    @FXML
+    private Button cancel;
 
     private ArrayList<String> listOfPrevNames = new ArrayList<>();
 
@@ -41,11 +46,11 @@ public class RenameController implements Initializable{
     }
 
     public void ButtonOkAction(ActionEvent event) {
-
+        image.setName(curName.getText());
     }
 
     public void ButtonCancelAction(ActionEvent event) {
-
+        ((Stage) cancel.getScene().getWindow()).close();
     }
 
     @Override
