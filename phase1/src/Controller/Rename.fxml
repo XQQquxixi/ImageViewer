@@ -21,7 +21,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button layoutX="386.0" layoutY="232.0" mnemonicParsing="false" onAction="#ButtonCancelAction" prefHeight="37.0" prefWidth="76.0" text="Cancel" />
+        <Button fx:id="cancel" layoutX="386.0" layoutY="232.0" mnemonicParsing="false" onAction="#ButtonCancelAction" prefHeight="37.0" prefWidth="76.0" text="Cancel" />
         <Button layoutX="294.0" layoutY="232.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="37.0" prefWidth="76.0" text="OK" />
         <ChoiceBox fx:id="prevNames" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="165.0" />
         <Button layoutX="217.0" layoutY="188.0" mnemonicParsing="false" onAction="#ChoosePrevName" prefHeight="26.0" prefWidth="66.0" text="Apply" />
