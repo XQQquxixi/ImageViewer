@@ -95,8 +95,8 @@ public class Image extends Observable implements Serializable {
   }
   
     public String getExtension(){
-    String absolutePath = file.getAbsolutePath();
-    return absolutePath.substring(absolutePath.lastIndexOf("."), absolutePath.length() - 1);
+      String absolutePath = file.getAbsolutePath();
+      return absolutePath.substring(absolutePath.lastIndexOf("."), absolutePath.length() - 1);
     }
 
     public ArrayList<String> getCurrentTags() {
@@ -104,25 +104,25 @@ public class Image extends Observable implements Serializable {
     }
 
     public void setName(String name) {
-    String oldName = this.name;
-    String absolutePath = file.getAbsolutePath();
-    String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-    File newFile = new File(path + File.separator + name + getExtension());
-    int i = 1;
-    while (newFile.exists()) {
-      path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-      newFile = new File(path + File.separator + name + Integer.toString(i++));
+      String oldName = this.name;
+      String absolutePath = file.getAbsolutePath();
+      String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
+      File newFile = new File(path + File.separator + name + getExtension());
+      int i = 1;
+      while (newFile.exists()) {
+        path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
+        newFile = new File(path + File.separator + name + Integer.toString(i++));
+      }
+      if (file.renameTo(newFile)) {
+        logger.log(Level.FINE, "rename successfully");
+      } else {
+        logger.log(Level.WARNING, "File rename failed");
+      }
+      this.name = name;
+      this.file = newFile;
+      setChanged();
+      notifyObservers(oldName);
     }
-    if (file.renameTo(newFile)) {
-      logger.log(Level.FINE, "rename successfully");
-    } else {
-      logger.log(Level.WARNING, "File rename failed");
-    }
-    this.name = name;
-    this.file = newFile;
-    setChanged();
-    notifyObservers(oldName);
-  }
 
 
   public void notifyObservers(String oldName) {
