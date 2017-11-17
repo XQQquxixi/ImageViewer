@@ -90,6 +90,16 @@ public class Controller implements Initializable{
 
     }
 
+    File getPrevImage(File curImage) throws IndexOutOfBoundsException {
+        int curIndex = listView.getItems().indexOf(curImage.getName());
+        return nameToFile.get(listView.getItems().get(curIndex - 1));
+    }
+
+    File getNextImage(File curImage) throws IndexOutOfBoundsException {
+        int curIndex = listView.getItems().indexOf(curImage.getName());
+        return nameToFile.get(listView.getItems().get(curIndex + 1));
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
