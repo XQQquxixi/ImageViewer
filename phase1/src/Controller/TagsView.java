@@ -20,7 +20,7 @@ public class TagsView {
     @FXML
     ListView<String> listOfTags;
 
-    private void initDate(TagManager tagManager) {
+    private void initData(TagManager tagManager) {
         MyTags = tagManager;
         listOfTags.getItems().addAll(MyTags.getTagList());
         listOfTags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -32,7 +32,7 @@ public class TagsView {
         for (String tag : listForDelete) {
             TagManager.removeTag(tag);
         }
-        initDate(MyTags);
+        initData(MyTags);
     }
 
     public void AddNewTag() throws IOException {
@@ -40,6 +40,6 @@ public class TagsView {
         if (input != null) {
             TagManager.addTag(input);
         }
-        initDate(MyTags);
+        initData(MyTags);
     }
 }
