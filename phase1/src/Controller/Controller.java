@@ -41,7 +41,7 @@ public class Controller implements Initializable{
     @FXML
     private Button ok;
 
-    private Map<String, File> nameToPath = new HashMap<>();
+    private Map<String, File> nameToFile = new HashMap<>();
 
     public void Button1Action(ActionEvent event) throws Exception{
         File directory = new File(initDirectory.getText());
@@ -52,7 +52,7 @@ public class Controller implements Initializable{
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
             File selectedFile = fc.showOpenDialog(null);
             if (selectedFile != null) {
-                nameToPath.put(selectedFile.getName(), selectedFile);
+                nameToFile.put(selectedFile.getName(), selectedFile);
                 Image image = new Image(selectedFile.toURI().toString());
                 iv1.setImage(image);
                 listView.getItems().add(selectedFile.getName());
@@ -66,7 +66,7 @@ public class Controller implements Initializable{
     }
 
     public void MouseClickList(MouseEvent event) {
-        Image image = new Image(nameToPath.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
+        Image image = new Image(nameToFile.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
         iv1.setImage(image);
     }
 
@@ -79,8 +79,8 @@ public class Controller implements Initializable{
         primaryStage.initOwner(window);
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("ImageViewer.fxml").openStream());
-//        ImageViewer imageView = loader.getController();
-//        imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
+        ImageViewController imageView = loader.getController();
+        imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
         primaryStage.setTitle("Image Viewer");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.setX(window.getX() + DISTANCE);
