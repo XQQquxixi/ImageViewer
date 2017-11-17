@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -39,11 +40,14 @@ public class ImageViewController {
     @FXML
     private javafx.scene.image.ImageView show;
 
+    private File curFile;
+
     private Image selectedImage;
 
     void GetImage(File image) {
+        curFile = image;
         try {
-            selectedImage = new Image(image);
+            selectedImage = new Image(curFile);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -53,7 +57,7 @@ public class ImageViewController {
     }
 
     void initData(Image image){
-        selectedImage = image;
+//        selectedImage = image;
         Collection<String> col = image.getCurrentTags();
         listView.getItems().addAll(col);
         File imageFile = image.getFile();
@@ -62,8 +66,19 @@ public class ImageViewController {
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    public void GoBack() {
-
+    public void GoBack() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.load(getClass().getResource("sample.fxml").openStream());
+        Controller controller = loader.getController();
+        try {
+            GetImage(controller.getPrevImage(curFile));
+        } catch (IndexOutOfBoundsException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Oops");
+            alert.setHeaderText(null);
+            alert.setContentText("This is already the first image of the list!");
+            alert.showAndWait();
+        }
     }
 
     public void Rename(ActionEvent event) throws IOException {
@@ -86,7 +101,19 @@ public class ImageViewController {
         selectedImage.move(path);
     }
 
-    public void GoNext() {
+    public void GoNext() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.load(getClass().getResource("sample.fxml").openStream());
+        Controller controller = loader.getController();
+        try {
+            GetImage(controller.getNextImage(curFile));
+        } catch (IndexOutOfBoundsException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Oops");
+            alert.setHeaderText(null);
+            alert.setContentText("This is already the last image of the list!");
+            alert.showAndWait();
+        }
 
     }
 
