@@ -16,9 +16,10 @@ import java.util.logging.Logger;
 public class Image extends Observable implements Serializable {
 
   /**
-   * the name of file.
+   * the name part of file's name.
    */
   private String name;
+
 
   /**
    * this image file.
@@ -30,64 +31,27 @@ public class Image extends Observable implements Serializable {
    */
   private ArrayList<String> currentTags;
 
-  /**
-   * The observers.
-   */
-  private ArrayList<LogObserver> observers = new ArrayList<>();
 
   private static final Logger logger =
           Logger.getLogger(Image.class.getName());
   private static final Handler consoleHandler = new ConsoleHandler();
 
-  public Image(File file) throws IOException, ClassNotFoundException {
+
+
+  public Image(File file) {
+    this.name = file.getName();
     this.file = file;
     currentTags = new ArrayList<>();
-    this.name = file.getName();
-
     logger.setLevel(Level.ALL);
     consoleHandler.setLevel(Level.ALL);
     logger.addHandler((consoleHandler));
-
-    if (file.getName().contains("@")) {
-      // Modified before
-      String path = file.getAbsolutePath();
-      File ser = new File(
-          path.substring(0, path.lastIndexOf(File.separator) + 1) + this.name + ".ser");
-      if (ser.exists() && ser.isFile()) {
-        // There is a .ser file
-        Image reload = readFromFile(ser);
-        this.name = reload.name;
-        this.currentTags = reload.currentTags;
-      } else {
-        // There isn't one but the file name retains info of tags
-        ArrayList<String> tags = new ArrayList<>(Arrays.asList(file.getName().split("@")));
-        this.name = tags.get(0).replaceAll("\\s", "");
-        currentTags.addAll(tags.subList(1, tags.size()));
-        writeToFile();
-      }
-    }
   }
 
-  private void writeToFile() {
-    try {
-      ObjectOutputStream serOut =
-          new ObjectOutputStream(new FileOutputStream("name" + ".ser"));
-      serOut.writeObject(this);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  private Image readFromFile(File ser) throws IOException, ClassNotFoundException {
-    ObjectInputStream serIn = new ObjectInputStream(new FileInputStream(ser));
-    Image result = (Image) serIn.readObject();
-    serIn.close();
-    return result;
-  }
 
 
     public String getName() {
-    return name;
+      return name.substring(0, name.lastIndexOf("."));
+
   }
 
     public File getFile() {
@@ -125,12 +89,6 @@ public class Image extends Observable implements Serializable {
     }
 
 
-  public void notifyObservers(String oldName) {
-    for (Observer o : observers) {
-      o.update(this, oldName);
-    }
-  }
-
   public String toString() {
     return name;
   }
@@ -167,7 +125,6 @@ public class Image extends Observable implements Serializable {
         oldPath.toString().substring(0, oldPath.toString().lastIndexOf(File.separator) + 1)
             + name + ".ser";
     Files.delete(Paths.get(serPath));
-    notifyObservers(name);
   }
 
   public ArrayList<String> getLogs() {
@@ -186,8 +143,3 @@ public class Image extends Observable implements Serializable {
 
 
 }
-
-// how to add a tag to an image.
-// if adding tags happens here, every time you instantiate Image, have to call tagmanager.
-// if adding tags happens in tagmanager, have to pass Image as a param, image should implement correspondingn method that will eventually
-// call setname.
