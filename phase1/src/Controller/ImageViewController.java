@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Image;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -30,6 +32,8 @@ public class ImageViewController {
     private Button Delete;
     @FXML
     private Button Add;
+    @FXML
+    private Button rename;
     @FXML
     private ListView<String> listView;
     @FXML
@@ -59,6 +63,17 @@ public class ImageViewController {
     }
 
     public void GoBack() {
+    }
+
+    public void Rename(ActionEvent event) throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
+        RenameController rename = loader.getController();
+        rename.getImage();
+        primaryStage.setTitle("Rename");
+        primaryStage.setScene(new Scene(root, 500, 300));
+        primaryStage.showAndWait();
     }
 
     public void MoveFile() throws IOException {
