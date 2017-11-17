@@ -18,17 +18,24 @@ import java.net.MalformedURLException;
 import java.util.Collection;
 
 public class ImageViewController {
-    public Button Move;
-    public Button PREV;
-    public Button NEXT;
-    public Button CLOSE;
-    public Button Delete;
-    public Button Add;
-    private Image SelectedImage;
+    @FXML
+    private Button Move;
+    @FXML
+    private Button PREV;
+    @FXML
+    private Button NEXT;
+    @FXML
+    private Button CLOSE;
+    @FXML
+    private Button Delete;
+    @FXML
+    private Button Add;
     @FXML
     private ListView<String> listView;
     @FXML
     private javafx.scene.image.ImageView show;
+
+    private Image SelectedImage;
 
     void GetImage(File image) {
         try {
