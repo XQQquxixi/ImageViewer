@@ -29,7 +29,7 @@ public class RenameController implements Initializable{
     @FXML
     private Button cancel;
 
-    private ArrayList<String> listOfPrevNames = new ArrayList<>();
+//    private ArrayList<String> listOfPrevNames = new ArrayList<>();
 
     private Image image;
 
