@@ -22,6 +22,7 @@ public class TagsView {
 
     private void initData(TagManager tagManager) {
         MyTags = tagManager;
+        listOfTags.getItems().clear();
         listOfTags.getItems().addAll(MyTags.getTagList());
         listOfTags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }

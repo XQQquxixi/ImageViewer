@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Image;
+import Model.TagManager;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,8 @@ public class ConfirmBox {
 
     void initData(Image image) {
         SelectedImage = image;
-        Tags.getItems().addAll(SelectedImage.getCurrentTags());
+        Tags.getItems().clear();
+        Tags.getItems().addAll(TagManager.getTagList());
         Tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
@@ -51,7 +53,6 @@ public class ConfirmBox {
             SelectedImage.addTag(input);
         }
         initData(SelectedImage);
-
     }
 
 }

@@ -56,6 +56,7 @@ public class ImageViewController {
     void initData(Image image){
 //        selectedImage = image;
         Collection<String> col = image.getCurrentTags();
+        listView.getItems().clear();
         listView.getItems().addAll(col);
         File imageFile = image.getFile();
         javafx.scene.image.Image image1 = new javafx.scene.image.Image(imageFile.toURI().toString());
