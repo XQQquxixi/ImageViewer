@@ -116,10 +116,12 @@ public class Controller implements Initializable{
     }
 
     public void ButtonEditTags(ActionEvent event) throws IOException {
+        Window window = editTags.getScene().getWindow();
         Stage primaryStage = new Stage();
+        primaryStage.initOwner(window);
         Parent root = FXMLLoader.load(getClass().getResource("TagsView.fxml"));
         primaryStage.setTitle("Edit All Tags");
-        primaryStage.setScene(new Scene(root, 280, 500));
+        primaryStage.setScene(new Scene(root));
         primaryStage.showAndWait();
     }
 
