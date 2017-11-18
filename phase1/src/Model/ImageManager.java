@@ -38,7 +38,6 @@ public class ImageManager {
       if (file.createNewFile()) {
         logger.log(Level.FINE, "created images.ser");
       }
-      ;
     }
   }
 

@@ -120,4 +120,13 @@ public class TagManager {
       System.out.println("Cannot read from tags.ser");
     }
   }
+
+  public String toString() {
+    StringBuilder result = new StringBuilder();
+    for (String s: tagList) {
+      result.append(s);
+      result.append(System.lineSeparator());
+    }
+    return result.toString();
+  }
 }
