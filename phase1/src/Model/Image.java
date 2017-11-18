@@ -22,6 +22,11 @@ public class Image extends Observable implements Serializable {
   /* An ArrayList of all the tags of this image. */
   private ArrayList<String> currentTags;
 
+  /**
+   * Temporary change.
+   */
+  private ImageRenameObserver imageRenameObserver;
+
   /* A Logger. */
   private static final Logger logger = Logger.getLogger(Image.class.getName());
 
@@ -40,6 +45,10 @@ public class Image extends Observable implements Serializable {
     logger.setLevel(Level.ALL);
     consoleHandler.setLevel(Level.ALL);
     logger.addHandler((consoleHandler));
+    /**
+     * Temporary change.
+     */
+    imageRenameObserver = new ImageRenameObserver(this);
   }
 
   /**
