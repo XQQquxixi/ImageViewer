@@ -51,31 +51,32 @@ public class Controller implements Initializable{
     public void Button1Action(ActionEvent event) throws Exception{
         File directory = new File(initDirectory.getText());
         FileChooser fc = new FileChooser();
-        if (directory.exists() && directory.isDirectory()) {
-            fc.setInitialDirectory(directory);
-        } else if(initDirectory.getText().equals("")) {
-            fc.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        if (directory.exists() && directory.isDirectory() || initDirectory.getText().equals("")) {
+            if (initDirectory.getText().equals("")) {
+                fc.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+            } else {
+                fc.setInitialDirectory(directory);
+            }
+            fc.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+
+            List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+            if (selectedFiles != null) {
+                for (File file : selectedFiles) {
+                    if (file != null) {
+                        nameToFile.put(file.getName(), file);
+                        Image image = new Image(file.toURI().toString());
+                        iv1.setImage(image);
+                        listView.getItems().add(file.getName());
+                    }
+                }
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Uh-oh");
             alert.setContentText("Wrong Directory!!! Please check and enter again.");
             alert.showAndWait();
         }
-
-
-        fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-
-        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-        for (File file : selectedFiles) {
-            if (file != null) {
-                nameToFile.put(file.getName(), file);
-                Image image = new Image(file.toURI().toString());
-                iv1.setImage(image);
-                listView.getItems().add(file.getName());
-            }
-        }
-
     }
 
     public void MouseClickList(MouseEvent event) {
