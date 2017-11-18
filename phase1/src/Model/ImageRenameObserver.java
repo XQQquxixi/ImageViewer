@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /**
  * An Observer for renaming Image.
  */
-public class ImageRenameObserver implements Observer {
+public class ImageRenameObserver implements Observer, Serializable {
 
   /**
    * The Image this observer is recording renaming logs of.
