@@ -131,14 +131,17 @@ public class ImageViewController {
     }
 
     public void OpenConfirmBox() throws IOException {
+        Window window = Add.getScene().getWindow();
+        Stage primaryStage = new Stage();
+        primaryStage.initOwner(window);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ConfirmBox.fxml"));
-        Parent AddTags = loader.load();
-        Scene Box = new Scene(AddTags);
+        Pane root = loader.load(getClass().getResource("ConfirmBox.fxml").openStream());
         ConfirmBox controller = loader.getController();
         controller.initData(selectedImage);
-        Stage Window = new Stage();
-        Window.setScene(Box);
-        Window.show();
+        primaryStage.setTitle("Confirm");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setX(window.getX() + 200.0);
+        primaryStage.setY(window.getY());
+        primaryStage.showAndWait();
     }
 }
