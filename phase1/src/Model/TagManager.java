@@ -53,7 +53,7 @@ public class TagManager {
    *
    * @return a copy of tagList.
    */
-  public ArrayList<String> getTagList() {
+  public static ArrayList<String> getTagList() {
     return new ArrayList<>(tagList);
   }
 

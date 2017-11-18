@@ -12,7 +12,7 @@ public class ImageManager {
 
   /* A map with file as key and its corresponding image as value. */
   private Map<File, Image> images;
-  /* A Looger. */
+  /* A Logger. */
   private static final Logger logger = Logger.getLogger(Image.class.getName());
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
@@ -104,5 +104,24 @@ public class ImageManager {
       result.append(System.lineSeparator());
     }
     return result.toString();
+  }
+
+  public void renameImage(String filePath, String newName) throws IOException {
+    File f1 = new File(filePath);
+    if(!images.containsKey(f1)) {
+      this.add(new Image(new File(filePath)));
+    }
+    saveToFile("./images.ser");
+
+    Image i = images.get(new File(filePath));
+
+    i.setName(newName);
+    images.remove(f1);
+    this.add(i);
+    this.saveToFile("./images.ser");
+  }
+
+  public void addTag(String filePath, String tag) {
+
   }
 }
