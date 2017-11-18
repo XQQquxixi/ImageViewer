@@ -104,33 +104,60 @@ public class ImageManager {
     return result.toString();
   }
 
-  public void renameImage(String filePath, String newName) throws IOException {
-    File f1 = new File(filePath);
-    if(!images.containsKey(f1)) {
-      this.add(new Image(new File(filePath)));
+
+  public Image checkKey(File file) throws IOException {
+    if(!images.containsKey(file)) {
+      this.add(new Image(file));
+      saveToFile("./images.ser");
     }
-    saveToFile("./images.ser");
+    return images.get(file);
+  }
 
-    Image i = images.get(new File(filePath));
-
-    i.setName(newName);
+  public void updateKey(File f1, Image i) throws IOException {
     images.remove(f1);
     this.add(i);
     this.saveToFile("./images.ser");
   }
 
-  public void addTag(String filePath, String tag) {
+  public void renameImage(String filePath, String newName) throws IOException {
+    File file = new File(filePath);
+    Image i = checkKey(file);
+
+    i.setName(newName);
+
+    updateKey(file, i);
+  }
+
+  public void addTag(String filePath, String tag) throws IOException {
+    File file = new File(filePath);
+    Image i = checkKey(file);
+
+    i.addTag(tag);
+
+    updateKey(file, i);
+  }
+
+  public void deleteTag(String filePath, String tag) throws IOException {
+    File file = new File(filePath);
+    Image i = checkKey(file);
+
+    i.deleteTag(tag);
+
+    updateKey(file, i);
 
   }
 
-  public String getLog(String filePath) throws IOException, ClassNotFoundException {
-    File f1 = new File(filePath);
-    if(!images.containsKey(f1)) {
-      this.add(new Image(new File(filePath)));
-    }
-    saveToFile("./images.ser");
+  public void move(String oldPath, String newPath) throws IOException {
+    File file = new File(oldPath);
+    Image i = checkKey(file);
 
-    Image i = images.get(new File(filePath));
-    return i.getLog();
+    i.move(newPath);
+
+    updateKey(file, i);
+  }
+
+  public String getLog(String filePath) throws IOException, ClassNotFoundException {
+    File file = new File(filePath);
+    return checkKey(file).getLog();
   }
 }
