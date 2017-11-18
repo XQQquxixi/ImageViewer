@@ -83,7 +83,7 @@ public class Image extends Observable implements Serializable {
    */
   public String getExtension() {
     String absolutePath = file.getAbsolutePath();
-    return absolutePath.substring(absolutePath.lastIndexOf("."), absolutePath.length() - 1);
+    return absolutePath.substring(absolutePath.lastIndexOf("."), absolutePath.length());
   }
 
   /**
@@ -115,7 +115,7 @@ public class Image extends Observable implements Serializable {
     } else {
       logger.log(Level.WARNING, "File rename failed");
     }
-    this.name = name;
+    this.name = name + getExtension();
     this.file = newFile;
     setChanged();
     notifyObservers(oldName);
