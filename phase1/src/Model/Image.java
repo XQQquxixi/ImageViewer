@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Observable;
 import java.util.logging.ConsoleHandler;
@@ -179,4 +180,30 @@ public class Image extends Observable implements Serializable {
   public String getLog() {
     return log.toString();
   }
+
+  /**
+   * Return an ArrayList of the log where each item is an entry in the log.
+   *
+   * @return An ArrayList of entries in log.
+   */
+  private ArrayList<String> getListOfLog() {
+    String logs = this.getLog();
+    return new ArrayList<>(Arrays.asList(logs.split(System.lineSeparator())));
+  }
+
+  /**
+   * Return a list of past name the associated Image image had.
+   *
+   * @return An ArrayList of past names.
+   */
+  public ArrayList<String> getPastNames() {
+    ArrayList<String> listOfLog = getListOfLog();
+    listOfLog.remove(0);
+    ArrayList<String> pastNames = new ArrayList<>();
+    for (String log : listOfLog) {
+      pastNames.add(log.split(",")[0]);
+    }
+    return pastNames;
+  }
+
 }
