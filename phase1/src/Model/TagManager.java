@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -117,7 +118,7 @@ public class TagManager {
       InputStream buffer = new BufferedInputStream(file);
       ObjectInput input = new ObjectInputStream(buffer);
 
-      tagList = ((TagManager) (input.readObject())).getTagList();
+      tagList = (ArrayList) (input.readObject());
       input.close();
     } catch (IOException ex) {
       logger.log(Level.WARNING, "Cannot find the file.");
