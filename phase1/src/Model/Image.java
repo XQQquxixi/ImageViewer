@@ -106,7 +106,7 @@ public class Image extends Observable implements Serializable {
   }
 
   /**
-   * Returns the Sring representation of this image.
+   * Returns the String representation of this image.
    *
    * @return the name of this image with extension
    */
