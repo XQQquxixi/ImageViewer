@@ -107,6 +107,7 @@ public class Controller implements Initializable{
             alert.setContentText("Sorry, you need to select a image. QwQ");
             alert.showAndWait();
         }
+        System.out.println(listView.getItems());
 //        }
 
     }
@@ -121,11 +122,16 @@ public class Controller implements Initializable{
 
     File getPrevImage(File curImage)  { //throws IndexOutOfBoundsException
         int curIndex = listView.getItems().indexOf(curImage.getName());
-//        if (curIndex != 0) {
-            return nameToFile.get(listView.getItems().get(curIndex - 1));
-//        } else {
-//            throw new IndexOutOfBoundsException();
-//        }
+        System.out.println(listView.getItems());
+        System.out.println(curImage.getName());
+        if (curIndex != 0) {
+            System.out.println(curIndex);
+            //return nameToFile.get(listView.getItems().get(curIndex - 1));
+            return curImage;
+        } else {
+            //throw new IndexOutOfBoundsException();
+            return curImage;
+        }
 
     }
 
