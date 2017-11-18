@@ -99,7 +99,7 @@ public class Image extends Observable implements Serializable {
     int i = 1;
     while (newFile.exists()) {
       path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-      newFile = new File(path + File.separator + name + Integer.toString(i++) + getExtension());
+      newFile = new File(path + File.separator + name + "(" +Integer.toString(i++) +")" + getExtension());
     }
     if (file.renameTo(newFile)) {
       logger.log(Level.FINE, "rename successfully");
