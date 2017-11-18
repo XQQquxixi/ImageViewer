@@ -141,7 +141,7 @@ public class Image extends Observable implements Serializable {
       System.out.println("This tag is already in here!");
     } else {
       currentTags.add(tag);
-      this.setName(this.name + " @" + tag);
+      this.setName(getName() + " @" + tag);
       if (!TagManager.tagList.contains(tag)) {
         TagManager.addTag(tag);
       }
