@@ -50,7 +50,7 @@ public class ConfirmBox {
     public void AddNewTag() throws IOException {
         String input = newTag.getText();
         if (input != null) {
-            SelectedImage.addTag(input);
+            TagManager.addTag(input);
         }
         initData(SelectedImage);
     }
