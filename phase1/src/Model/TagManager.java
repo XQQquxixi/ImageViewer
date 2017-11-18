@@ -1,7 +1,8 @@
 package Model;
 
+import Utility.FileManager;
+
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -97,31 +98,26 @@ public class TagManager {
    */
   public static void saveToFile(String filePath) throws IOException {
 
-    OutputStream file = new FileOutputStream(filePath);
-    OutputStream buffer = new BufferedOutputStream(file);
-    ObjectOutput output = new ObjectOutputStream(buffer);
-
+    FileManager fm = new FileManager();
+    ObjectOutput output = fm.saveToFile(filePath);
+    // serialize the Map
     output.writeObject(tagList);
     output.close();
   }
-
   /**
    * Read a TagManager from the serialized file with path and update this TagManger's tagList with
    * the read TagManager's.
    *
    * @param path the path of this file to read.
    */
-  public static void readFromFile(String path) throws ClassNotFoundException {
-
+  public void readFromFile(String path) throws ClassNotFoundException {
+    FileManager fm = new FileManager();
     try {
-      InputStream file = new FileInputStream(path);
-      InputStream buffer = new BufferedInputStream(file);
-      ObjectInput input = new ObjectInputStream(buffer);
-
-      tagList = (ArrayList) (input.readObject());
+      ObjectInput input = fm.readFromFile(path);
+      tagList = (ArrayList<String>) input.readObject();
       input.close();
     } catch (IOException ex) {
-      logger.log(Level.WARNING, "Cannot find the file.");
+      System.out.println("Cannot read from tags.ser");
     }
   }
 }

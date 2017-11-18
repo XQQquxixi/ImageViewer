@@ -1,5 +1,7 @@
 package Model;
 
+import Utility.FileManager;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 public class ImageManager {
 
@@ -44,21 +47,18 @@ public class ImageManager {
      * @param path the path of the file to be read
      * @throws ClassNotFoundException if the class path is not updated
      */
+    public void readFromFile(String path) throws ClassNotFoundException {
+      FileManager fm = new FileManager();
+      try {
+        ObjectInput input = fm.readFromFile(path);
 
-  private void readFromFile(String path) throws ClassNotFoundException {
-
-    try {
-      InputStream file = new FileInputStream(path);
-      InputStream buffer = new BufferedInputStream(file);
-      ObjectInput input = new ObjectInputStream(buffer);
-
-      // deserialize the Map
-      images = (Map<File, Image>) input.readObject();
-      input.close();
-    } catch (IOException ex) {
-      logger.log(Level.WARNING, "Cannot read from images.ser");
+        // deserialize the Map
+        images = (HashMap<File, Image>) input.readObject();
+        input.close();
+      } catch (IOException ex) {
+        logger.log(Level.WARNING, "Cannot read from images.ser");
+      }
     }
-  }
 
     /**
      * Add an image record to images.
@@ -73,16 +73,15 @@ public class ImageManager {
      * @param filePath the path of the file that is about to be changed
      * @throws IOException if stream to file with filePath cannot be written or closed
      */
-  public void saveToFile(String filePath) throws IOException {
+    public void saveToFile(String filePath) throws IOException {
 
-    OutputStream file = new FileOutputStream(filePath);
-    OutputStream buffer = new BufferedOutputStream(file);
-    ObjectOutput output = new ObjectOutputStream(buffer);
+      FileManager fm = new FileManager();
+      ObjectOutput output = fm.saveToFile(filePath);
 
-    // serialize the Map
-    output.writeObject(images);
-    output.close();
-  }
+      // serialize the Map
+      output.writeObject(images);
+      output.close();
+    }
 
     /**
      * Returns a map of images in this ImageManager.
