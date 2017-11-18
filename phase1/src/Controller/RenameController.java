@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Image;
+import Model.ImageRenameObserver;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +36,7 @@ public class RenameController implements Initializable{
 
     void getImage(Image image) {
         this.image = image;
+        System.out.println(image.toString());
     }
 
     public void TypeName(ActionEvent event) {
@@ -56,7 +58,9 @@ public class RenameController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: should get the list of previous names from model
-        ArrayList<String> listOfPrevNames = image.getImageRenameObserver().getPastNames();
+        Image listOfPrevNames = image;
+        //        ArrayList<String> listOfPrevNames = image.getImageRenameObserver().getPastNames();
+
 //        logs.remove(0);
 //        for (String log : logs) {
 //            listOfPrevNames.add(log.split(",")[0]);
@@ -64,6 +68,6 @@ public class RenameController implements Initializable{
 //        listOfPrevNames.add("haha");
 //        listOfPrevNames.add("hehe");
 //        listOfPrevNames.add("heihei");
-        prevNames.getItems().addAll(listOfPrevNames);
+//        prevNames.getItems().addAll(listOfPrevNames);
     }
 }
