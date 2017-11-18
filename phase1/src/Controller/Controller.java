@@ -104,12 +104,21 @@ public class Controller implements Initializable{
 
     File getPrevImage(File curImage) throws IndexOutOfBoundsException {
         int curIndex = listView.getItems().indexOf(curImage.getName());
-        return nameToFile.get(listView.getItems().get(curIndex - 1));
+        if (curIndex != 0) {
+            return nameToFile.get(listView.getItems().get(curIndex - 1));
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
+
     }
 
     File getNextImage(File curImage) throws IndexOutOfBoundsException {
         int curIndex = listView.getItems().indexOf(curImage.getName());
-        return nameToFile.get(listView.getItems().get(curIndex + 1));
+        if (curIndex != (listView.getItems().size() - 1)) {
+            return nameToFile.get(listView.getItems().get(curIndex + 1));
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override
