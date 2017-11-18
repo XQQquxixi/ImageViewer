@@ -47,6 +47,7 @@ public class ImageViewController {
     void GetImage(File image) {
         curFile = image;
         selectedImage = new Image(curFile);
+        new Model.ImageRenameObserver(selectedImage);
         initData(selectedImage);
     }
 
