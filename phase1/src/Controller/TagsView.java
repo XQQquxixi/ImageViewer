@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 public class TagsView implements Initializable{
     public Button Delete;
     public Button Add;
+    static TagManager tagManager;
 
     @FXML
     TextField newTag;
@@ -24,7 +25,14 @@ public class TagsView implements Initializable{
     ListView<String> listOfTags;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            tagManager = new TagManager();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         listOfTags.getItems().clear();
         listOfTags.getItems().addAll(TagManager.getTagList());
         listOfTags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
