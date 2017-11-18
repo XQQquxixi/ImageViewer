@@ -93,7 +93,11 @@ public class ImageRenameObserver implements Observer {
    */
   private ArrayList<String> getListOfLog() {
     String logs = this.getLogs();
-    return new ArrayList<>(Arrays.asList(logs.split(System.lineSeparator())));
+    if (!logs.isEmpty()) {
+      return new ArrayList<>(Arrays.asList(logs.split(System.lineSeparator())));
+    } else {
+      return new ArrayList<>();
+    }
   }
 
   /**
@@ -103,11 +107,15 @@ public class ImageRenameObserver implements Observer {
    */
   public ArrayList<String> getPastNames() {
     ArrayList<String> listOfLog = getListOfLog();
-    listOfLog.remove(0);
-    ArrayList<String> pastNames = new ArrayList<>();
-    for (String log : listOfLog) {
-      pastNames.add(log.split(",")[0]);
+    if (listOfLog.isEmpty()) {
+      return new ArrayList<>();
+    } else {
+      listOfLog.remove(0);
+      ArrayList<String> pastNames = new ArrayList<>();
+      for (String log : listOfLog) {
+        pastNames.add(log.split(",")[0]);
+      }
+      return pastNames;
     }
-    return pastNames;
   }
 }
