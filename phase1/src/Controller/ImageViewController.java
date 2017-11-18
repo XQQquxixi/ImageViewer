@@ -14,6 +14,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,7 +79,9 @@ public class ImageViewController {
     }
 
     public void Rename(ActionEvent event) throws IOException {
+        Window window = rename.getScene().getWindow();
         Stage primaryStage = new Stage();
+        primaryStage.initOwner(window);
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
         RenameController rename = loader.getController();
