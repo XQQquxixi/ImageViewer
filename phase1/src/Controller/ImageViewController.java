@@ -46,13 +46,7 @@ public class ImageViewController {
 
     void GetImage(File image) {
         curFile = image;
-        try {
-            selectedImage = new Image(curFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        selectedImage = new Image(curFile);
         initData(selectedImage);
     }
 
