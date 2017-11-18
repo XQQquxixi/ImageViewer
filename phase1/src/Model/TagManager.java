@@ -25,7 +25,9 @@ public class TagManager {
     if (file.exists()) {
       readFromFile(filePath);
     } else {
-      file.createNewFile();
+      if(file.createNewFile()) {
+        logger.log(Level.FINE, "created tag.ser");
+      }
     }
   }
 

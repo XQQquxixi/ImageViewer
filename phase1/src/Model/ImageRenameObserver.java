@@ -30,7 +30,6 @@ public class ImageRenameObserver implements Observer {
     contents.append(newLog);
     contents.append(System.lineSeparator());
 
-    // LogObserver the addition of a student.
     logger.log(Level.FINE, "Added a new renaming " + image.toString());
   }
 
@@ -46,7 +45,7 @@ public class ImageRenameObserver implements Observer {
     return contents.toString();
   }
 
-  public ArrayList<String> getListOfLog() {
+  private ArrayList<String> getListOfLog() {
     String logs = this.getLogs();
     return new ArrayList<>(Arrays.asList(logs.split(System.lineSeparator())));
   }
