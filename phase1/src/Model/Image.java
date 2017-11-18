@@ -176,10 +176,5 @@ public class Image extends Observable implements Serializable {
     Path oldPath = file.toPath();
     Files.move(oldPath, Paths.get(newPath));
     file = new File(newPath);
-    String serPath =
-        oldPath.toString().substring(0, oldPath.toString().lastIndexOf(File.separator) + 1)
-            + name
-            + ".ser";
-    Files.delete(Paths.get(serPath));
   }
 }
