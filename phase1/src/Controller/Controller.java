@@ -94,12 +94,19 @@ public class Controller implements Initializable{
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController imageView = loader.getController();
-        imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
-        primaryStage.setTitle("Image Viewer");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.setX(window.getX() + DISTANCE);
-        primaryStage.setY(window.getY() + DISTANCE);
-        primaryStage.show();
+        if (listView.getSelectionModel().getSelectedItem() != null) {
+            imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
+            primaryStage.setTitle("Image Viewer");
+            primaryStage.setScene(new Scene(root, 600, 400));
+            primaryStage.setX(window.getX() + DISTANCE);
+            primaryStage.setY(window.getY() + DISTANCE);
+            primaryStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Uh-oh");
+            alert.setContentText("Sorry, you need to select a image. QwQ");
+            alert.showAndWait();
+        }
 //        }
 
     }
@@ -112,13 +119,13 @@ public class Controller implements Initializable{
         primaryStage.showAndWait();
     }
 
-    File getPrevImage(File curImage) throws IndexOutOfBoundsException {
+    File getPrevImage(File curImage)  { //throws IndexOutOfBoundsException
         int curIndex = listView.getItems().indexOf(curImage.getName());
-        if (curIndex != 0) {
+//        if (curIndex != 0) {
             return nameToFile.get(listView.getItems().get(curIndex - 1));
-        } else {
-            throw new IndexOutOfBoundsException();
-        }
+//        } else {
+//            throw new IndexOutOfBoundsException();
+//        }
 
     }
 
