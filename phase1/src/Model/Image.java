@@ -52,6 +52,13 @@ public class Image extends Observable implements Serializable {
   }
 
   /**
+   * Temporary change.
+   */
+  public ImageRenameObserver getImageRenameObserver() {
+      return imageRenameObserver;
+  }
+
+  /**
    * Returns this image's name without file extension.
    *
    * @return this image's name
