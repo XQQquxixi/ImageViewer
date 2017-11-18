@@ -82,7 +82,7 @@ public class Controller implements Initializable{
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
         FXMLLoader loader = new FXMLLoader();
-        Pane root = loader.load(getClass().getResource("ImageViewer.fxml").openStream());
+        Pane root = loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController imageView = loader.getController();
         imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
         primaryStage.setTitle("Image Viewer");
