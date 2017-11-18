@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -49,24 +50,32 @@ public class Controller implements Initializable{
 
     public void Button1Action(ActionEvent event) throws Exception{
         File directory = new File(initDirectory.getText());
+        FileChooser fc = new FileChooser();
         if (directory.exists() && directory.isDirectory()) {
-            FileChooser fc = new FileChooser();
             fc.setInitialDirectory(directory);
-            fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-            File selectedFile = fc.showOpenDialog(null);
-            if (selectedFile != null) {
-                nameToFile.put(selectedFile.getName(), selectedFile);
-                Image image = new Image(selectedFile.toURI().toString());
-                iv1.setImage(image);
-                listView.getItems().add(selectedFile.getName());
-            }
+        } else if(initDirectory.getText().equals("")) {
+            fc.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Uh-oh");
             alert.setContentText("Wrong Directory!!! Please check and enter again.");
             alert.showAndWait();
         }
+
+
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+
+        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+        for (File file : selectedFiles) {
+            if (file != null) {
+                nameToFile.put(file.getName(), file);
+                Image image = new Image(file.toURI().toString());
+                iv1.setImage(image);
+                listView.getItems().add(file.getName());
+            }
+        }
+
     }
 
     public void MouseClickList(MouseEvent event) {
