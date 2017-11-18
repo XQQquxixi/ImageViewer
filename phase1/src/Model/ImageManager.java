@@ -124,4 +124,15 @@ public class ImageManager {
   public void addTag(String filePath, String tag) {
 
   }
+
+  public String getLog(String filePath) throws IOException, ClassNotFoundException {
+    File f1 = new File(filePath);
+    if(!images.containsKey(f1)) {
+      this.add(new Image(new File(filePath)));
+    }
+    saveToFile("./images.ser");
+
+    Image i = images.get(new File(filePath));
+    return i.getLog();
+  }
 }

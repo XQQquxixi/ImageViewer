@@ -4,7 +4,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -22,16 +24,14 @@ public class Image extends Observable implements Serializable {
   /* An ArrayList of all the tags of this image. */
   private ArrayList<String> currentTags;
 
-  /**
-   * Temporary change.
-   */
-  private ImageRenameObserver imageRenameObserver;
 
   /* A Logger. */
   private static final Logger logger = Logger.getLogger(Image.class.getName());
 
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
+
+  public StringBuilder log = new StringBuilder();
 
   /**
    * A image associated with file.
@@ -45,18 +45,8 @@ public class Image extends Observable implements Serializable {
     logger.setLevel(Level.ALL);
     consoleHandler.setLevel(Level.ALL);
     logger.addHandler((consoleHandler));
-    /**
-     * Temporary change.
-     */
-    imageRenameObserver = new ImageRenameObserver(this);
   }
 
-  /**
-   * Temporary change.
-   */
-  public ImageRenameObserver getImageRenameObserver() {
-      return imageRenameObserver;
-  }
 
   /**
    * Returns this image's name without file extension.
@@ -117,8 +107,7 @@ public class Image extends Observable implements Serializable {
     }
     this.name = name + getExtension();
     this.file = newFile;
-    setChanged();
-    notifyObservers(oldName);
+    updateLog(oldName);
   }
 
   /**
@@ -176,5 +165,18 @@ public class Image extends Observable implements Serializable {
     Path oldPath = file.toPath();
     Files.move(oldPath, Paths.get(newPath));
     file = new File(newPath);
+  }
+
+  public void updateLog(String oldName) {
+    Date now = new Date();
+    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    String date = dt.format(now);
+    String entry = name + "," + oldName+getExtension() +"," + date;
+    log.append(entry);
+    log.append(System.lineSeparator());
+  }
+
+  public String getLog() {
+    return log.toString();
   }
 }
