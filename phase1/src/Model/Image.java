@@ -5,9 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -16,13 +14,13 @@ import java.util.logging.Logger;
 public class Image extends Observable implements Serializable {
 
   /**
-   * the name part of file's name.
+   * The name part of file's name.
    */
   private String name;
 
 
   /**
-   * this image file.
+   * This image file.
    */
   private File file;
 
@@ -33,9 +31,8 @@ public class Image extends Observable implements Serializable {
 
 
   private static final Logger logger =
-          Logger.getLogger(Image.class.getName());
+      Logger.getLogger(Image.class.getName());
   private static final Handler consoleHandler = new ConsoleHandler();
-
 
 
   public Image(File file) {
@@ -48,45 +45,44 @@ public class Image extends Observable implements Serializable {
   }
 
 
-
-    public String getName() {
-      return name.substring(0, name.lastIndexOf("."));
+  public String getName() {
+    return name.substring(0, name.lastIndexOf("."));
 
   }
 
-    public File getFile() {
+  public File getFile() {
     return file;
   }
-  
-    public String getExtension(){
-      String absolutePath = file.getAbsolutePath();
-      return absolutePath.substring(absolutePath.lastIndexOf("."), absolutePath.length() - 1);
-    }
 
-    public ArrayList<String> getCurrentTags() {
-        return currentTags;
-    }
+  public String getExtension() {
+    String absolutePath = file.getAbsolutePath();
+    return absolutePath.substring(absolutePath.lastIndexOf("."), absolutePath.length() - 1);
+  }
 
-    public void setName(String name) {
-      String oldName = this.name;
-      String absolutePath = file.getAbsolutePath();
-      String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-      File newFile = new File(path + File.separator + name + getExtension());
-      int i = 1;
-      while (newFile.exists()) {
-        path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-        newFile = new File(path + File.separator + name + Integer.toString(i++));
-      }
-      if (file.renameTo(newFile)) {
-        logger.log(Level.FINE, "rename successfully");
-      } else {
-        logger.log(Level.WARNING, "File rename failed");
-      }
-      this.name = name;
-      this.file = newFile;
-      setChanged();
-      notifyObservers(oldName);
+  public ArrayList<String> getCurrentTags() {
+    return currentTags;
+  }
+
+  public void setName(String name) {
+    String oldName = this.name;
+    String absolutePath = file.getAbsolutePath();
+    String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
+    File newFile = new File(path + File.separator + name + getExtension());
+    int i = 1;
+    while (newFile.exists()) {
+      path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
+      newFile = new File(path + File.separator + name + Integer.toString(i++));
     }
+    if (file.renameTo(newFile)) {
+      logger.log(Level.FINE, "rename successfully");
+    } else {
+      logger.log(Level.WARNING, "File rename failed");
+    }
+    this.name = name;
+    this.file = newFile;
+    setChanged();
+    notifyObservers(oldName);
+  }
 
 
   public String toString() {
@@ -126,20 +122,4 @@ public class Image extends Observable implements Serializable {
             + name + ".ser";
     Files.delete(Paths.get(serPath));
   }
-
-  public ArrayList<String> getLogs() {
-//    String path = this.file.getAbsolutePath();
-//    File ser = new File(
-//        path.substring(0, path.lastIndexOf(File.separator) + 1)
-//            + "log_" + this.name + ".ser");
-//
-    StringBuilder logs = new StringBuilder();
-    for (LogObserver o : observers) {
-      logs.append(o.getLogs());
-    }
-    String result = logs.toString();
-    return new ArrayList<>(Arrays.asList(result.split(System.lineSeparator())));
-  }
-
-
 }
