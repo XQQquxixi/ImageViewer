@@ -48,7 +48,7 @@ public class ImageViewController {
         curFile = image;
         // TODO: what if there is already a Image instance for this file?
         selectedImage = new Image(curFile);
-        new Model.ImageRenameObserver(selectedImage);
+        //new Model.ImageRenameObserver(selectedImage);
         initData(selectedImage);
     }
 
