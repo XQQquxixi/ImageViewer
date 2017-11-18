@@ -98,7 +98,7 @@ public class ImageViewController {
         File selectedDirectory =
                 directoryChooser.showDialog(Move.getScene().getWindow());
         String path = selectedDirectory.getAbsolutePath();
-        selectedImage.move(path);
+        selectedImage.move(path + "/" + selectedImage.getName());
     }
 
     public void GoNext() throws IOException {
@@ -137,7 +137,8 @@ public class ImageViewController {
         Scene Box = new Scene(AddTags);
         ConfirmBox controller = loader.getController();
         controller.initData(selectedImage);
-        Stage Window = (Stage) Add.getScene().getWindow();
+        Stage Window = new Stage();
         Window.setScene(Box);
+        Window.show();
     }
 }
