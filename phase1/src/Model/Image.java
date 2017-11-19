@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Observable;
 import java.util.logging.ConsoleHandler;
@@ -229,6 +230,7 @@ public class Image extends Observable implements Serializable {
         pastNames.add(oldName);
       }
     }
+    Collections.reverse(pastNames);
     return pastNames;
   }
 
