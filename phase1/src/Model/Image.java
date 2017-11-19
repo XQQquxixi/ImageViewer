@@ -99,7 +99,8 @@ public class Image extends Observable implements Serializable {
     int i = 1;
     while (newFile.exists()) {
       path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-      newFile = new File(path + File.separator + name + "(" +Integer.toString(i++) +")" + getExtension());
+      newFile = new File(
+          path + File.separator + name + "(" + Integer.toString(i++) + ")" + getExtension());
     }
     if (file.renameTo(newFile)) {
       logger.log(Level.FINE, "rename successfully");
@@ -164,17 +165,6 @@ public class Image extends Observable implements Serializable {
   }
 
   /**
-   * Delete all tags in this Image.
-   */
-  public void deleteAllTags(){
-    if (!currentTags.isEmpty()){
-      int index = name.lastIndexOf(" @" + currentTags.get(0));
-      setName(getName().substring(0, index));
-      currentTags.clear();
-    }
-  }
-
-  /**
    * Move this file.
    *
    * @param newPath the destination the file is about to move to
@@ -187,8 +177,8 @@ public class Image extends Observable implements Serializable {
   }
 
   /**
-   * Add an entry to the log corresponding to the name change from oldName.
-   * Each entry is a new line and each item in an entry is comma separated.
+   * Add an entry to the log corresponding to the name change from oldName. Each entry is a new line
+   * and each item in an entry is comma separated.
    *
    * @param oldName the old name that was changed.
    */
@@ -196,7 +186,7 @@ public class Image extends Observable implements Serializable {
     Date now = new Date();
     SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     String date = dt.format(now);
-    String entry = oldName + "," + name +"," + date;
+    String entry = oldName + "," + name + "," + date;
     log.append(entry);
     log.append(System.lineSeparator());
   }
@@ -235,4 +225,11 @@ public class Image extends Observable implements Serializable {
     return pastNames;
   }
 
+  /**
+   * Set the name of this image to the name part, i.e., no tags in the file name.
+   */
+  public void setNameWithoutTag() {
+    int index = name.lastIndexOf(" @" + currentTags.get(0));
+    setName(getName().substring(0, index));
+  }
 }

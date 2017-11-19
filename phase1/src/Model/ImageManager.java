@@ -111,9 +111,9 @@ public class ImageManager {
 
 
   /**
-   * Check if this file is an existing key in images. If not, add this
-   * file and its corresponding Image to images. Save this ImageManager
-   * to a serialized file and return its corresponding image object.
+   * Check if this file is an existing key in images. If not, add this file and its corresponding
+   * Image to images. Save this ImageManager to a serialized file and return its corresponding image
+   * object.
    *
    * @param file the file key to check in images.
    * @return the image corresponding to this file.
@@ -204,11 +204,11 @@ public class ImageManager {
    * @return the updated Image
    * @throws IOException if saving serialized file fails.
    */
-  public static Image deleteAllTags(String filePath) throws IOException {
+  public static Image getNameWithoutTag(String filePath) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
 
-    i.deleteAllTags();
+    i.setNameWithoutTag();
 
     updateKey(file, i);
 
@@ -217,6 +217,7 @@ public class ImageManager {
 
   /**
    * Move this image denoted by oldPath to newPath and save serialized file.
+   *
    * @param oldPath the path of this image file
    * @param newPath the new path to move this image file to
    * @throws IOException if saving serialized file fails.
@@ -256,20 +257,19 @@ public class ImageManager {
 
 
   /**
-   * Return an ArrayList of all past names of the image file denoted by
-   * filePath.
+   * Return an ArrayList of all past names of the image file denoted by filePath.
    *
    * @param filepath the image file to check the past names of.
-   * @return an ArrayList of all past names 
+   * @return an ArrayList of all past names
    */
   public static ArrayList<String> getPastName(String filepath) {
     File file = new File(filepath);
-      try {
-          return checkKey(file).getPastNames();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-      return null;
+    try {
+      return checkKey(file).getPastNames();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }
 
