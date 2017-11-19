@@ -246,11 +246,11 @@ public class ImageViewController {
     public void UpdateName() throws IOException{
         withTag = !withTag;
         if (withTag) {
-            RemoveTag.setText("With Tag");
+            RemoveTag.setText("Without Tag");
             Name.setText(selectedImage.getName());
         }
         if (!withTag) {
-            RemoveTag.setText("Without Tag");
+            RemoveTag.setText("With Tag");
             Name.setText(selectedImage.getNameWithoutTag());
         }
     }
