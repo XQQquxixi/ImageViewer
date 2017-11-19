@@ -10,7 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -47,6 +49,8 @@ public class ImageViewController {
     private ListView<String> Tags;
     @FXML
     private TextField newTag;
+    @FXML
+    private Button history;
 
     private File curFile;
 
@@ -169,6 +173,34 @@ public class ImageViewController {
             ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), tag);
         }
         initData(selectedImage);
+    }
+
+    public void ButtonHistory(ActionEvent event) {
+        try {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("History");
+            alert.setContentText("Here is your all history changes of this image:");
+            String history = ImageManager.getLog(selectedImage.getFile().getAbsolutePath());
+            TextArea textArea = new TextArea(history);
+            textArea.setEditable(false);
+            textArea.setWrapText(true);
+            textArea.setMaxWidth(Double.MAX_VALUE);
+            textArea.setMaxHeight(Double.MAX_VALUE);
+            GridPane.setVgrow(textArea, Priority.ALWAYS);
+            GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+            GridPane expContent = new GridPane();
+            expContent.setMaxWidth(Double.MAX_VALUE);
+            expContent.add(textArea, 0, 0);
+
+            alert.getDialogPane().setExpandableContent(expContent);
+
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }
