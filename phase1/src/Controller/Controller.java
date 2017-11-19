@@ -106,6 +106,7 @@ public class Controller implements Initializable{
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController imageView = loader.getController();
+        imageView.passController(this);
         if (listView.getSelectionModel().getSelectedItem() != null) {
             imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
             primaryStage.setTitle("Image Viewer");
@@ -134,17 +135,12 @@ public class Controller implements Initializable{
         primaryStage.showAndWait();
     }
 
-    File getPrevImage(File curImage)  { //throws IndexOutOfBoundsException
+    File getPrevImage(File curImage) throws IndexOutOfBoundsException {
         int curIndex = listView.getItems().indexOf(curImage.getName());
-        System.out.println(listView.getItems());
-        System.out.println(curImage.getName());
         if (curIndex != 0) {
-            System.out.println(curIndex);
-            //return nameToFile.get(listView.getItems().get(curIndex - 1));
-            return curImage;
+            return nameToFile.get(listView.getItems().get(curIndex - 1));
         } else {
-            //throw new IndexOutOfBoundsException();
-            return curImage;
+            throw new IndexOutOfBoundsException();
         }
 
     }
