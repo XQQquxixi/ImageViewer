@@ -1,8 +1,16 @@
 Duties:
 
-Xueqing Yang: 
+Xueqing Yang (yangxu19):
+    Front-end for Controller package.
+    Classes: Controller.java, sample.fxml, RenameController.java, Rename.fxml
+    Some methods in ImageViewController.java and ImageView.fxml
+    Bug fixing in all classes in Controller package
 
-Wen Li:
+Wen Li (liwen21):
+    Front-end for Controller package.
+    Classes: TagsView.java, TagsView.fxml
+    Some methods in ImageViewController.java and ImageView.fxml
+    Bug fixing in all classes in Controller package
 
 Qiqi Xu:
 
