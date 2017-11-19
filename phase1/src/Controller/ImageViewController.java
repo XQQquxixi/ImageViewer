@@ -59,7 +59,7 @@ public class ImageViewController {
         initData(selectedImage);
     }
 
-    void initData(Image image){
+    private void initData(Image image){
 //        selectedImage = image;
         Name.setText(image.getName());
         Collection<String> col = image.getCurrentTags();
