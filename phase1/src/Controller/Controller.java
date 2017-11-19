@@ -55,9 +55,8 @@ public class Controller implements Initializable{
     static TagManager tagManager;
 
     public void initData(String oldName, String newName) {
-        System.out.println(listView.getItems());
-//        int position = listView.getItems().indexOf(oldName);
-//        listView.getItems().set(position, newName);
+        int position = listView.getItems().indexOf(oldName);
+        listView.getItems().set(position, newName);
     }
 
     public void Button1Action(ActionEvent event) throws Exception{
