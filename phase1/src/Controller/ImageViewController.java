@@ -58,12 +58,18 @@ public class ImageViewController {
 
     private String path;
 
+    private Controller controller;
+
     void GetImage(File image) {
         curFile = image;
         // TODO: what if there is already a Image instance for this file?
         selectedImage = new Image(curFile);
         //new Model.ImageRenameObserver(selectedImage);
         initData(selectedImage);
+    }
+
+    void passController(Controller controller) {
+        this.controller = controller;
     }
 
     void initData(Image image){
@@ -91,9 +97,6 @@ public class ImageViewController {
     }
 
     public void GoBack() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.load(getClass().getResource("sample.fxml").openStream());
-        Controller controller = loader.getController();
         try {
             GetImage(controller.getPrevImage(curFile));
         } catch (IndexOutOfBoundsException e) {
@@ -128,9 +131,6 @@ public class ImageViewController {
     }
 
     public void GoNext() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.load(getClass().getResource("sample.fxml").openStream());
-        Controller controller = loader.getController();
         try {
             GetImage(controller.getNextImage(curFile));
         } catch (IndexOutOfBoundsException e) {
