@@ -133,8 +133,10 @@ public class ImageViewController {
         directoryChooser.setTitle("Choose directory which you wanna move into");
         File selectedDirectory =
                 directoryChooser.showDialog(Move.getScene().getWindow());
-        String path = selectedDirectory.getAbsolutePath();
-        ImageManager.move(selectedImage.getFile().getAbsolutePath(), path + "/" + selectedImage.getName() + selectedImage.getExtension());
+        if (selectedDirectory != null) {
+            String path = selectedDirectory.getAbsolutePath();
+            ImageManager.move(selectedImage.getFile().getAbsolutePath(), path + "/" + selectedImage.getName() + selectedImage.getExtension());
+        }
     }
 
     public void GoNext() throws IOException {
