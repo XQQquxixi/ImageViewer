@@ -39,12 +39,16 @@ public class RenameController implements Initializable{
 
     private Image image;
 
+    private Controller controller;
+
+    private String oldName;
+
     void getImage(Image image) {
         this.image = image;
-        System.out.println(image.toString());
         ArrayList<String> listOfPrevNames = ImageManager.getPastName(image.getFile().getAbsolutePath());
         prevNames.getItems().addAll(listOfPrevNames);
         curName.setText(image.getName());
+        oldName = image.getName() + ".jpg";
     }
 
     public void TypeName(ActionEvent event) {
@@ -55,6 +59,10 @@ public class RenameController implements Initializable{
         curName.setText(prevNames.getValue());
     }
 
+    void passController(Controller controller) {
+        this.controller = controller;
+    }
+
     public void ButtonOkAction(ActionEvent event) throws IOException {
         //image.setName(curName.getText());
         try {
@@ -62,6 +70,9 @@ public class RenameController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        controller.initData(oldName, image.getName() + ".jpg");
+        Controller.nameToFile.remove(oldName);
+        Controller.nameToFile.put(image.getName() + ".jpg", image.getFile());
         FXMLLoader loader = new FXMLLoader();
         loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController controller = loader.getController();
@@ -77,17 +88,7 @@ public class RenameController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO: should get the list of previous names from model
 
-        //        ArrayList<String> listOfPrevNames = image.getImageRenameObserver().getPastNames();
-
-//        logs.remove(0);
-//        for (String log : logs) {
-//            listOfPrevNames.add(log.split(",")[0]);
-//        }
-//        listOfPrevNames.add("haha");
-//        listOfPrevNames.add("hehe");
-//        listOfPrevNames.add("heihei");
 
     }
 }
