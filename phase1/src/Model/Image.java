@@ -217,10 +217,11 @@ public class Image extends Observable implements Serializable {
    */
   public ArrayList<String> getPastNames() {
     ArrayList<String> listOfLog = getListOfLog();
-    listOfLog.remove(0);
     ArrayList<String> pastNames = new ArrayList<>();
     for (String log : listOfLog) {
-      pastNames.add(log.split(",")[0]);
+      String oldFullName = log.split(",")[0];
+      String oldName = oldFullName.substring(0, oldFullName.lastIndexOf(getExtension()));
+      pastNames.add(oldName);
     }
     return pastNames;
   }
@@ -228,8 +229,8 @@ public class Image extends Observable implements Serializable {
   /**
    * Set the name of this image to the name part, i.e., no tags in the file name.
    */
-  public void setNameWithoutTag() {
+  public String getNameWithoutTag() {
     int index = name.lastIndexOf(" @" + currentTags.get(0));
-    setName(getName().substring(0, index));
+    return getName().substring(0, index);
   }
 }
