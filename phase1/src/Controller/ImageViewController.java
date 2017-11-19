@@ -156,14 +156,14 @@ public class ImageViewController {
     public void DeleteTag() throws IOException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
         //ha
-        String oldName = selectedImage.getName() + ".jpg";
+        String oldName = selectedImage.getName() + selectedImage.getExtension();
 
         for (String tag : delete) {
             selectedImage = ImageManager.deleteTag(selectedImage.getFile().getAbsolutePath(), tag);
             listView.getItems().remove(tag);
         }
         // ha
-        String newName = selectedImage.getName() + ".jpg";
+        String newName = selectedImage.getName() + selectedImage.getExtension();
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
         if (withTag) {
@@ -198,14 +198,14 @@ public class ImageViewController {
 
     public void AddTags() throws IOException{
         ObservableList<String> list = Tags.getSelectionModel().getSelectedItems();
-        String oldName = selectedImage.getName() + ".jpg";
+        String oldName = selectedImage.getName() + selectedImage.getExtension();
         for (String tag : list) {
             selectedImage = ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), tag);
             if (!listView.getItems().contains(tag)) {
                 listView.getItems().add(tag);
             }
         }
-        String newName = selectedImage.getName() + ".jpg";
+        String newName = selectedImage.getName() + selectedImage.getExtension();
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
         if (withTag){
