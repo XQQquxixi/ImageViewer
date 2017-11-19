@@ -237,8 +237,6 @@ public class ImageViewController {
             alert.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
