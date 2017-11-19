@@ -197,23 +197,6 @@ public class ImageManager {
     return i;
   }
 
-  /**
-   * Delete all tags from the image file denoted by filePath and save serialized file.
-   *
-   * @param filePath the path of this image file.
-   * @return the updated Image
-   * @throws IOException if saving serialized file fails.
-   */
-  public static Image getNameWithoutTag(String filePath) throws IOException {
-    File file = new File(filePath);
-    Image i = checkKey(file);
-
-    i.setNameWithoutTag();
-
-    updateKey(file, i);
-
-    return i;
-  }
 
   /**
    * Move this image denoted by oldPath to newPath and save serialized file.
