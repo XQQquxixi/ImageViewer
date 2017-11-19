@@ -157,6 +157,17 @@ public class ImageManager {
     return i;
   }
 
+  public static Image deleteAllTags(String filePath) throws IOException {
+    File file = new File(filePath);
+    Image i = checkKey(file);
+
+    i.deleteAllTags();
+
+    updateKey(file, i);
+
+    return i;
+  }
+
   public static void move(String oldPath, String newPath) throws IOException {
     File file = new File(oldPath);
     Image i = checkKey(file);

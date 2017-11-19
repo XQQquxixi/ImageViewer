@@ -163,6 +163,14 @@ public class Image extends Observable implements Serializable {
     }
   }
 
+  public void deleteAllTags(){
+    if (!currentTags.isEmpty()){
+      int index = name.lastIndexOf(" @" + currentTags.get(0));
+      setName(getName().substring(0, index));
+      currentTags.clear();
+    }
+  }
+
   /**
    * Move this file.
    *
