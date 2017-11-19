@@ -133,16 +133,18 @@ public class ImageManager {
     updateKey(file, i);
   }
 
-  public static void addTag(String filePath, String tag) throws IOException {
+  public static Image addTag(String filePath, String tag) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
 
     i.addTag(tag);
 
     updateKey(file, i);
+
+    return i;
   }
 
-  public static void deleteTag(String filePath, String tag) throws IOException {
+  public static Image deleteTag(String filePath, String tag) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
 
@@ -150,6 +152,7 @@ public class ImageManager {
 
     updateKey(file, i);
 
+    return i;
   }
 
   public static void move(String oldPath, String newPath) throws IOException {
@@ -166,7 +169,7 @@ public class ImageManager {
     return checkKey(file).getLog();
   }
 
-  public ArrayList<String> getTags(String filepath) throws IOException {
+  public static ArrayList<String> getTags(String filepath) throws IOException {
     File file = new File(filepath);
     return checkKey(file).getCurrentTags();
   }
