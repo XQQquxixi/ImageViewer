@@ -128,7 +128,7 @@ public class Image extends Observable implements Serializable {
    */
   public void addTag(String tag) throws IOException {
     if (currentTags.contains(tag)) {
-      System.out.println("This tag is already in here!");
+      logger.log(Level.WARNING, "This tag already exists!");
     } else {
       currentTags.add(tag);
       this.setName(getName() + " @" + tag);
