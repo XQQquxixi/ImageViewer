@@ -26,8 +26,6 @@
         <Button fx:id="ok" layoutX="334.0" layoutY="253.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="26.0" prefWidth="66.0" text="OK" />
         <ChoiceBox fx:id="prevNames" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="165.0" />
         <Button layoutX="193.0" layoutY="188.0" mnemonicParsing="false" onAction="#ChoosePrevName" prefHeight="26.0" prefWidth="66.0" text="Apply" />
-      <ImageView fx:id="pic" fitHeight="148.0" fitWidth="216.0" layoutX="270.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="275.0" layoutY="163.0" prefHeight="37.0" prefWidth="206.0" text="tags" />
-      <Button layoutX="300.0" layoutY="201.0" mnemonicParsing="false" text="Generate with current tags" />
+      <ImageView fx:id="pic" fitHeight="201.0" fitWidth="216.0" layoutX="270.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
