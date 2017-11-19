@@ -23,7 +23,7 @@
             </font>
         </Label>
         <Button fx:id="cancel" layoutX="415.0" layoutY="253.0" mnemonicParsing="false" onAction="#ButtonCancelAction" prefHeight="26.0" prefWidth="66.0" text="Cancel" />
-        <Button layoutX="334.0" layoutY="253.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="26.0" prefWidth="66.0" text="OK" />
+        <Button fx:id="ok" layoutX="334.0" layoutY="253.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="26.0" prefWidth="66.0" text="OK" />
         <ChoiceBox fx:id="prevNames" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="165.0" />
         <Button layoutX="193.0" layoutY="188.0" mnemonicParsing="false" onAction="#ChoosePrevName" prefHeight="26.0" prefWidth="66.0" text="Apply" />
         <Button layoutX="193.0" layoutY="94.0" mnemonicParsing="false" onAction="#TypeName" prefHeight="26.0" prefWidth="66.0" text="Apply" />
