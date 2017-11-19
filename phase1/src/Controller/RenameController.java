@@ -11,6 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -52,12 +53,13 @@ public class RenameController implements Initializable{
         this.image = image;
         ArrayList<String> listOfPrevNames = ImageManager.getPastName(image.getFile().getAbsolutePath());
         prevNames.getItems().addAll(listOfPrevNames);
+        inputName.setText(image.getName());
         curName.setText(image.getName());
         oldName = image.getName() + ".jpg";
         pic.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
-    public void TypeName(ActionEvent event) {
+    public void TypeName(KeyEvent event) {
         curName.setText(inputName.getText());
     }
 
