@@ -56,10 +56,13 @@ public class ImageViewController {
 
     private Image selectedImage;
 
+    private String path;
+
     void GetImage(File image) {
         curFile = image;
         // TODO: what if there is already a Image instance for this file?
         selectedImage = new Image(curFile);
+        path = image.getAbsolutePath();
         //new Model.ImageRenameObserver(selectedImage);
         initData(selectedImage);
     }
@@ -120,7 +123,7 @@ public class ImageViewController {
         File selectedDirectory =
                 directoryChooser.showDialog(Move.getScene().getWindow());
         String path = selectedDirectory.getAbsolutePath();
-        selectedImage.move(path + "/" + selectedImage.getName());
+        ImageManager.move(selectedImage.getFile().getAbsolutePath(), path + "/" + selectedImage.getName());
     }
 
     public void GoNext() throws IOException {
@@ -149,8 +152,6 @@ public class ImageViewController {
         for (String tag : delete) {
             ImageManager.deleteTag(selectedImage.getFile().getAbsolutePath(), tag);
             listView.getItems().remove(tag);
-            Tags.getItems().clear();
-            Tags.getItems().addAll();
         }
         Name.setText(selectedImage.getName());
     }
@@ -166,11 +167,11 @@ public class ImageViewController {
                 if (result.isPresent() && result.get() == ButtonType.OK){
                     // ... user chose OK
                     TagManager.addTag(input);
-                    initData(selectedImage);
+                    Tags.getItems().add(input);
                 }
             } else {
                 TagManager.addTag(input);
-                initData(selectedImage);
+                Tags.getItems().add(input);
             }
             newTag.clear();
         }
@@ -180,10 +181,11 @@ public class ImageViewController {
         ObservableList<String> list = Tags.getSelectionModel().getSelectedItems();
         for (String tag : list) {
             ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), tag);
-            listView.getItems().add(tag);
+            if (!listView.getItems().contains(tag)){
+                listView.getItems().add(tag);
+            }
         }
         Name.setText(selectedImage.getName());
-        
     }
 
     public void ButtonHistory(ActionEvent event) {
