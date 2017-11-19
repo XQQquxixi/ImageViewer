@@ -62,14 +62,15 @@ public class ImageViewController {
         curFile = image;
         // TODO: what if there is already a Image instance for this file?
         selectedImage = new Image(curFile);
-        path = image.getAbsolutePath();
         //new Model.ImageRenameObserver(selectedImage);
         initData(selectedImage);
     }
 
-    private void initData(Image image){
+    void initData(Image image){
 //        selectedImage = image;
         Name.setText(image.getName());
+        System.out.println(Name.getText());
+        path = image.getFile().getAbsolutePath();
         try {
             Collection<String> col = ImageManager.getTags(path);
             listView.getItems().clear();
