@@ -110,6 +110,15 @@ public class ImageManager {
   }
 
 
+  /**
+   * Check if this file is an existing key in images. If not, add this
+   * file and its corresponding Image to images. Save this ImageManager
+   * to a serialized file and return its corresponding image object.
+   *
+   * @param file the file key to check in images.
+   * @return the image corresponding to this file.
+   * @throws IOException if saving serialized file fails.
+   */
   public static Image checkKey(File file) throws IOException {
     if (!images.containsKey(file)) {
       add(new Image(file));
@@ -118,12 +127,27 @@ public class ImageManager {
     return images.get(file);
   }
 
+  /**
+   * Remove the old key f1 and add a new entry to images with Image i.
+   *
+   * @param f1 the old key to remove
+   * @param i the Image to add
+   * @throws IOException if saving serialized file fails.
+   */
   public static void updateKey(File f1, Image i) throws IOException {
     images.remove(f1);
     add(i);
     saveToFile();
   }
 
+  /**
+   * Rename this image with string path filePath to newName and save serialized file.
+   *
+   * @param filePath the path of this image file.
+   * @param newName the name to change to.
+   * @return the updated Image.
+   * @throws IOException if saving serialized file fails.
+   */
   public static Image renameImage(String filePath, String newName) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
@@ -135,6 +159,14 @@ public class ImageManager {
     return i;
   }
 
+  /**
+   * Add tag to the image file denoted by filePath and save serialized file.
+   *
+   * @param filePath the path of this image file.
+   * @param tag the tag to be added.
+   * @return the updated Image.
+   * @throws IOException if saving serialized file fails.
+   */
   public static Image addTag(String filePath, String tag) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
@@ -146,6 +178,14 @@ public class ImageManager {
     return i;
   }
 
+  /**
+   * Delete tag from the image file denoted by filePath and save serialized file.
+   *
+   * @param filePath the path of this image file.
+   * @param tag the tag to be deleted
+   * @return the updated Image
+   * @throws IOException if saving serialized file fails.
+   */
   public static Image deleteTag(String filePath, String tag) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
@@ -157,6 +197,13 @@ public class ImageManager {
     return i;
   }
 
+  /**
+   * Delete all tags from the image file denoted by filePath and save serialized file.
+   *
+   * @param filePath the path of this image file.
+   * @return the updated Image
+   * @throws IOException if saving serialized file fails.
+   */
   public static Image deleteAllTags(String filePath) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
@@ -168,6 +215,12 @@ public class ImageManager {
     return i;
   }
 
+  /**
+   * Move this image denoted by oldPath to newPath and save serialized file.
+   * @param oldPath the path of this image file
+   * @param newPath the new path to move this image file to
+   * @throws IOException if saving serialized file fails.
+   */
   public static void move(String oldPath, String newPath) throws IOException {
     File file = new File(oldPath);
     Image i = checkKey(file);
@@ -177,24 +230,42 @@ public class ImageManager {
     updateKey(file, i);
   }
 
-  public static String getLog(String filePath) throws IOException, ClassNotFoundException {
+  /**
+   * Return a String of the log of the image file denoted by filePath.
+   *
+   * @param filePath the image file to check the log of.
+   * @return the String log.
+   * @throws IOException if saving serialized file fails.
+   */
+  public static String getLog(String filePath) throws IOException {
     File file = new File(filePath);
     return checkKey(file).getLog();
   }
 
+  /**
+   * Return an ArrayList of tag(s) of the image file denoted by filePath.
+   *
+   * @param filepath the image file to check the log of.
+   * @return An ArrayList of the tag(s).
+   * @throws IOException if saving serialized file fails.
+   */
   public static ArrayList<String> getTags(String filepath) throws IOException {
     File file = new File(filepath);
     return checkKey(file).getCurrentTags();
   }
 
-  public static ArrayList<String> getPastName(String filepath) {
+
+  /**
+   * Return an ArrayList of all past names of the image file denoted by
+   * filePath.
+   *
+   * @param filepath the image file to check the past names of.
+   * @return an ArrayList of all past names
+   * @throws IOException if saving serialized file fails.
+   */
+  public static ArrayList<String> getPastName(String filepath) throws IOException {
     File file = new File(filepath);
-      try {
-          return checkKey(file).getPastNames();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-      return null;
+    return checkKey(file).getPastNames();
   }
 }
 

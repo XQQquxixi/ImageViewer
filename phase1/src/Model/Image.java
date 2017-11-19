@@ -163,6 +163,9 @@ public class Image extends Observable implements Serializable {
     }
   }
 
+  /**
+   * Delete all tags in this Image.
+   */
   public void deleteAllTags(){
     if (!currentTags.isEmpty()){
       int index = name.lastIndexOf(" @" + currentTags.get(0));
@@ -183,6 +186,12 @@ public class Image extends Observable implements Serializable {
     file = new File(newPath);
   }
 
+  /**
+   * Add an entry to the log corresponding to the name change from oldName.
+   * Each entry is a new line and each item in an entry is comma separated.
+   *
+   * @param oldName the old name that was changed.
+   */
   public void updateLog(String oldName) {
     Date now = new Date();
     SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -192,6 +201,11 @@ public class Image extends Observable implements Serializable {
     log.append(System.lineSeparator());
   }
 
+  /**
+   * Return a String version of this Image's log.
+   *
+   * @return a String version of this Image's log.
+   */
   public String getLog() {
     return log.toString();
   }
