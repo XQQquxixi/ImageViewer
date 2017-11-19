@@ -52,6 +52,8 @@ public class Controller implements Initializable{
 
     static ImageManager imageManager;
 
+    static TagManager tagManager;
+
     public void initData(String oldName, String newName) {
         System.out.println(listView.getItems());
 //        int position = listView.getItems().indexOf(oldName);
@@ -158,6 +160,13 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            tagManager = new TagManager();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             imageManager = new ImageManager();
         }
