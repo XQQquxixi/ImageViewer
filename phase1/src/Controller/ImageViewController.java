@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Image;
+import Model.ImageManager;
 import Model.TagManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,7 +46,6 @@ public class ImageViewController {
     private ListView<String> Tags;
     @FXML
     private TextField newTag;
-
 
     private File curFile;
 
@@ -133,10 +133,10 @@ public class ImageViewController {
         stage.close();
     }
 
-    public void DeleteTag() throws MalformedURLException {
+    public void DeleteTag() throws IOException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
         for (String tag : delete) {
-            selectedImage.deleteTag(tag);
+            ImageManager.deleteTag(selectedImage.getFile().getAbsolutePath(), tag);
         }
         initData(selectedImage);
     }
@@ -152,7 +152,7 @@ public class ImageViewController {
     public void AddTags() throws IOException{
         ObservableList<String> list = Tags.getSelectionModel().getSelectedItems();
         for (String tag : list) {
-            selectedImage.addTag(tag);
+            ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), tag);
         }
         initData(selectedImage);
     }

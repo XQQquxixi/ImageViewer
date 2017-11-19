@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.ImageManager;
+import Model.TagManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +52,9 @@ public class Controller implements Initializable{
     private Button history;
 
     private Map<String, File> nameToFile = new HashMap<>();
+
+    private static ImageManager imageManager;
+
 
     public void Button1Action(ActionEvent event) throws Exception{
         File directory = new File(initDirectory.getText());
@@ -155,6 +160,15 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            imageManager = new ImageManager();
+        }
+        catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
