@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Image;
+import Model.TagManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +40,12 @@ public class ImageViewController {
     private javafx.scene.image.ImageView show;
     @FXML
     private Label Name;
+    // New Thing
+    @FXML
+    private ListView<String> Tags;
+    @FXML
+    private TextField newTag;
+
 
     private File curFile;
 
@@ -58,6 +65,10 @@ public class ImageViewController {
         Collection<String> col = image.getCurrentTags();
         listView.getItems().clear();
         listView.getItems().addAll(col);
+        // Create a listView for store all tags.
+        Collection<String> tags = TagManager.getTagList();
+        Tags.getItems().clear();
+        Tags.getItems().addAll(tags);
         File imageFile = image.getFile();
         javafx.scene.image.Image image1 = new javafx.scene.image.Image(imageFile.toURI().toString());
         show.setImage(image1);
@@ -129,5 +140,21 @@ public class ImageViewController {
         }
         initData(selectedImage);
     }
-\
+
+    public void InputNewTag() throws IOException{
+        String input = newTag.getText();
+        if (input != null) {
+            TagManager.addTag(input);
+        }
+        initData(selectedImage);
+    }
+
+    public void AddTags() throws IOException{
+        ObservableList<String> list = Tags.getSelectionModel().getSelectedItems();
+        for (String tag : list) {
+            selectedImage.addTag(tag);
+        }
+        initData(selectedImage);
+    }
+
 }

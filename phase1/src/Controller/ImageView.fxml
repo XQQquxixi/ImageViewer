@@ -34,10 +34,10 @@
             <children>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
                <buttons>
-                  <Button mnemonicParsing="false" text="Delete" />
+                  <Button mnemonicParsing="false" text="Delete" fx:id="Delete" onAction="#DeleteTag"/>
                </buttons>
                 </ButtonBar>
-            <ListView prefHeight="258.0" prefWidth="93.0" />
+            <ListView prefHeight="258.0" prefWidth="93.0" fx:id="listView"/>
             </children>
         </VBox>
     </left>
@@ -53,7 +53,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="17.0" prefWidth="115.0" text="Add Tag:" />
-            <ListView prefHeight="283.0" prefWidth="115.0" />
+            <ListView prefHeight="283.0" prefWidth="115.0" fx:id="Tags"/>
             <GridPane>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -66,9 +66,9 @@
               </rowConstraints>
                <children>
                   <Label text="New:" />
-                  <TextField GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="Input" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField GridPane.rowIndex="1" fx:id="newTag"/>
+                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="Input" GridPane.rowIndex="2" fx:id="input" onAction="#InputNewTag"/>
+                  <Button mnemonicParsing="false" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="Add" onAction="#AddTags"/>
                </children>
             </GridPane>
          </children>
