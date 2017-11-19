@@ -64,7 +64,7 @@ public class Controller implements Initializable{
         FileChooser fc = new FileChooser();
         if (directory.exists() && directory.isDirectory() || initDirectory.getText().equals("")) {
             if (initDirectory.getText().equals("")) {
-                fc.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+                fc.setInitialDirectory(new File(System.getProperty("user.home")));
             } else {
                 fc.setInitialDirectory(directory);
             }
@@ -74,11 +74,16 @@ public class Controller implements Initializable{
             List<File> selectedFiles = fc.showOpenMultipleDialog(null);
             if (selectedFiles != null) {
                 for (File file : selectedFiles) {
-                    if (file != null) {
+                    if (file != null && !listView.getItems().contains(file.getName())) {
                         nameToFile.put(file.getName(), file);
                         Image image = new Image(file.toURI().toString());
                         iv1.setImage(image);
                         listView.getItems().add(file.getName());
+                    } else if (listView.getItems().contains(file.getName())) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Uh-oh");
+                        alert.setContentText("This image is already in your list. QwQ");
+                        alert.showAndWait();
                     }
                 }
             }
