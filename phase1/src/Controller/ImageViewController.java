@@ -159,6 +159,7 @@ public class ImageViewController {
                 TagManager.addTag(input);
                 initData(selectedImage);
             }
+            newTag.clear();
         }
     }
 
