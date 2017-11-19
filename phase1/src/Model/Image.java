@@ -207,7 +207,11 @@ public class Image extends Observable implements Serializable {
    */
   private ArrayList<String> getListOfLog() {
     String logs = this.getLog();
-    return new ArrayList<>(Arrays.asList(logs.split(System.lineSeparator())));
+    if (logs.isEmpty()) {
+      return new ArrayList<>();
+    } else {
+      return new ArrayList<>(Arrays.asList(logs.split(System.lineSeparator())));
+    }
   }
 
   /**
@@ -218,10 +222,12 @@ public class Image extends Observable implements Serializable {
   public ArrayList<String> getPastNames() {
     ArrayList<String> listOfLog = getListOfLog();
     ArrayList<String> pastNames = new ArrayList<>();
-    for (String log : listOfLog) {
-      String oldFullName = log.split(",")[0];
-      String oldName = oldFullName.substring(0, oldFullName.lastIndexOf(getExtension()));
-      pastNames.add(oldName);
+    if (listOfLog.size() > 0) {
+      for (String log : listOfLog) {
+        String oldFullName = log.split(",")[0];
+        String oldName = oldFullName.substring(0, oldFullName.lastIndexOf(getExtension()));
+        pastNames.add(oldName);
+      }
     }
     return pastNames;
   }
