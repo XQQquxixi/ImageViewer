@@ -147,13 +147,13 @@ public class Image extends Observable implements Serializable {
     if (currentTags.contains(tag)) {
       currentTags.remove(tag);
       int index = name.lastIndexOf(" @" + tag);
-      int indexAfterTag = index + (" @" + tag).length() + 1;
+      int indexAfterTag = index + (" @" + tag).length();
       String namePart = getName();
       String newName;
-      if (indexAfterTag < namePart.length()) {
+      if (indexAfterTag < namePart.length() - 1) {
         newName =
             getName().substring(0, index)
-                + getName().substring(index + (" @" + tag).length() + 1, getName().length());
+                + getName().substring(indexAfterTag, getName().length());
       } else {
         newName = getName().substring(0, index);
       }
