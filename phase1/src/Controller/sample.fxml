@@ -14,7 +14,7 @@
         <ListView fx:id="listView" layoutX="300.0" layoutY="58.0" onMouseClicked="#MouseClickList" prefHeight="278.0" prefWidth="281.0" />
         <ImageView fx:id="iv1" fitHeight="188.0" fitWidth="261.0" layoutX="27.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" />
         <TextField fx:id="initDirectory" layoutX="27.0" layoutY="59.0" prefHeight="26.0" prefWidth="261.0" promptText="Initial Directory" />
-        <Label fx:id="labelEnter" layoutX="27.0" layoutY="23.0" prefHeight="36.0" prefWidth="261.0" text="Please enter the directory:">
+        <Label fx:id="labelEnter" layoutX="27.0" layoutY="23.0" prefHeight="36.0" prefWidth="261.0" text="Directory (optional):">
             <font>
                 <Font size="18.0" />
             </font>
