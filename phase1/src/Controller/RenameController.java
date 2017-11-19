@@ -10,10 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,13 +35,16 @@ public class RenameController implements Initializable{
     @FXML
     private Button cancel;
 
+    @FXML
+    private ImageView pic;
+
 //    private ArrayList<String> listOfPrevNames = new ArrayList<>();
 
     private Image image;
 
     private Controller controller;
 
-    private ImageViewController imageViewControllerontroller;
+    private ImageViewController imageViewController;
 
     private String oldName;
 
@@ -51,6 +54,7 @@ public class RenameController implements Initializable{
         prevNames.getItems().addAll(listOfPrevNames);
         curName.setText(image.getName());
         oldName = image.getName() + ".jpg";
+        pic.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
     public void TypeName(ActionEvent event) {
@@ -66,7 +70,7 @@ public class RenameController implements Initializable{
     }
 
     void passIMController(ImageViewController controller) {
-        this.imageViewControllerontroller = controller;
+        this.imageViewController = controller;
     }
 
     public void ButtonOkAction(ActionEvent event) throws IOException {
@@ -77,7 +81,7 @@ public class RenameController implements Initializable{
             e.printStackTrace();
         }
         controller.initData(oldName, image.getName() + ".jpg");
-        imageViewControllerontroller.GetImage(image.getFile());
+        imageViewController.GetImage(image.getFile());
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(image.getName() + ".jpg", image.getFile());
         FXMLLoader loader = new FXMLLoader();
