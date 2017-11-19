@@ -115,6 +115,7 @@ public class ImageViewController {
         Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
         RenameController rename = loader.getController();
         rename.passController(controller);
+        rename.passIMController(this);
         rename.getImage(selectedImage);
         primaryStage.setTitle("Rename");
         primaryStage.setScene(new Scene(root, 500, 300));
