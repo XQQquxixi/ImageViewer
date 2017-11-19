@@ -14,86 +14,90 @@ import java.util.logging.Logger;
 public class ImageManager {
 
   /* A map with file as key and its corresponding image as value. */
-  private Map<File, Image> images;
+  private static Map<File, Image> images;
   /* A Logger. */
   private static final Logger logger = Logger.getLogger(Image.class.getName());
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
+  private static final String path = "./images.ser";
 
-    /**
-     * An ImageManager with filePath.
-     * @param filePath the path where information is stored
-     * @throws ClassNotFoundException if the class path is not updated
-     * @throws IOException if stream to file with filePath cannot be written or closed
-     */
-  public ImageManager(String filePath) throws ClassNotFoundException, IOException {
+  /**
+   * An ImageManager with filePath.
+   *
+   * @throws ClassNotFoundException if the class path is not updated
+   * @throws IOException if stream to file with filePath cannot be written or closed
+   */
+  public ImageManager() throws ClassNotFoundException, IOException {
     images = new HashMap<>();
-    File file = new File(filePath);
+    File file = new File(path);
     logger.setLevel(Level.ALL);
     consoleHandler.setLevel(Level.ALL);
     logger.addHandler(consoleHandler);
     if (file.exists()) {
-      readFromFile(filePath);
+      readFromFile();
     } else {
       if (file.createNewFile()) {
-        logger.log(Level.FINE, "created images.ser");
+        logger.log(Level.FINE, path);
       }
     }
   }
 
-    /**
-     * Read from the file with path.
-     * @param path the path of the file to be read
-     * @throws ClassNotFoundException if the class path is not updated
-     */
-    public void readFromFile(String path) throws ClassNotFoundException {
-      FileManager fm = new FileManager();
-      try {
-        ObjectInput input = fm.readFromFile(path);
+  /**
+   * Read from the file with path.
+   *
+   * @throws ClassNotFoundException if the class path is not updated
+   */
+  public static void readFromFile() throws ClassNotFoundException {
+    FileManager fm = new FileManager();
+    try {
+      ObjectInput input = fm.readFromFile(path);
 
-        // deserialize the Map
-        images = (HashMap<File, Image>) input.readObject();
-        input.close();
-      } catch (IOException ex) {
-        logger.log(Level.WARNING, "Cannot read from images.ser");
-      }
+      // deserialize the Map
+      images = (HashMap<File, Image>) input.readObject();
+      input.close();
+    } catch (IOException ex) {
+      logger.log(Level.WARNING, "Cannot read from images.ser");
     }
+  }
 
-    /**
-     * Add an image record to images.
-     * @param record the Image that is about to be added
-     */
-  public void add(Image record) {
+  /**
+   * Add an image record to images.
+   *
+   * @param record the Image that is about to be added
+   */
+  public static void add(Image record) {
     images.put(record.getFile(), record);
   }
 
-    /**
-     * Save the changes to the file with filePath.
-     * @param filePath the path of the file that is about to be changed
-     * @throws IOException if stream to file with filePath cannot be written or closed
-     */
-    public void saveToFile(String filePath) throws IOException {
+  /**
+   * Save the changes to the file with filePath.
+   *
+   * @throws IOException if stream to file with filePath cannot be written or closed
+   */
+  public static void saveToFile() throws IOException {
 
-      FileManager fm = new FileManager();
-      ObjectOutput output = fm.saveToFile(filePath);
+    FileManager fm = new FileManager();
+    ObjectOutput output = fm.saveToFile(path);
 
-      // serialize the Map
-      output.writeObject(images);
-      output.close();
-    }
+    // serialize the Map
+    output.writeObject(images);
+    output.close();
+  }
 
-    /**
-     * Returns a map of images in this ImageManager.
-     * @return a map of images
-     */
-  public Map<File, Image> getList() {
+  /**
+   * Returns a map of images in this ImageManager.
+   *
+   * @return a map of images
+   */
+  public static Map<File, Image> getList() {
     return images;
   }
 
-    /**
-     * Return the String representation of this ImageManager.
-     * @return the String representation of this ImageManager
-     */
+  /**
+   * Return the String representation of this ImageManager.
+   *
+   * @return the String representation of this ImageManager
+   */
   @Override
   public String toString() {
     StringBuilder result = new StringBuilder();
@@ -105,21 +109,21 @@ public class ImageManager {
   }
 
 
-  public Image checkKey(File file) throws IOException {
-    if(!images.containsKey(file)) {
-      this.add(new Image(file));
-      saveToFile("./images.ser");
+  public static Image checkKey(File file) throws IOException {
+    if (!images.containsKey(file)) {
+      add(new Image(file));
+      saveToFile();
     }
     return images.get(file);
   }
 
-  public void updateKey(File f1, Image i) throws IOException {
+  public static void updateKey(File f1, Image i) throws IOException {
     images.remove(f1);
-    this.add(i);
-    this.saveToFile("./images.ser");
+    add(i);
+    saveToFile();
   }
 
-  public void renameImage(String filePath, String newName) throws IOException {
+  public static void renameImage(String filePath, String newName) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
 
@@ -128,7 +132,7 @@ public class ImageManager {
     updateKey(file, i);
   }
 
-  public void addTag(String filePath, String tag) throws IOException {
+  public static void addTag(String filePath, String tag) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
 
@@ -137,7 +141,7 @@ public class ImageManager {
     updateKey(file, i);
   }
 
-  public void deleteTag(String filePath, String tag) throws IOException {
+  public static void deleteTag(String filePath, String tag) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
 
@@ -147,7 +151,7 @@ public class ImageManager {
 
   }
 
-  public void move(String oldPath, String newPath) throws IOException {
+  public static void move(String oldPath, String newPath) throws IOException {
     File file = new File(oldPath);
     Image i = checkKey(file);
 
@@ -156,8 +160,9 @@ public class ImageManager {
     updateKey(file, i);
   }
 
-  public String getLog(String filePath) throws IOException, ClassNotFoundException {
+  public static String getLog(String filePath) throws IOException, ClassNotFoundException {
     File file = new File(filePath);
     return checkKey(file).getLog();
   }
 }
+
