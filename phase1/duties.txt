@@ -1,0 +1,12 @@
+Duties:
+
+Xueqing Yang: 
+
+Wen Li:
+
+Qiqi Xu:
+
+Xingyu Wang (wangx482):
+	Back-end for Model package.
+	Methods in Image. 	JavaDocs for methods in ImageManager
+	Bug fixing in image & ImageManager
