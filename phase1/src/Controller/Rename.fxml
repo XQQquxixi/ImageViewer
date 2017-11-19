@@ -10,13 +10,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RenameController">
     <children>
-        <Label fx:id="curName" layoutX="23.0" layoutY="39.0" prefHeight="37.0" prefWidth="236.0" />
+        <Label fx:id="curName" layoutX="23.0" layoutY="39.0" onInputMethodTextChanged="#TypeName" prefHeight="37.0" prefWidth="236.0" />
         <Label layoutX="23.0" layoutY="14.0" prefHeight="22.0" prefWidth="130.0" text="Current name:">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="inputName" layoutX="23.0" layoutY="94.0" onInputMethodTextChanged="#TypeName" prefHeight="23.0" prefWidth="165.0" />
+        <TextField fx:id="inputName" layoutX="23.0" layoutY="94.0" onKeyPressed="#TypeName" onKeyReleased="#TypeName" onKeyTyped="#TypeName" prefHeight="26.0" prefWidth="236.0" />
         <Label layoutX="23.0" layoutY="152.0" text="Go back to previous name?">
             <font>
                 <Font size="18.0" />
@@ -26,8 +26,7 @@
         <Button fx:id="ok" layoutX="334.0" layoutY="253.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="26.0" prefWidth="66.0" text="OK" />
         <ChoiceBox fx:id="prevNames" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="165.0" />
         <Button layoutX="193.0" layoutY="188.0" mnemonicParsing="false" onAction="#ChoosePrevName" prefHeight="26.0" prefWidth="66.0" text="Apply" />
-        <Button layoutX="193.0" layoutY="94.0" mnemonicParsing="false" onAction="#TypeName" prefHeight="26.0" prefWidth="66.0" text="Apply" />
-      <ImageView fitHeight="148.0" fitWidth="216.0" layoutX="270.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pic" fitHeight="148.0" fitWidth="216.0" layoutX="270.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="275.0" layoutY="163.0" prefHeight="37.0" prefWidth="206.0" text="tags" />
       <Button layoutX="300.0" layoutY="201.0" mnemonicParsing="false" text="Generate with current tags" />
     </children>
