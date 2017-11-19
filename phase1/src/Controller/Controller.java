@@ -48,9 +48,6 @@ public class Controller implements Initializable{
     @FXML
     private Button editTags;
 
-    @FXML
-    private Button history;
-
     private Map<String, File> nameToFile = new HashMap<>();
 
     private static ImageManager imageManager;
@@ -152,10 +149,6 @@ public class Controller implements Initializable{
         } else {
             throw new IndexOutOfBoundsException();
         }
-    }
-
-    public void ButtonHistory(ActionEvent event) {
-
     }
 
     @Override
