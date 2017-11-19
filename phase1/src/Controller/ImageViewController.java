@@ -51,6 +51,8 @@ public class ImageViewController {
     private TextField newTag;
     @FXML
     private Button history;
+    @FXML
+    private Button RemoveTag;
 
     private File curFile;
 
@@ -59,6 +61,8 @@ public class ImageViewController {
     private String path;
 
     private Controller controller;
+
+    private boolean withTag = true;
 
     void GetImage(File image) {
         curFile = image;
@@ -162,8 +166,12 @@ public class ImageViewController {
         String newName = selectedImage.getName() + ".jpg";
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
-
-        Name.setText(selectedImage.getName());
+        if (withTag) {
+            Name.setText(selectedImage.getName());
+        }
+        else {
+            Name.setText(selectedImage.getNameWithoutTag());
+        }
         controller.initData(oldName, newName);
     }
 
@@ -200,9 +208,12 @@ public class ImageViewController {
         String newName = selectedImage.getName() + ".jpg";
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
-
-        Name.setText(selectedImage.getName());
-
+        if (withTag){
+            Name.setText(selectedImage.getName());
+        }
+        else {
+            Name.setText(selectedImage.getNameWithoutTag());
+        }
         controller.initData(oldName, newName);
     }
 
@@ -231,5 +242,18 @@ public class ImageViewController {
             e.printStackTrace();
         }
     }
+
+    public void UpdateName() throws IOException{
+        withTag = !withTag;
+        if (withTag) {
+            RemoveTag.setText("With Tag");
+            Name.setText(selectedImage.getName());
+        }
+        if (!withTag) {
+            RemoveTag.setText("Without Tag");
+            Name.setText(selectedImage.getNameWithoutTag());
+        }
+    }
+
 
 }
