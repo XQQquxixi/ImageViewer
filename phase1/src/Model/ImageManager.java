@@ -3,6 +3,7 @@ package Model;
 import Utility.FileManager;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.ConsoleHandler;
@@ -163,6 +164,16 @@ public class ImageManager {
   public static String getLog(String filePath) throws IOException, ClassNotFoundException {
     File file = new File(filePath);
     return checkKey(file).getLog();
+  }
+
+  public ArrayList<String> getTags(String filepath) throws IOException {
+    File file = new File(filepath);
+    return checkKey(file).getCurrentTags();
+  }
+
+  public ArrayList<String> getPastName(String filepath) throws IOException {
+    File file = new File(filepath);
+    return checkKey(file).getPastNames();
   }
 }
 
