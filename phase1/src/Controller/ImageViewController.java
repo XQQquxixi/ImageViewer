@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.Optional;
 
 public class ImageViewController {
     @FXML
@@ -144,9 +145,21 @@ public class ImageViewController {
     public void InputNewTag() throws IOException{
         String input = newTag.getText();
         if (input != null) {
-            TagManager.addTag(input);
+            if (input.length() == 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Are you sure you want to add an empty tag?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK){
+                    // ... user chose OK
+                    TagManager.addTag(input);
+                    initData(selectedImage);
+                }
+            } else {
+                TagManager.addTag(input);
+                initData(selectedImage);
+            }
         }
-        initData(selectedImage);
     }
 
     public void AddTags() throws IOException{
