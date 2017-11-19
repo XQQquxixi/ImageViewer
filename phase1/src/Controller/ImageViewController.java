@@ -66,9 +66,11 @@ public class ImageViewController {
 
     void GetImage(File image) {
         curFile = image;
-        // TODO: what if there is already a Image instance for this file?
-        selectedImage = new Image(curFile);
-        //new Model.ImageRenameObserver(selectedImage);
+        try {
+            selectedImage = ImageManager.checkKey(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initData(selectedImage);
     }
 
