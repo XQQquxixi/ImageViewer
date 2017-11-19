@@ -124,13 +124,15 @@ public class ImageManager {
     saveToFile();
   }
 
-  public static void renameImage(String filePath, String newName) throws IOException {
+  public static Image renameImage(String filePath, String newName) throws IOException {
     File file = new File(filePath);
     Image i = checkKey(file);
 
     i.setName(newName);
 
     updateKey(file, i);
+
+    return i;
   }
 
   public static Image addTag(String filePath, String tag) throws IOException {
@@ -174,9 +176,14 @@ public class ImageManager {
     return checkKey(file).getCurrentTags();
   }
 
-  public ArrayList<String> getPastName(String filepath) throws IOException {
+  public static ArrayList<String> getPastName(String filepath) {
     File file = new File(filepath);
-    return checkKey(file).getPastNames();
+      try {
+          return checkKey(file).getPastNames();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      return null;
   }
 }
 
