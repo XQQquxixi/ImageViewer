@@ -147,9 +147,16 @@ public class Image extends Observable implements Serializable {
     if (currentTags.contains(tag)) {
       currentTags.remove(tag);
       int index = name.lastIndexOf(" @" + tag);
-      String newName =
-          getName().substring(0, index)
-              + getName().substring(index + (" @" + tag).length() + 1, getName().length());
+      int indexAfterTag = index + (" @" + tag).length() + 1;
+      String namePart = getName();
+      String newName;
+      if (indexAfterTag < namePart.length()) {
+        newName =
+            getName().substring(0, index)
+                + getName().substring(index + (" @" + tag).length() + 1, getName().length());
+      } else {
+        newName = getName().substring(0, index);
+      }
       this.setName(newName);
     } else {
       logger.log(Level.WARNING, "No such tag in this photo!");
