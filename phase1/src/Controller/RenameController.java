@@ -41,6 +41,8 @@ public class RenameController implements Initializable{
 
     private Controller controller;
 
+    private ImageViewController imageViewControllerontroller;
+
     private String oldName;
 
     void getImage(Image image) {
@@ -63,6 +65,10 @@ public class RenameController implements Initializable{
         this.controller = controller;
     }
 
+    void passIMController(ImageViewController controller) {
+        this.imageViewControllerontroller = controller;
+    }
+
     public void ButtonOkAction(ActionEvent event) throws IOException {
         //image.setName(curName.getText());
         try {
@@ -71,6 +77,7 @@ public class RenameController implements Initializable{
             e.printStackTrace();
         }
         controller.initData(oldName, image.getName() + ".jpg");
+        imageViewControllerontroller.GetImage(image.getFile());
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(image.getName() + ".jpg", image.getFile());
         FXMLLoader loader = new FXMLLoader();
