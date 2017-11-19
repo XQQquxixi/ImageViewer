@@ -172,7 +172,7 @@ public class Image extends Observable implements Serializable {
     Date now = new Date();
     SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     String date = dt.format(now);
-    String entry = name + "," + oldName+getExtension() +"," + date;
+    String entry = oldName + "," + name +"," + date;
     log.append(entry);
     log.append(System.lineSeparator());
   }
