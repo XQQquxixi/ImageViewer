@@ -230,7 +230,12 @@ public class Image extends Observable implements Serializable {
    * Set the name of this image to the name part, i.e., no tags in the file name.
    */
   public String getNameWithoutTag() {
-    int index = name.lastIndexOf(" @" + currentTags.get(0));
-    return getName().substring(0, index);
+    if (currentTags.isEmpty()){
+      return getName();
+    }
+    else {
+      int index = name.lastIndexOf(" @" + currentTags.get(0));
+      return getName().substring(0, index);
+    }
   }
 }
