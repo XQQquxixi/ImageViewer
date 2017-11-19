@@ -119,7 +119,6 @@ public class Controller implements Initializable{
             alert.setContentText("Sorry, you need to select a image. QwQ");
             alert.showAndWait();
         }
-        System.out.println(listView.getItems());
 //        }
 
     }
