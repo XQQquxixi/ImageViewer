@@ -25,11 +25,12 @@
             </font>
         </Label>
         <Button fx:id="ok" layoutX="476.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="26.0" prefWidth="106.0" text="OK" />
-        <Button fx:id="editTags" layoutX="27.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonEditTags" prefHeight="26.0" prefWidth="82.0" text="Edit Tags" />
-        <Label layoutX="300.0" layoutY="23.0" prefHeight="36.0" prefWidth="281.0" text="Please select a picture:">
+        <Button fx:id="editTags" layoutX="27.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonEditTags" prefHeight="26.0" prefWidth="143.0" text="Edit Your Tag Pool" />
+        <Label layoutX="300.0" layoutY="14.0" prefHeight="26.0" prefWidth="281.0" text="Please select a picture:&#10;">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
+      <Label layoutX="300.0" layoutY="41.0" text="(and hit OK to continue)" />
     </children>
 </AnchorPane>
