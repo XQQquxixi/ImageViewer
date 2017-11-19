@@ -60,7 +60,7 @@ public class Controller implements Initializable{
     }
 
     public void Button1Action(ActionEvent event) throws Exception{
-        File directory = new File(initDirectory.getText());
+        File directory = new File(initDirectory.getText().replaceAll("/", "//"));
         FileChooser fc = new FileChooser();
         if (directory.exists() && directory.isDirectory() || initDirectory.getText().equals("")) {
             if (initDirectory.getText().equals("")) {
