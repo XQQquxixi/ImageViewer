@@ -67,9 +67,15 @@ public class ImageViewController {
     private void initData(Image image){
 //        selectedImage = image;
         Name.setText(image.getName());
-        Collection<String> col = image.getCurrentTags();
-        listView.getItems().clear();
-        listView.getItems().addAll(col);
+        try {
+            Collection<String> col = ImageManager.getTags(path);
+            listView.getItems().clear();
+            listView.getItems().addAll(col);
+        }
+        catch (IOException e){
+            listView.getItems().addAll();
+            e.printStackTrace();
+        }
         // Create a listView for store all tags.
         Collection<String> tags = TagManager.getTagList();
         Tags.getItems().clear();
@@ -142,8 +148,11 @@ public class ImageViewController {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
         for (String tag : delete) {
             ImageManager.deleteTag(selectedImage.getFile().getAbsolutePath(), tag);
+            listView.getItems().remove(tag);
+            Tags.getItems().clear();
+            Tags.getItems().addAll();
         }
-        initData(selectedImage);
+        Name.setText(selectedImage.getName());
     }
 
     public void InputNewTag() throws IOException{
@@ -171,8 +180,10 @@ public class ImageViewController {
         ObservableList<String> list = Tags.getSelectionModel().getSelectedItems();
         for (String tag : list) {
             ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), tag);
+            listView.getItems().add(tag);
         }
-        initData(selectedImage);
+        Name.setText(selectedImage.getName());
+        
     }
 
     public void ButtonHistory(ActionEvent event) {
