@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Image;
-import Model.ImageRenameObserver;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

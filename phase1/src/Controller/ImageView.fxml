@@ -5,16 +5,20 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ImageViewController">
     <bottom>
-        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+        <HBox prefHeight="55.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="PREV" mnemonicParsing="false" onAction="#GoBack" prefHeight="50.0" prefWidth="200.0" text="PREV" />
+                <Button fx:id="PREV" mnemonicParsing="false" onAction="#GoBack" prefHeight="39.0" prefWidth="186.0" text="PREV" />
                 <Button fx:id="Move" mnemonicParsing="false" onAction="#MoveFile" prefHeight="50.0" prefWidth="200.0" text="MOVE" />
                 <Button fx:id="rename" mnemonicParsing="false" onAction="#Rename" prefHeight="50.0" prefWidth="200.0" text="RENAME" />
                 <Button fx:id="NEXT" mnemonicParsing="false" onAction="#GoNext" prefHeight="50.0" prefWidth="200.0" text="NEXT" />
@@ -28,22 +32,46 @@
     <left>
         <VBox prefHeight="254.0" prefWidth="116.0" BorderPane.alignment="CENTER">
             <children>
-                <ListView fx:id="listView" prefHeight="312.0" prefWidth="157.0" />
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                        <Button fx:id="Delete" mnemonicParsing="false" onAction="#DeleteTag" text="DELETE" />
-                        <Button fx:id="Add" minWidth="39.0" mnemonicParsing="false" onAction="#OpenConfirmBox" prefHeight="0.0" text="ADD" />
-                    </buttons>
+               <buttons>
+                  <Button mnemonicParsing="false" text="Delete" />
+               </buttons>
                 </ButtonBar>
+            <ListView prefHeight="258.0" prefWidth="93.0" />
             </children>
         </VBox>
     </left>
     <center>
-        <VBox prefHeight="300.0" prefWidth="252.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="300.0" prefWidth="365.0" BorderPane.alignment="CENTER">
             <children>
-                <Label prefHeight="32.0" prefWidth="371.0" text="Name" fx:id="Name"/>
-                <ImageView fx:id="show" fitHeight="273.0" fitWidth="428.0" pickOnBounds="true" preserveRatio="true" />
+                <Label fx:id="Name" prefHeight="30.0" prefWidth="338.0" text="Name" />
+                <ImageView fx:id="show" fitHeight="270.0" fitWidth="341.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </VBox>
     </center>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="17.0" prefWidth="115.0" text="Add Tag:" />
+            <ListView prefHeight="283.0" prefWidth="115.0" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="New:" />
+                  <TextField GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="52.0" text="Input" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>
