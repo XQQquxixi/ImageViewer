@@ -251,6 +251,7 @@ public class ImageViewController {
         }
         if (!withTag) {
             RemoveTag.setText("With Tag");
+            System.out.println(selectedImage.getCurrentTags());
             Name.setText(selectedImage.getNameWithoutTag());
         }
     }
