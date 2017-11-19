@@ -48,10 +48,15 @@ public class Controller implements Initializable{
     @FXML
     private Button editTags;
 
-    private Map<String, File> nameToFile = new HashMap<>();
+    static Map<String, File> nameToFile = new HashMap<>();
 
-    private static ImageManager imageManager;
+    static ImageManager imageManager;
 
+    public void initData(String oldName, String newName) {
+        System.out.println(listView.getItems());
+//        int position = listView.getItems().indexOf(oldName);
+//        listView.getItems().set(position, newName);
+    }
 
     public void Button1Action(ActionEvent event) throws Exception{
         File directory = new File(initDirectory.getText());
