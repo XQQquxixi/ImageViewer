@@ -260,12 +260,16 @@ public class ImageManager {
    * filePath.
    *
    * @param filepath the image file to check the past names of.
-   * @return an ArrayList of all past names
-   * @throws IOException if saving serialized file fails.
+   * @return an ArrayList of all past names 
    */
-  public static ArrayList<String> getPastName(String filepath) throws IOException {
+  public static ArrayList<String> getPastName(String filepath) {
     File file = new File(filepath);
-    return checkKey(file).getPastNames();
+      try {
+          return checkKey(file).getPastNames();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      return null;
   }
 }
 
