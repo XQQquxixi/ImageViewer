@@ -75,7 +75,6 @@ public class ImageViewController {
     void initData(Image image){
 //        selectedImage = image;
         Name.setText(image.getName());
-        System.out.println(Name.getText());
         path = image.getFile().getAbsolutePath();
         try {
             Collection<String> col = ImageManager.getTags(path);
@@ -115,6 +114,7 @@ public class ImageViewController {
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
         RenameController rename = loader.getController();
+        rename.passController(controller);
         rename.getImage(selectedImage);
         primaryStage.setTitle("Rename");
         primaryStage.setScene(new Scene(root, 500, 300));
@@ -161,7 +161,6 @@ public class ImageViewController {
         String newName = selectedImage.getName() + ".jpg";
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
-        System.out.println(selectedImage.getName());
 
         Name.setText(selectedImage.getName());
         controller.initData(oldName, newName);
@@ -200,7 +199,6 @@ public class ImageViewController {
         String newName = selectedImage.getName() + ".jpg";
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
-        System.out.println(Controller.nameToFile);
 
         Name.setText(selectedImage.getName());
 
