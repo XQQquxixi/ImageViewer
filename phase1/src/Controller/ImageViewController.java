@@ -164,10 +164,6 @@ public class ImageViewController {
         System.out.println(selectedImage.getName());
 
         Name.setText(selectedImage.getName());
-        // ha
-        FXMLLoader loader = new FXMLLoader();
-        loader.load(getClass().getResource("sample.fxml").openStream());
-        Controller controller = loader.getController();
         controller.initData(oldName, newName);
     }
 
@@ -208,9 +204,6 @@ public class ImageViewController {
 
         Name.setText(selectedImage.getName());
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.load(getClass().getResource("sample.fxml").openStream());
-        Controller controller = loader.getController();
         controller.initData(oldName, newName);
     }
 
