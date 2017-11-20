@@ -73,7 +73,7 @@ public class Controller implements Initializable{
                 fc.setInitialDirectory(directory);
             }
             fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg", "*.bmp", "*.BMP", "*.PNG", "*.JPG", "*.JPEG"));
 
             List<File> selectedFiles = fc.showOpenMultipleDialog(null);
             if (selectedFiles != null) {
