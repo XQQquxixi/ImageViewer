@@ -29,6 +29,8 @@ public class ImageManager {
    * @throws IOException if stream to file with filePath cannot be written or closed
    */
   public ImageManager() throws ClassNotFoundException, IOException {
+    //Code adapted from Paul's slides
+    //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     images = new HashMap<>();
     File file = new File(path);
     logger.setLevel(Level.ALL);
@@ -49,6 +51,8 @@ public class ImageManager {
    * @throws ClassNotFoundException if the class path is not updated
    */
   private static void readFromFile() throws ClassNotFoundException {
+    //Code adapted from Paul's slides
+    //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     try {
       ObjectInput input = fm.readFromFile(path);
@@ -76,22 +80,14 @@ public class ImageManager {
    * @throws IOException if stream to file with filePath cannot be written or closed
    */
   private static void saveToFile() throws IOException {
-
+    //Code adapted from Paul's slides
+    //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     ObjectOutput output = fm.saveToFile(path);
 
     // serialize the Map
     output.writeObject(images);
     output.close();
-  }
-
-  /**
-   * Returns a map of images in this ImageManager.
-   *
-   * @return a map of images
-   */
-  public static Map<File, Image> getList() {
-    return images;
   }
 
   /**

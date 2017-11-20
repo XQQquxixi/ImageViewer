@@ -36,8 +36,10 @@ public class TagManager {
    * Initialize a TagManager and creates a serialized file.
    */
   public TagManager() throws ClassNotFoundException, IOException {
-    logger.setLevel(Level.ALL);
-    consoleHandler.setLevel(Level.ALL);
+    //Code adapted from Paul's slides
+    //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
+    logger.setLevel(Level.OFF);
+    consoleHandler.setLevel(Level.OFF);
     logger.addHandler(consoleHandler);
 
     File file = new File(filePath);
@@ -97,7 +99,8 @@ public class TagManager {
    * @param filePath the path to save the file.
    */
   private static void saveToFile(String filePath) throws IOException {
-
+    //Code adapted from Paul's slides
+    //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     ObjectOutput output = fm.saveToFile(filePath);
     // serialize the Map
@@ -111,6 +114,8 @@ public class TagManager {
    * @param path the path of this file to read.
    */
   private void readFromFile(String path) throws ClassNotFoundException {
+    //Code adapted from Paul's slides
+    //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     try {
       ObjectInput input = fm.readFromFile(path);
@@ -121,6 +126,11 @@ public class TagManager {
     }
   }
 
+  /**
+   * Return the String representation of this TagManager.
+   *
+   * @return the String representation of this TagManager
+   */
   public String toString() {
     StringBuilder result = new StringBuilder();
     for (String s: tagList) {

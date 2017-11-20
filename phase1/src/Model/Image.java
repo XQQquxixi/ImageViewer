@@ -40,12 +40,12 @@ public class Image extends Observable implements Serializable {
    *
    * @param file the image's file
    */
-  public Image(File file) {
+  Image(File file) {
     this.name = file.getName();
     this.file = file;
     currentTags = new ArrayList<>();
-    logger.setLevel(Level.ALL);
-    consoleHandler.setLevel(Level.ALL);
+    logger.setLevel(Level.OFF);
+    consoleHandler.setLevel(Level.OFF);
     logger.addHandler((consoleHandler));
   }
 
@@ -83,7 +83,7 @@ public class Image extends Observable implements Serializable {
    *
    * @return the list of tags this image has
    */
-  public ArrayList<String> getCurrentTags() {
+  ArrayList<String> getCurrentTags() {
     return currentTags;
   }
 
