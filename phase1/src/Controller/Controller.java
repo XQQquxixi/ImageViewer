@@ -28,6 +28,10 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
 
+    /**
+     * All codes with Alert are learned from website: http://code.makery.ch/blog/javafx-dialogs-official/
+     */
+
     private static final double DISTANCE = 50.0;
 
     @FXML
