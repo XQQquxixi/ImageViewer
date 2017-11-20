@@ -24,6 +24,11 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class ImageViewController {
+
+    /**
+     * All codes with Alert are learned from website: http://code.makery.ch/blog/javafx-dialogs-official/
+     */
+    
     @FXML
     private Button Move;
     @FXML
