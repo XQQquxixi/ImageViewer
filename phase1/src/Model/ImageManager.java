@@ -20,7 +20,7 @@ public class ImageManager {
   private static final Logger logger = Logger.getLogger(Image.class.getName());
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
-  private static final String path = "./im  ages.ser";
+  private static final String path = "./images.ser";
 
   /**
    * An ImageManager with filePath.
@@ -33,8 +33,8 @@ public class ImageManager {
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     images = new HashMap<>();
     File file = new File(path);
-    logger.setLevel(Level.ALL);
-    consoleHandler.setLevel(Level.ALL);
+    logger.setLevel(Level.OFF);
+    consoleHandler.setLevel(Level.OFF);
     logger.addHandler(consoleHandler);
     if (file.exists()) {
       readFromFile();

@@ -21,7 +21,7 @@ public class TagManager {
   /**
    * The string path of the serialized file of this TagManager.
    */
-  private static String filePath = "./tm.ser";
+  private static String filePath = "./tags.ser";
   /**
    * A Logger.
    */
