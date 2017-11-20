@@ -56,8 +56,6 @@ public class ImageViewController {
     private TextField newTag;
     @FXML
     private Button history;
-    @FXML
-    private Button RemoveTag;
 
     private File curFile;
 
@@ -67,7 +65,6 @@ public class ImageViewController {
 
     private Controller controller;
 
-    private boolean withTag = true;
 
     void GetImage(File image) {
         curFile = image;
@@ -134,6 +131,7 @@ public class ImageViewController {
     }
 
     public void MoveFile() throws IOException {
+        // Part of codes in this method is copied from http://java-buddy.blogspot.ca/2013/03/javafx-simple-example-of.html
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose directory which you wanna move into");
         File selectedDirectory =
@@ -164,23 +162,16 @@ public class ImageViewController {
 
     public void DeleteTag() throws IOException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
-        //ha
         String oldName = selectedImage.getName() + selectedImage.getExtension();
 
         for (String tag : delete) {
             selectedImage = ImageManager.deleteTag(selectedImage.getFile().getAbsolutePath(), tag);
             listView.getItems().remove(tag);
         }
-        // ha
         String newName = selectedImage.getName() + selectedImage.getExtension();
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
-        if (withTag) {
-            Name.setText(selectedImage.getName());
-        }
-        else {
-            Name.setText(selectedImage.getNameWithoutTag());
-        }
+        Name.setText(selectedImage.getName());
         controller.initData(oldName, newName);
     }
 
@@ -217,12 +208,7 @@ public class ImageViewController {
         String newName = selectedImage.getName() + selectedImage.getExtension();
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
-        if (withTag){
-            Name.setText(selectedImage.getName());
-        }
-        else {
-            Name.setText(selectedImage.getNameWithoutTag());
-        }
+        Name.setText(selectedImage.getNameWithoutTag());
         controller.initData(oldName, newName);
     }
 
@@ -249,18 +235,6 @@ public class ImageViewController {
             alert.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void UpdateName() throws IOException{
-        withTag = !withTag;
-        if (withTag) {
-            RemoveTag.setText("Without Tag");
-            Name.setText(selectedImage.getName());
-        }
-        if (!withTag) {
-            RemoveTag.setText("With Tag");
-            Name.setText(selectedImage.getNameWithoutTag());
         }
     }
 

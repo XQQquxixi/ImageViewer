@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ImageViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ImageViewController">
     <bottom>
         <HBox prefHeight="55.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
@@ -47,7 +47,6 @@
                 <HBox prefHeight="34.0" prefWidth="377.0">
                     <children>
                         <Label fx:id="Name" prefHeight="30.0" prefWidth="338.0" text="Name" />
-                        <Button fx:id="RemoveTag" mnemonicParsing="false" onAction="#UpdateName" prefHeight="29.0" prefWidth="174.0" text="Without Tag" />
                     </children>
                 </HBox>
                 <ImageView fx:id="show" fitHeight="270.0" fitWidth="341.0" pickOnBounds="true" preserveRatio="true" />
