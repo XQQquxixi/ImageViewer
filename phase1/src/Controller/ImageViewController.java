@@ -208,7 +208,7 @@ public class ImageViewController {
         String newName = selectedImage.getName() + selectedImage.getExtension();
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(newName, selectedImage.getFile());
-        Name.setText(selectedImage.getNameWithoutTag());
+        Name.setText(selectedImage.getName());
         controller.initData(oldName, newName);
     }
 

@@ -55,7 +55,7 @@ public class RenameController implements Initializable{
         prevNames.getItems().addAll(listOfPrevNames);
         inputName.setText(image.getName());
         curName.setText(image.getName());
-        oldName = image.getName() + ".jpg";
+        oldName = image.getName() + image.getExtension();
         pic.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
@@ -85,7 +85,7 @@ public class RenameController implements Initializable{
         controller.initData(oldName, image.getName() + ".jpg");
         imageViewController.GetImage(image.getFile());
         Controller.nameToFile.remove(oldName);
-        Controller.nameToFile.put(image.getName() + ".jpg", image.getFile());
+        Controller.nameToFile.put(image.getName() + image.getExtension(), image.getFile());
         FXMLLoader loader = new FXMLLoader();
         loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController controller = loader.getController();
