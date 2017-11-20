@@ -1,4 +1,5 @@
-# cd into the directory where you cloned our project, then you need to copy and paste following lines into your terminal.
+# cd into the directory where you cloned our project, then you need to copy and paste following lines into your
+terminal.
 
 cd group_0473
 cd phase1
@@ -8,11 +9,13 @@ java Controller.Main
 
 
 # Some Instruction tips for using App
-1. You can choose more than 1 files and add them into listView when you open directory in MainController.
-2. When you operate 1 image, you can add tag from existing tags in the right side.
-3. Notice, if you input new tag into this image, you need to press "input" firstly and it will be added it into
-TagManager. Then, you can choose the tag and press "Add" after that.
-4. If you want to change name, press Button "Rename" and then it will go to other Scene. You can also view past names in
-this Scene.
-6. You can view history of this image when you press Button "History..."
-7. You can operate next image when you press "NEXT" and you can operate previous image when you press "PREV".
+1. In the welcome interface, you can enter a directory or just hit open. You can choose more than 1 files and add
+ them into the list on the right side.
+2. In the welcome interface, you can select a image and proceed other operations on it by hitting OK, or you can
+ edit you tag pool.
+3. After hitting OK on a image, you can add tag from existing tags on the right side, or enter a new tag to
+ the pool (hit Input first) and then add it to your image.
+4. If you want to rename your image, press Button "Rename" and then it will lead you to another window, in which
+ you can edit the name or switch to an older version.
+5. You can also hit PREV or NEXT to go to other images in the list you selected in the welcome interface.
+6. You can view history of this image when you press Button "History...".
