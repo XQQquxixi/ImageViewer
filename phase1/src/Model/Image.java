@@ -227,7 +227,9 @@ public class Image extends Observable implements Serializable {
       for (String log : listOfLog) {
         String oldFullName = log.split(",")[0];
         String oldName = oldFullName.substring(0, oldFullName.lastIndexOf(getExtension()));
-        pastNames.add(oldName);
+        if (!pastNames.contains(oldName) && !oldName.equals(name.substring(0, name.lastIndexOf(".")))) {
+          pastNames.add(oldName);
+        }
       }
     }
     Collections.reverse(pastNames);

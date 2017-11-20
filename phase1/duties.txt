@@ -12,7 +12,11 @@ Wen Li (liwen21):
     Some methods in ImageViewController.java and ImageView.fxml
     Bug fixing in all classes in Controller package
 
-Qiqi Xu:
+Qiqi Xu(xuqiqi);
+    Back-end for Model and Utility package.
+    Explored design patterns and implemented logging system.
+    Collaborated with Xingyu writing JavaDocs and UML diagram.
+    Fixed bugs in all classes in Model and Utility.
 
 Xingyu Wang (wangx482):
 	Back-end for Model package.
