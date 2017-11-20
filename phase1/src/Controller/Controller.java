@@ -112,12 +112,19 @@ public class Controller implements Initializable{
         ImageViewController imageView = loader.getController();
         imageView.passController(this);
         if (listView.getSelectionModel().getSelectedItem() != null) {
-            imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
-            primaryStage.setTitle("Image Viewer");
-            primaryStage.setScene(new Scene(root, 600, 400));
-            primaryStage.setX(window.getX() + DISTANCE);
-            primaryStage.setY(window.getY() + DISTANCE);
-            primaryStage.show();
+            if (nameToFile.get(listView.getSelectionModel().getSelectedItem()).exists()) {
+                imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
+                primaryStage.setTitle("Image Viewer");
+                primaryStage.setScene(new Scene(root, 600, 400));
+                primaryStage.setX(window.getX() + DISTANCE);
+                primaryStage.setY(window.getY() + DISTANCE);
+                primaryStage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Uh-oh");
+                alert.setContentText("This image does not exist anymore!");
+                alert.showAndWait();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Uh-oh");
