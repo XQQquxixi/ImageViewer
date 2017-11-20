@@ -100,8 +100,10 @@ public class Controller implements Initializable{
     }
 
     public void MouseClickList(MouseEvent event) {
-        Image image = new Image(nameToFile.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
-        iv1.setImage(image);
+        if (listView.getSelectionModel().getSelectedItem() != null) {
+            Image image = new Image(nameToFile.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
+            iv1.setImage(image);
+        }
     }
 
     public void ButtonOkAction(ActionEvent event) throws IOException {
