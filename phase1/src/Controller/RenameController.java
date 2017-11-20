@@ -64,7 +64,9 @@ public class RenameController implements Initializable{
     }
 
     public void ChoosePrevName(ActionEvent event) {
-        curName.setText(prevNames.getValue());
+        if (prevNames.getValue() != null) {
+            curName.setText(prevNames.getValue());
+        }
     }
 
     void passController(Controller controller) {
@@ -82,7 +84,7 @@ public class RenameController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        controller.initData(oldName, image.getName() + ".jpg");
+        controller.initData(oldName, image.getName() + image.getExtension());
         imageViewController.GetImage(image.getFile());
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(image.getName() + image.getExtension(), image.getFile());
