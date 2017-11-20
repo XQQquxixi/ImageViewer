@@ -1,0 +1,18 @@
+# cd into the directory where you cloned our project, then you need to copy and paste following lines into your terminal.
+
+cd group_0473
+cd phase1
+cd src
+javac */*.java -Xlint
+java Controller.Main
+
+# Some Instruction tips for using App
+1. You can choose more than 1 files and add them into listView when you open directory in MainController.
+2. When you operate 1 image, you can add tag from existing tags in the right side.
+3. Notice, if you input new tag into this image, you need to press "input" firstly and it will be added it into
+TagManager. Then, you can choose the tag and press "Add" after that.
+4. You can use Button "With/Without Tags" to view name with tags or without tags. Since sometimes you want to view a
+name without any tag. But notice, it is for viewing, the name of this image will not change when you press this Button.
+5. If you want to change name, press Button "Rename" and then it will go to other Scene. You can also view past names in
+this Scene.
+6.
