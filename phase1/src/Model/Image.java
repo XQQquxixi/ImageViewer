@@ -152,12 +152,17 @@ public class Image extends Observable implements Serializable {
       int indexAfterTag = index + (" @" + tag).length();
       String namePart = getName();
       String newName;
-      if (indexAfterTag < namePart.length() - 1) {
-        newName =
-            getName().substring(0, index)
-                + getName().substring(indexAfterTag, getName().length());
-      } else {
-        newName = getName().substring(0, index);
+      if (index == -1) {
+        newName = this.getName();
+      }
+      else {
+        if (indexAfterTag < namePart.length() - 1) {
+          newName =
+                  getName().substring(0, index)
+                          + getName().substring(indexAfterTag, getName().length());
+        } else {
+          newName = getName().substring(0, index);
+        }
       }
       this.setName(newName);
     } else {
