@@ -33,6 +33,9 @@ public class Image extends Observable implements Serializable {
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
 
+  /**
+   * A log of all changes
+   */
   private StringBuilder log = new StringBuilder();
 
   /**
@@ -158,8 +161,8 @@ public class Image extends Observable implements Serializable {
       else {
         if (indexAfterTag < namePart.length() - 1) {
           newName =
-                  getName().substring(0, index)
-                          + getName().substring(indexAfterTag, getName().length());
+              getName().substring(0, index)
+                  + getName().substring(indexAfterTag, getName().length());
         } else {
           newName = getName().substring(0, index);
         }
@@ -239,10 +242,5 @@ public class Image extends Observable implements Serializable {
     }
     Collections.reverse(pastNames);
     return pastNames;
-  }
-
-  public ArrayList<String> getPastTags(String name) {
-    ArrayList<String> tags = new ArrayList<>();
-    tags = name.split("@");
   }
 }
