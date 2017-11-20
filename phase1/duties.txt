@@ -11,11 +11,11 @@ Wen Li (liwen21):
     Classes: TagsView.java, TagsView.fxml
     Some methods in ImageViewController.java and ImageView.fxml
     Bug fixing in all classes in Controller package
-    Write help.txt
 
 Qiqi Xu(xuqiqi);
     Back-end for Model and Utility package.
-    Explored design patterns and implemented logging system.
+    Explored design patterns. Implemented TagManager, FileManager and ImageManager
+    Implemented renaming and logging system.
     Collaborated with Xingyu writing JavaDocs and UML diagram.
     Fixed bugs in all classes in Model and Utility.
 
