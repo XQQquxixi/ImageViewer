@@ -250,5 +250,16 @@ public class ImageManager {
     }
     return null;
   }
+
+  public static ArrayList<String > getPastTags(String filePath, String name) {
+    File file = new File(filePath);
+    try {
+      return checkKey(file).getPastTags(name);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+  }
 }
 
