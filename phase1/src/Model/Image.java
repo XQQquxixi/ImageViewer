@@ -108,7 +108,7 @@ public class Image extends Observable implements Serializable {
     } else {
       logger.log(Level.WARNING, "File rename failed");
     }
-    this.name = name + getExtension();
+    this.name = newFile.getName();
     this.file = newFile;
     updateLog(oldName);
   }
