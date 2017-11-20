@@ -20,6 +20,7 @@ public class ImageManager {
   private static final Logger logger = Logger.getLogger(Image.class.getName());
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
+  /* The path that stores info of all images. */
   private static final String path = "./images.ser";
 
   /**
@@ -29,10 +30,12 @@ public class ImageManager {
    * @throws IOException if stream to file with filePath cannot be written or closed
    */
   public ImageManager() throws ClassNotFoundException, IOException {
+    // Code adapted from Paul's slide
+    // http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     images = new HashMap<>();
     File file = new File(path);
-    logger.setLevel(Level.ALL);
-    consoleHandler.setLevel(Level.ALL);
+    logger.setLevel(Level.OFF);
+    consoleHandler.setLevel(Level.OFF);
     logger.addHandler(consoleHandler);
     if (file.exists()) {
       readFromFile();
@@ -48,12 +51,13 @@ public class ImageManager {
    *
    * @throws ClassNotFoundException if the class path is not updated
    */
-  public static void readFromFile() throws ClassNotFoundException {
+  private static void readFromFile() throws ClassNotFoundException {
+    // Code adapted from Paul's slide
+    // http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     try {
       ObjectInput input = fm.readFromFile(path);
 
-      // deserialize the Map
       images = (HashMap<File, Image>) input.readObject();
       input.close();
     } catch (IOException ex) {
@@ -66,7 +70,7 @@ public class ImageManager {
    *
    * @param record the Image that is about to be added
    */
-  public static void add(Image record) {
+  private static void add(Image record) {
     images.put(record.getFile(), record);
   }
 
@@ -75,23 +79,14 @@ public class ImageManager {
    *
    * @throws IOException if stream to file with filePath cannot be written or closed
    */
-  public static void saveToFile() throws IOException {
-
+  private static void saveToFile() throws IOException {
+    // Code adapted from Paul's slide
+    // http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     ObjectOutput output = fm.saveToFile(path);
 
-    // serialize the Map
     output.writeObject(images);
     output.close();
-  }
-
-  /**
-   * Returns a map of images in this ImageManager.
-   *
-   * @return a map of images
-   */
-  public static Map<File, Image> getList() {
-    return images;
   }
 
   /**
@@ -134,7 +129,7 @@ public class ImageManager {
    * @param i the Image to add
    * @throws IOException if saving serialized file fails.
    */
-  public static void updateKey(File f1, Image i) throws IOException {
+  private static void updateKey(File f1, Image i) throws IOException {
     images.remove(f1);
     add(i);
     saveToFile();

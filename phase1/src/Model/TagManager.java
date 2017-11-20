@@ -17,7 +17,7 @@ public class TagManager {
   /**
    * The list of all existing tags.
    */
-  public static ArrayList<String> tagList = new ArrayList<>();
+  static ArrayList<String> tagList = new ArrayList<>();
   /**
    * The string path of the serialized file of this TagManager.
    */
@@ -36,8 +36,10 @@ public class TagManager {
    * Initialize a TagManager and creates a serialized file.
    */
   public TagManager() throws ClassNotFoundException, IOException {
+    // Code adapted from Paul's slide
+    // http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     logger.setLevel(Level.ALL);
-    consoleHandler.setLevel(Level.ALL);
+    consoleHandler.setLevel(Level.OFF);
     logger.addHandler(consoleHandler);
 
     File file = new File(filePath);
@@ -96,11 +98,11 @@ public class TagManager {
    *
    * @param filePath the path to save the file.
    */
-  public static void saveToFile(String filePath) throws IOException {
-
+  private static void saveToFile(String filePath) throws IOException {
+    // Code adapted from Paul's slide
+    // http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     ObjectOutput output = fm.saveToFile(filePath);
-    // serialize the Map
     output.writeObject(tagList);
     output.close();
   }
@@ -110,7 +112,9 @@ public class TagManager {
    *
    * @param path the path of this file to read.
    */
-  public void readFromFile(String path) throws ClassNotFoundException {
+  private void readFromFile(String path) throws ClassNotFoundException {
+    // Code adapted from Paul's slide
+    // http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     try {
       ObjectInput input = fm.readFromFile(path);
@@ -121,6 +125,10 @@ public class TagManager {
     }
   }
 
+  /**
+   * Returns a String representation of this tagList.
+   * @return a String representation of tagList
+   */
   public String toString() {
     StringBuilder result = new StringBuilder();
     for (String s: tagList) {
