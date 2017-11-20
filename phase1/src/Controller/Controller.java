@@ -54,9 +54,9 @@ public class Controller implements Initializable{
 
     static Map<String, File> nameToFile = new HashMap<>();
 
-    static ImageManager imageManager;
+    private static ImageManager imageManager;
 
-    static TagManager tagManager;
+    private static TagManager tagManager;
 
     public void initData(String oldName, String newName) {
         int position = listView.getItems().indexOf(oldName);
