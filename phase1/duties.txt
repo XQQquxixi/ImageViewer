@@ -11,6 +11,7 @@ Wen Li (liwen21):
     Classes: TagsView.java, TagsView.fxml
     Some methods in ImageViewController.java and ImageView.fxml
     Bug fixing in all classes in Controller package
+    Write help.txt
 
 Qiqi Xu(xuqiqi);
     Back-end for Model and Utility package.
