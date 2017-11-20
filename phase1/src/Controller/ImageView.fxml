@@ -46,11 +46,10 @@
             <children>
                 <HBox prefHeight="34.0" prefWidth="377.0">
                     <children>
-                        <Label fx:id="Name" prefHeight="30.0" prefWidth="338.0" text="Name" />
-                        <Button fx:id="RemoveTag" mnemonicParsing="false" onAction="#UpdateName" prefHeight="29.0" prefWidth="174.0" text="Without Tag" />
+                        <Label fx:id="Name" prefHeight="30.0" prefWidth="385.0" text="Name" />
                     </children>
                 </HBox>
-                <ImageView fx:id="show" fitHeight="270.0" fitWidth="341.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="show" fitHeight="313.0" fitWidth="387.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </VBox>
     </center>
