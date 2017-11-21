@@ -77,7 +77,7 @@ public class RenameController implements Initializable{
     public void ButtonOkAction(ActionEvent event) throws IOException {
         //image.setName(curName.getText());
         try {
-            if (!curName.getText().equals(oldName)) {
+            if (!(curName.getText() + image.getExtension()).equals(oldName)) {
                 image = ImageManager.renameImage(image.getFile().getAbsolutePath(), curName.getText());
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
