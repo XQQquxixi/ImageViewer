@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -80,7 +77,15 @@ public class RenameController implements Initializable{
     public void ButtonOkAction(ActionEvent event) throws IOException {
         //image.setName(curName.getText());
         try {
-            image = ImageManager.renameImage(image.getFile().getAbsolutePath(), curName.getText());
+            if (!curName.getText().equals(oldName)) {
+                image = ImageManager.renameImage(image.getFile().getAbsolutePath(), curName.getText());
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Oops");
+                alert.setHeaderText(null);
+                alert.setContentText("You didn't change anything!");
+                alert.showAndWait();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
