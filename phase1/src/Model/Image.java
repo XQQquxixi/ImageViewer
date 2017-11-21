@@ -243,4 +243,26 @@ public class Image extends Observable implements Serializable {
     Collections.reverse(pastNames);
     return pastNames;
   }
+
+  /**
+   * Return the tag part of the file name.
+   *
+   * @return the tag part of the file name
+   */
+  String getTagPartOfName() {
+    int i = getName().indexOf(" @");
+    return getName().substring(i, getName().length());
+  }
+
+  /**
+   * Return an ArrayList of tags extracted from name
+   *
+   * @param name A string of tags separated and started by " @"
+   * @return An ArrayList of tags
+   */
+  ArrayList<String> getTagsFromName(String name) {
+    ArrayList<String> result = new ArrayList<>(Arrays.asList(name.split(" @")));
+    result.remove(0);
+    return result;
+  }
 }
