@@ -50,6 +50,7 @@ public class TagsView implements Initializable{
         if (input != null) {
             TagManager.addTag(input);
         }
+        newTag.clear();
         initData();
     }
 }
