@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,10 +43,11 @@ public class Image extends Observable implements Serializable {
    *
    * @param file the image's file
    */
-  Image(File file) {
+  Image(File file) throws IOException {
     this.name = file.getName();
     this.file = file;
     currentTags = new ArrayList<>();
+    restoreTag(getName());
     logger.setLevel(Level.OFF);
     consoleHandler.setLevel(Level.OFF);
     logger.addHandler((consoleHandler));
@@ -260,13 +260,13 @@ public class Image extends Observable implements Serializable {
    *
    * @return An ArrayList of tags
    */
-  public ArrayList<String> getTagsFromName() {
-    ArrayList<String> result = new ArrayList<>(Arrays.asList(getName().split(" @")));
+  public ArrayList<String> getTagsFromName(String name) {
+    ArrayList<String> result = new ArrayList<>(Arrays.asList(name.split(" @")));
     result.remove(0);
     return result;
   }
-  public void restoreTag() throws IOException {
-    ArrayList<String> tags = getTagsFromName();
+  public void restoreTag(String name) throws IOException {
+    ArrayList<String> tags = getTagsFromName(name);
     for (String tag: tags) {
       addTag(tag);
     }
