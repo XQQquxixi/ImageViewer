@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ImageViewController">
+    <bottom>
+        <HBox prefHeight="55.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="PREV" mnemonicParsing="false" onAction="#GoBack" prefHeight="39.0" prefWidth="170.0" text="PREV" />
+                <Button fx:id="Move" mnemonicParsing="false" onAction="#MoveFile" prefHeight="50.0" prefWidth="170.0" text="MOVE" />
+                <Button fx:id="rename" mnemonicParsing="false" onAction="#Rename" prefHeight="50.0" prefWidth="170.0" text="RENAME" />
+                <Button fx:id="history" mnemonicParsing="false" onAction="#ButtonHistory" prefHeight="50.0" prefWidth="170.0" text="History..." />
+                <Button fx:id="NEXT" mnemonicParsing="false" onAction="#GoNext" prefHeight="50.0" prefWidth="170.0" text="NEXT" />
+                <Button fx:id="CLOSE" mnemonicParsing="false" onAction="#Exit" prefHeight="50.0" prefWidth="170.0" text="CLOSE" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+    </bottom>
+    <left>
+        <VBox prefHeight="254.0" prefWidth="116.0" BorderPane.alignment="CENTER">
+            <children>
+            <Label text="Tags of &#10;this image:" />
+                <ListView fx:id="listView" prefHeight="258.0" prefWidth="93.0" />
+                  <Button fx:id="Delete" mnemonicParsing="false" onAction="#DeleteTag" text="Delete" />
+            </children>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
+        </VBox>
+    </left>
+    <center>
+        <VBox prefHeight="300.0" prefWidth="365.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="34.0" prefWidth="377.0">
+                    <children>
+                        <Label fx:id="Name" prefHeight="30.0" prefWidth="385.0" text="Name" />
+                    </children>
+                </HBox>
+                <ImageView fx:id="show" fitHeight="313.0" fitWidth="387.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </VBox>
+    </center>
+    <right>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label prefHeight="17.0" prefWidth="115.0" text="Add Tag:">
+               <VBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </VBox.margin></Label>
+                <ListView fx:id="Tags" prefHeight="283.0" prefWidth="115.0">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin></ListView>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="New:" />
+                        <TextField fx:id="newTag" GridPane.rowIndex="1" />
+                        <Button fx:id="input" mnemonicParsing="false" onAction="#InputNewTag" prefHeight="41.0" prefWidth="52.0" text="In" GridPane.rowIndex="2" />
+                        <Button fx:id="Add" mnemonicParsing="false" onAction="#AddTags" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>
