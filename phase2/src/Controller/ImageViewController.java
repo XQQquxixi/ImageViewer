@@ -101,6 +101,7 @@ public class ImageViewController {
         javafx.scene.image.Image image1 = new javafx.scene.image.Image(imageFile.toURI().toString());
         show.setImage(image1);
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        Tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     public void GoBack() throws IOException {
