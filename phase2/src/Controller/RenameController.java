@@ -57,7 +57,7 @@ public class RenameController implements Initializable{
     }
 
     public void TypeName(KeyEvent event) {
-        curName.setText(inputName.getText() + image.getTagPartOfName());
+        curName.setText(inputName.getText());
     }
 
     public void ChoosePrevName(ActionEvent event) {
