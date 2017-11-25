@@ -50,14 +50,15 @@ public class RenameController implements Initializable{
         this.image = image;
         ArrayList<String> listOfPrevNames = ImageManager.getPastName(image.getFile().getAbsolutePath());
         prevNames.getItems().addAll(listOfPrevNames);
-        inputName.setText(image.getName());
+        int i = image.getName().indexOf(" @");
+        inputName.setText(image.getName().substring(0, i));
         curName.setText(image.getName());
         oldName = image.getName() + image.getExtension();
         pic.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
     public void TypeName(KeyEvent event) {
-        curName.setText(inputName.getText());
+        curName.setText(inputName.getText() + image.getTagPartOfName());
     }
 
     public void ChoosePrevName(ActionEvent event) {
