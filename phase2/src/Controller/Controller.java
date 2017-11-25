@@ -58,6 +58,9 @@ public class Controller implements Initializable{
     @FXML
     private Button editTags;
 
+    @FXML
+    private Label path;
+
     static Map<String, File> nameToFile = new HashMap<>();
 
     private static ImageManager imageManager;
@@ -148,6 +151,7 @@ public class Controller implements Initializable{
         if (listView.getSelectionModel().getSelectedItem() != null) {
             Image image = new Image(nameToFile.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
             iv1.setImage(image);
+            path.setText(nameToFile.get(listView.getSelectionModel().getSelectedItem()).getAbsolutePath());
         }
     }
 
