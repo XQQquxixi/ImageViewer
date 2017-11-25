@@ -249,7 +249,7 @@ public class Image extends Observable implements Serializable {
    *
    * @return the tag part of the file name
    */
-  String getTagPartOfName() {
+  public String getTagPartOfName() {
     int i = getName().indexOf(" @");
     return getName().substring(i, getName().length());
   }
@@ -260,7 +260,7 @@ public class Image extends Observable implements Serializable {
    * @param name A string of tags separated and started by " @"
    * @return An ArrayList of tags
    */
-  ArrayList<String> getTagsFromName(String name) {
+  public ArrayList<String> getTagsFromName(String name) {
     ArrayList<String> result = new ArrayList<>(Arrays.asList(name.split(" @")));
     result.remove(0);
     return result;
