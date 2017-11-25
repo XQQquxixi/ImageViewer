@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -257,12 +258,17 @@ public class Image extends Observable implements Serializable {
   /**
    * Return an ArrayList of tags extracted from name
    *
-   * @param name A string of tags separated and started by " @"
    * @return An ArrayList of tags
    */
-  public ArrayList<String> getTagsFromName(String name) {
-    ArrayList<String> result = new ArrayList<>(Arrays.asList(name.split(" @")));
+  public ArrayList<String> getTagsFromName() {
+    ArrayList<String> result = new ArrayList<>(Arrays.asList(getName().split(" @")));
     result.remove(0);
     return result;
+  }
+  public void restoreTag() throws IOException {
+    ArrayList<String> tags = getTagsFromName();
+    for (String tag: tags) {
+      addTag(tag);
+    }
   }
 }
