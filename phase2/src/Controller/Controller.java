@@ -49,8 +49,8 @@ public class Controller implements Initializable{
     @FXML
     private ListView<String> listView;
 
-    @FXML
-    private TextField initDirectory;
+//    @FXML
+//    private TextField initDirectory;
 
     @FXML
     private Button ok;
