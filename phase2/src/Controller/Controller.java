@@ -53,6 +53,9 @@ public class Controller implements Initializable{
 //    private TextField initDirectory;
 
     @FXML
+    private Button clear;
+
+    @FXML
     private Button ok;
 
     @FXML
@@ -100,10 +103,6 @@ public class Controller implements Initializable{
             }
         }
     }
-
-
-
-
 //        File directory = new File(initDirectory.getText().replaceAll("/", "//"));
 //        FileChooser fc = new FileChooser();
 //        if (directory.exists() && directory.isDirectory() || initDirectory.getText().equals("")) {
@@ -145,6 +144,13 @@ public class Controller implements Initializable{
             iv1.setImage(image);
             path.setText(nameToFile.get(listView.getSelectionModel().getSelectedItem()).getAbsolutePath());
         }
+    }
+
+    public void ButtonClear(ActionEvent event) {
+        listView.getItems().subList(0, listView.getItems().size()).clear();
+        iv1.setImage(null);
+        path.setText("Path");
+        nameToFile = new HashMap<>();
     }
 
     public void ButtonOkAction(ActionEvent event) throws IOException {
