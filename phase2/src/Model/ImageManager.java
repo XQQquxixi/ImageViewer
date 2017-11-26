@@ -256,5 +256,18 @@ public class ImageManager extends Observable {
   public static String getLogs() {
     return logs.toString();
   }
+
+  public ArrayList<Image> getImagesWithSameTags(ArrayList<String> tags) {
+    ArrayList<Image> imageWithSameTags = new ArrayList<>();
+    for (Image i: images.values()) {
+      ArrayList<String> imageTags = new ArrayList<>(i.getCurrentTags());
+      Collections.sort(imageTags);
+      Collections.sort(tags);
+      if (imageTags.equals(tags)) {
+        imageWithSameTags.add(i);
+      }
+    }
+    return imageWithSameTags;
+  }
 }
 
