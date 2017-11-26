@@ -93,6 +93,7 @@ public class Controller implements Initializable{
                 if (file.exists() && !listView.getItems().contains(file.getName())) {
                     nameToFile.put(file.getName(), file);
                     Image image = new Image(file.toURI().toString());
+                    Model.Image image1 = new Model.Image(file);
                     iv1.setImage(image);
                     listView.getItems().add(file.getName());
                 }
@@ -101,16 +102,7 @@ public class Controller implements Initializable{
     }
 
 
-//            Files.find(dir, depth,(path, attributes) ->
-//                    path.getFileName().toString().endsWith(".png")).forEach(listView.getItems()::add);
-//            Files.find(dir, depth,(path, attributes) ->
-//                    path.getFileName().toString().endsWith(".jpg")).forEach(listView.getItems()::add);
-//            Files.find(dir, depth,(path, attributes) ->
-//                    path.getFileName().toString().endsWith(".gif")).forEach(listView.getItems()::add);
-//            Files.find(dir, depth,(path, attributes) ->
-//                    path.getFileName().toString().endsWith(".jpeg")).forEach(listView.getItems()::add);
-//            Files.find(dir, depth,(path, attributes) ->
-//                    path.getFileName().toString().endsWith(".bmp")).forEach(listView.getItems()::add);
+
 
 //        File directory = new File(initDirectory.getText().replaceAll("/", "//"));
 //        FileChooser fc = new FileChooser();

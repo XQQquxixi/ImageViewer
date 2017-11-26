@@ -90,8 +90,10 @@ public class RenameController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        image.restoreTag(image.getName());
         controller.initData(oldName, image.getName() + image.getExtension());
         imageViewController.GetImage(image.getFile());
+        imageViewController.initData(image);
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(image.getName() + image.getExtension(), image.getFile());
         FXMLLoader loader = new FXMLLoader();

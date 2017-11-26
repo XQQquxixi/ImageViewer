@@ -5,11 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Observable;
+import java.util.*;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -43,11 +39,11 @@ public class Image extends Observable implements Serializable {
    *
    * @param file the image's file
    */
-  Image(File file) throws IOException {
+  public Image(File file) throws IOException {
     this.name = file.getName();
     this.file = file;
     currentTags = new ArrayList<>();
-    restoreTag(getName());
+    //restoreTag(getName());
     logger.setLevel(Level.OFF);
     consoleHandler.setLevel(Level.OFF);
     logger.addHandler((consoleHandler));
@@ -96,7 +92,7 @@ public class Image extends Observable implements Serializable {
    *
    * @param name the new name for the image
    */
-  void setName(String name) {
+  void setName(String name){
     String oldName = this.name;
     String absolutePath = file.getAbsolutePath();
     String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
@@ -137,7 +133,9 @@ public class Image extends Observable implements Serializable {
       logger.log(Level.WARNING, "This tag already exists!");
     } else {
       currentTags.add(tag);
-      this.setName(getName() + " @" + tag);
+      if (!getTagsFromName(getName()).contains(tag)) {
+        this.setName(getName() + " @" + tag);
+      }
       if (!TagManager.tagList.contains(tag)) {
         TagManager.addTag(tag);
       }
@@ -149,7 +147,7 @@ public class Image extends Observable implements Serializable {
    *
    * @param tag the tag about to delete
    */
-  void deleteTag(String tag) {
+  void deleteTag(String tag){
     if (currentTags.contains(tag)) {
       currentTags.remove(tag);
       int index = name.lastIndexOf(" @" + tag);
@@ -260,13 +258,16 @@ public class Image extends Observable implements Serializable {
    *
    * @return An ArrayList of tags
    */
-  public ArrayList<String> getTagsFromName(String name) {
+  private ArrayList<String> getTagsFromName(String name) {
     ArrayList<String> result = new ArrayList<>(Arrays.asList(name.split(" @")));
     result.remove(0);
     return result;
   }
+
+
   public void restoreTag(String name) throws IOException {
     ArrayList<String> tags = getTagsFromName(name);
+    currentTags.clear();
     for (String tag: tags) {
       addTag(tag);
     }
