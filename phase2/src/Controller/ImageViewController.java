@@ -20,6 +20,7 @@ import javafx.stage.Window;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -83,16 +84,22 @@ public class ImageViewController {
     void initData(Image image){
 //        selectedImage = image;
         Name.setText(image.getName());
-        path = image.getFile().getAbsolutePath();
-        try {
-            Collection<String> col = ImageManager.getTags(path);
-            listView.getItems().clear();
-            listView.getItems().addAll(col);
-        }
-        catch (IOException e){
-            listView.getItems().addAll();
-            e.printStackTrace();
-        }
+        Name.setText(image.getName());
+        //path = image.getFile().getAbsolutePath();
+        ArrayList<String> col = image.getCurrentTags();
+        listView.getItems().clear();
+        listView.getItems().addAll(col);
+        // Create a listView for store all tags.
+//        path = image.getFile().getAbsolutePath();
+//        try {
+//            Collection<String> col = ImageManager.getTags(path);
+//            listView.getItems().clear();
+//            listView.getItems().addAll(col);
+//        }
+//        catch (IOException e){
+//            listView.getItems().addAll();
+//            e.printStackTrace();
+//        }
         // Create a listView for store all tags.
         Collection<String> tags = TagManager.getTagList();
         Tags.getItems().clear();
@@ -141,6 +148,7 @@ public class ImageViewController {
             String path = selectedDirectory.getAbsolutePath();
             ImageManager.move(selectedImage.getFile().getAbsolutePath(), path + "/" + selectedImage.getName() + selectedImage.getExtension());
         }
+        initData(selectedImage);
     }
 
     public void GoNext() throws IOException {
