@@ -74,9 +74,9 @@ public class Controller implements Initializable{
 
     public void Button1Action(ActionEvent event) throws Exception {
         DirectoryChooser dc = new DirectoryChooser();
-        File dire = dc.showDialog(btn1.getScene().getWindow());
-        if (dire != null) {
-            Path dir = dire.toPath();
+        File directory = dc.showDialog(btn1.getScene().getWindow());
+        if (directory != null) {
+            Path dir = directory.toPath();
             int depth = Integer.MAX_VALUE;
             Stream<Path> pathStream1 = Files.find(dir, depth, ((path, basicFileAttributes) -> path.getFileName().toString().toLowerCase().endsWith(".png")));
             List<Path> paths = pathStream1.collect(Collectors.toList());
