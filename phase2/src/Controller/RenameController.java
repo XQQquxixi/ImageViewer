@@ -51,7 +51,11 @@ public class RenameController implements Initializable{
         ArrayList<String> listOfPrevNames = ImageManager.getPastName(image.getFile().getAbsolutePath());
         prevNames.getItems().addAll(listOfPrevNames);
         int i = image.getName().indexOf(" @");
-        inputName.setText(image.getName().substring(0, i));
+        if(i != (-1)) {
+            inputName.setText(image.getName().substring(0, i));
+        } else {
+            inputName.setText(image.getName());
+        }
         curName.setText(image.getName());
         oldName = image.getName() + image.getExtension();
         pic.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
