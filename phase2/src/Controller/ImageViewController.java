@@ -146,9 +146,9 @@ public class ImageViewController {
                 directoryChooser.showDialog(Move.getScene().getWindow());
         if (selectedDirectory != null) {
             String path = selectedDirectory.getAbsolutePath();
-            ImageManager.move(selectedImage.getFile().getAbsolutePath(), path + "/" + selectedImage.getName() + selectedImage.getExtension());
+            selectedImage = ImageManager.move(selectedImage.getFile().getAbsolutePath(), path + "/" + selectedImage.getName() + selectedImage.getExtension());
         }
-        initData(selectedImage);
+        Controller.nameToFile.put(selectedImage.getName() + selectedImage.getExtension(), selectedImage.getFile());
     }
 
     public void GoNext() throws IOException {
