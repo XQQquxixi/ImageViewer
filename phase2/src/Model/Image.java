@@ -250,7 +250,11 @@ public class Image extends Observable implements Serializable {
    */
   public String getTagPartOfName() {
     int i = getName().indexOf(" @");
-    return getName().substring(i, getName().length());
+    if(i != (-1)) {
+      return getName().substring(i, getName().length());
+    } else {
+      return "";
+    }
   }
 
   /**
