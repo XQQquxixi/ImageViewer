@@ -3,16 +3,14 @@ package Model;
 import Utility.FileManager;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ImageManager {
+public class ImageManager extends Observable {
 
   /* A map with file as key and its corresponding image as value. */
   private static Map<File, Image> images;
@@ -21,6 +19,8 @@ public class ImageManager {
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
   private static final String path = "./images.ser";
+
+  private static StringBuilder logs = new StringBuilder();
 
   /**
    * An ImageManager with filePath.
@@ -149,6 +149,8 @@ public class ImageManager {
     Image i = checkKey(file);
 
     i.setName(newName);
+    ArrayList<String> log = new ArrayList<>(Arrays.asList(i.getLog().split(" \\n")));
+    logs.append(log.get(log.size()- 1));
 
     updateKey(file, i);
 
@@ -249,6 +251,10 @@ public class ImageManager {
       e.printStackTrace();
     }
     return null;
+  }
+
+  public static String getLogs() {
+    return logs.toString();
   }
 }
 
