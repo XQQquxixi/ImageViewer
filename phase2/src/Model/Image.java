@@ -93,14 +93,12 @@ public class Image implements Serializable {
    * @param name the new name for the image
    */
   void setName(String name){
-    boolean duplicated = false;
     String oldName = this.name;
     String absolutePath = file.getAbsolutePath();
     String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
     File newFile = new File(path + File.separator + name + getExtension());
     int i = 1;
     while (newFile.exists()) {
-      duplicated = true;
       path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
       newFile = new File(
           path + File.separator + name + "(" + Integer.toString(i++) + ")" + getExtension());
@@ -110,11 +108,7 @@ public class Image implements Serializable {
     } else {
       logger.log(Level.WARNING, "File rename failed");
     }
-    String newName = newFile.getName();
-    if (duplicated) {
-      newName = newName.substring(0, newName.length() - 3);
-    }
-    this.name = newName;
+    this.name = newFile.getName();
     this.file = newFile;
     updateLog(oldName);
   }
