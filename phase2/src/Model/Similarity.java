@@ -6,6 +6,12 @@ import java.util.*;
 
 public class Similarity {
 
+    /**
+     * Returns the cosine value between two vectors.
+     * @param vectorA a vector
+     * @param vectorB a vector with same length as vectorA
+     * @return the cosine value between two vectors.\
+     */
     public static double cosineSimilarity(Vector<Integer> vectorA, Vector<Integer> vectorB) {
         double dotProduct = 0;
         double normA = 0;
@@ -15,14 +21,14 @@ public class Similarity {
             normA += Math.pow(vectorA.get(i), 2);
             normB += Math.pow(vectorB.get(i), 2);
         }
-        try{
-            return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-        } catch (ArithmeticException e){
-            System.out.println("no recommendation");
-        }
-        return 0.0;
+        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
     }
 
+    /**
+     * Return the vector representation of an image.
+     * @param image the image of imterest
+     * @return the vector representation of an image
+     */
     public static Vector<Integer> getVector(Image image) {
         ArrayList<String> benchmark = TagManager.tagList;
         int size = benchmark.size();
@@ -37,6 +43,12 @@ public class Similarity {
         return vector;
     }
 
+    /**
+     * Return an ArrayList of images sorted in a way where first one is most related to selected image whose file path
+     * is path, and last one is least related.
+     * @param path the file path of selected image
+     * @return an sorted ArrayList of images
+     */
     public static ArrayList<Image> getSimilarImages(String path) {
         HashMap<Image, Double> similar = new HashMap<>();
         Map<File, Image> images = ImageManager.getImages();
@@ -51,16 +63,12 @@ public class Similarity {
     }
 
 
-
+    /**
+     * Return a sorted map based on values of unsortedMap in ascending order.
+     * @param unsortedMap the map to be sorted
+     * @return a sorted map
+     */
     public static Map<Image, Double> getSorted(HashMap<Image, Double> unsortedMap) {
-        Map<Image, Double> sortedMap = sortByComparator(unsortedMap);
-        return sortedMap;
-    }
-
-
-
-    private static Map<Image, Double> sortByComparator(HashMap<Image, Double> unsortedMap) {
-
         List<Map.Entry<Image, Double>> list = new LinkedList<Map.Entry<Image, Double>>(unsortedMap.entrySet());
 
         // Sorting the list based on values
@@ -83,6 +91,12 @@ public class Similarity {
         return sortedMap;
     }
 
+
+    /**
+     * Return an ArrayList of the key of the map.
+     * @param map the map to be converted to ArrayList
+     * @return an ArrayList of the key of the map
+     */
     public static ArrayList<Image> mapToArray(Map<Image,Double> map) {
         ArrayList<Image> result = new ArrayList<>();
         for (Map.Entry<Image,Double> entry : map.entrySet()) {

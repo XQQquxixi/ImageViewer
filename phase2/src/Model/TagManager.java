@@ -122,7 +122,7 @@ public class TagManager {
       tagList = (ArrayList<String>) input.readObject();
       input.close();
     } catch (IOException ex) {
-      System.out.println("Cannot read from tags.ser");
+      logger.log(Level.WARNING, "Cannot read from tags.ser");
     }
   }
 

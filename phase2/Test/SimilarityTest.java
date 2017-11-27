@@ -137,20 +137,6 @@ public class SimilarityTest {
         assertEquals(new ArrayList<>(Arrays.asList(0.9, 0.9, 0.4, 0.2)), result);
     }
 
-    @Test
-    public void testGetSorted() throws IOException {                   // trivial????????????????????????
-        HashMap<Image, Double> unsortedMap = new HashMap<>();
-        unsortedMap.put(new Image(new File("a.jpg")), 0.9);
-        unsortedMap.put(new Image(new File("b.jpg")), 0.4);
-        unsortedMap.put(new Image(new File("c.jpg")), 0.2);
-        unsortedMap.put(new Image(new File("d.jpg")), 0.9);
-        Map<Image, Double> sorted = getSorted(unsortedMap);
-        ArrayList<Double> result = new ArrayList<>();
-        for (Map.Entry<Image,Double> entry : sorted.entrySet()) {
-            result.add(entry.getValue());
-        }
-        assertEquals(new ArrayList<>(Arrays.asList(0.9, 0.9, 0.4, 0.2)), result);
-    }
 
     @Test
     public void testMapToArray() throws IOException {

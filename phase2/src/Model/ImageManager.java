@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ImageManager extends Observable {
+public class ImageManager {
 
   /* A map with file as key and its corresponding image as value. */
   private static Map<File, Image> images;
@@ -18,8 +18,9 @@ public class ImageManager extends Observable {
   private static final Logger logger = Logger.getLogger(Image.class.getName());
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
+  /* The file path for images. */
   private static final String path = "./images.ser";
-
+  /* A logging hostory for all renamings done to all files. */
   private static StringBuilder logs = new StringBuilder();
 
   /**
@@ -253,6 +254,11 @@ public class ImageManager extends Observable {
     return null;
   }
 
+
+  /**
+   * Return an ArrayList of imges with selected tags.
+   * @return an ArrayList of imges with selected tags
+   */
   public static String getLogs() {
     return logs.toString();
   }

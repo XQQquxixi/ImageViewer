@@ -11,7 +11,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Image extends Observable implements Serializable {
+public class Image implements Serializable {
 
   /* The name of the image file with extension. */
   private String name;
