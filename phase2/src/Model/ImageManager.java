@@ -20,7 +20,7 @@ public class ImageManager {
   private static final Handler consoleHandler = new ConsoleHandler();
   /* The file path for images. */
   private static final String path = "./images.ser";
-  /* A logging hostory for all renamings done to all files. */
+  /* A logging history for all re-namings done to all files. */
   private static StringBuilder logs = new StringBuilder();
 
   /**
@@ -55,7 +55,7 @@ public class ImageManager {
    *
    * @throws ClassNotFoundException if the class path is not updated
    */
-  private static void readFromFile() throws ClassNotFoundException {
+  public static void readFromFile() throws ClassNotFoundException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
@@ -75,8 +75,9 @@ public class ImageManager {
    *
    * @param record the Image that is about to be added
    */
-  public static void add(Image record) {
+  public static void add(Image record) throws IOException {
     images.put(record.getFile(), record);
+    saveToFile();
   }
 
   /**
