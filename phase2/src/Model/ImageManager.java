@@ -46,6 +46,10 @@ public class ImageManager {
     }
   }
 
+  public static Map<File, Image> getImages() {
+    return images;
+  }
+
   /**
    * Read from the file with path.
    *
@@ -204,13 +208,15 @@ public class ImageManager {
    * @param newPath the new path to move this image file to
    * @throws IOException if saving serialized file fails.
    */
-  public static void move(String oldPath, String newPath) throws IOException {
+  public static Image move(String oldPath, String newPath) throws IOException {
     File file = new File(oldPath);
     Image i = checkKey(file);
 
     i.move(newPath);
 
     updateKey(file, i);
+
+    return i;
   }
 
   /**

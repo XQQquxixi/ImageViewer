@@ -192,12 +192,12 @@ public class ImageViewController {
                 alert.setTitle("Confirmation");
                 alert.setContentText("Are you sure you want to add an empty tag?");
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK){
+                if (result.isPresent() && result.get() == ButtonType.OK && !Tags.getItems().contains(input)){
                     // ... user chose OK
                     TagManager.addTag(input);
                     Tags.getItems().add(input);
                 }
-            } else {
+            } else if (!Tags.getItems().contains(input)){
                 TagManager.addTag(input);
                 Tags.getItems().add(input);
             }
