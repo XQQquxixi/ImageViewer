@@ -304,7 +304,7 @@ public class Controller implements Initializable{
     }
 
     /**
-     * Initialize Controller
+     * Initialize Controller.
      * @param location
      * @param resources
      */
