@@ -1,5 +1,4 @@
 
-import org.junit.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,25 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import Model.Image;
 import Model.ImageManager;
-import Model.TagManager;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class ImageManagerTest {
+class ImageManagerTest {
 
-  File f1, f2, f3, f4, f5;
-  Image i1, i2, i3, i4, i5;
-  ImageManager im;
+  private File f1, f2, f3, f4;
+  private Image i1, i2, i3, i4;
 
   @BeforeAll
   static void clearSer() {
@@ -36,22 +29,20 @@ public class ImageManagerTest {
   }
 
   @BeforeEach
-  public void setUp() throws IOException, ClassNotFoundException {
+  void setUp() throws IOException, ClassNotFoundException {
     f1 = new File("pics/a.jpg");
     f2 = new File("pics/b.jpg");
     f3 = new File("pics/c.jpg");
     f4 = new File("pics/d.jpg");
-    f5 = new File("pics/e.jpg");
     i1 = new Image(f1);
     i2 = new Image(f2);
     i3 = new Image(f3);
     i4 = new Image(f4);
-    i5 = new Image(f5);
-    im = new ImageManager();
+    ImageManager im = new ImageManager();
   }
 
   @AfterEach
-  public void tearDown() {
+  void tearDown() {
     File ser = new File("images.ser");
     if (ser.exists()) {
       ser.delete();
@@ -90,7 +81,7 @@ public class ImageManagerTest {
   }
 
   @Test
-  public void testReadFromFile() throws ClassNotFoundException, IOException {
+  void testReadFromFile() throws ClassNotFoundException, IOException {
     ImageManager.add(i1);
     ImageManager.add(i2);
 
