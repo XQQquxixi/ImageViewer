@@ -38,42 +38,94 @@ public class Controller implements Initializable{
      * All codes with Alert are learned from website: http://code.makery.ch/blog/javafx-dialogs-official/
      */
 
+    /**
+     *
+     */
+
     private static final double DISTANCE = 50.0;
 
+    /**
+     * Button for open DirectoryChooser.
+     */
     @FXML
     private Button btn1;
+
+    /**
+     * ImageView for show the image you click
+     */
 
     @FXML
     private ImageView iv1;
 
+    /**
+     * ListView for names of these image files
+     */
+
     @FXML
     private ListView<String> listView;
 
-//    @FXML
-//    private TextField initDirectory;
+    /**
+     * Button for clear all image files.
+     */
 
     @FXML
     private Button clear;
 
+    /**
+     * Button for open ImageViewController to operate the image file user choose.
+     */
+
     @FXML
     private Button ok;
+
+    /**
+     * Button for open TagManager.
+     */
 
     @FXML
     private Button editTags;
 
+    /**
+     * Label show the path of image you click
+     */
+
     @FXML
     private Label path;
 
+    /**
+     * HashMap for store and record name and image File.
+     */
+
     static Map<String, File> nameToFile = new HashMap<>();
+
+    /**
+     * Static ImageManager.
+     */
 
     private static ImageManager imageManager;
 
+    /**
+     * Static TagManager.
+     */
+
     private static TagManager tagManager;
+
+    /**
+     * Update Data when user change something in other Scene.
+     * @param oldName
+     * @param newName
+     */
 
     public void initData(String oldName, String newName) {
         int position = listView.getItems().indexOf(oldName);
         listView.getItems().set(position, newName);
     }
+
+    /**
+     * Open a directoryChooser to choose a directory. Then all image files in this directory will show in listView.
+     * @param event
+     * @throws Exception
+     */
 
     public void Button1Action(ActionEvent event) throws Exception {
         DirectoryChooser dc = new DirectoryChooser();
@@ -138,6 +190,10 @@ public class Controller implements Initializable{
 //        }
 //    }
 
+    /**
+     * Select a Image file to check its detail.
+     * @param event
+     */
     public void MouseClickList(MouseEvent event) {
         if (listView.getSelectionModel().getSelectedItem() != null) {
             Image image = new Image(nameToFile.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
@@ -146,6 +202,11 @@ public class Controller implements Initializable{
         }
     }
 
+    /**
+     * Clear all files in listView.
+     * @param event
+     */
+
     public void ButtonClear(ActionEvent event) {
         listView.getItems().subList(0, listView.getItems().size()).clear();
         iv1.setImage(null);
@@ -153,6 +214,11 @@ public class Controller implements Initializable{
         nameToFile = new HashMap<>();
     }
 
+    /**
+     * Open ImageViewController to operate Image file user selected.
+     * @param event
+     * @throws IOException
+     */
     public void ButtonOkAction(ActionEvent event) throws IOException {
 //        ObservableList<String> pictures;
 //        pictures = listView.getSelectionModel().getSelectedItems();
@@ -188,6 +254,12 @@ public class Controller implements Initializable{
 
     }
 
+    /**
+     * Open TagManager for this App.
+     * @param event
+     * @throws IOException
+     */
+
     public void ButtonEditTags(ActionEvent event) throws IOException {
         Window window = editTags.getScene().getWindow();
         Stage primaryStage = new Stage();
@@ -197,6 +269,13 @@ public class Controller implements Initializable{
         primaryStage.setScene(new Scene(root));
         primaryStage.showAndWait();
     }
+
+    /**
+     * Return the previous image for this curImage in listView.
+     * @param curImage
+     * @return
+     * @throws IndexOutOfBoundsException
+     */
 
     File getPrevImage(File curImage) throws IndexOutOfBoundsException {
         int curIndex = listView.getItems().indexOf(curImage.getName());
@@ -208,6 +287,13 @@ public class Controller implements Initializable{
 
     }
 
+    /**
+     * Return the next image for this curImage in listView.
+     * @param curImage
+     * @return
+     * @throws IndexOutOfBoundsException
+     */
+
     File getNextImage(File curImage) throws IndexOutOfBoundsException {
         int curIndex = listView.getItems().indexOf(curImage.getName());
         if (curIndex != (listView.getItems().size() - 1)) {
@@ -216,6 +302,12 @@ public class Controller implements Initializable{
             throw new IndexOutOfBoundsException();
         }
     }
+
+    /**
+     * Initialize Controller.
+     * @param location
+     * @param resources
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
