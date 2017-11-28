@@ -184,7 +184,7 @@ public class ImageViewController {
         controller.initData(oldName, newName);
     }
 
-    public void InputNewTag() throws IOException{
+    public void InputNewTag() throws IOException {
         String input = newTag.getText();
         if (input != null) {
             if (input.length() == 0) {
@@ -192,15 +192,24 @@ public class ImageViewController {
                 alert.setTitle("Confirmation");
                 alert.setContentText("Are you sure you want to add an empty tag?");
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK && !Tags.getItems().contains(input)){
+                if (result.isPresent() && result.get() == ButtonType.OK && !Tags.getItems().contains(input)) {
                     // ... user chose OK
-                    TagManager.addTag(input);
                     Tags.getItems().add(input);
                 }
-            } else if (!Tags.getItems().contains(input)){
-                TagManager.addTag(input);
+            } else if (!Tags.getItems().contains(input)) {
                 Tags.getItems().add(input);
             }
+            String oldName = selectedImage.getName() + selectedImage.getExtension();
+
+            selectedImage = ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), input);
+            if (!listView.getItems().contains(input)) {
+                listView.getItems().add(input);
+            }
+            String newName = selectedImage.getName() + selectedImage.getExtension();
+            Controller.nameToFile.remove(oldName);
+            Controller.nameToFile.put(newName, selectedImage.getFile());
+            Name.setText(selectedImage.getName());
+            controller.initData(oldName, newName);
             newTag.clear();
         }
     }
