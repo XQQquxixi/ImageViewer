@@ -32,36 +32,83 @@ public class ImageViewController {
 
 
     /**
-     *
+     * Button for onAction MoveFile.
      */
+    @FXML
+    Button Move;
 
+    /**
+     * Button for onAction GoBack.
+     */
     @FXML
-    private Button Move;
+    Button PREV;
+
+    /**
+     * Button for onAction GoNext.
+     */
     @FXML
-    private Button PREV;
+    Button NEXT;
+
+    /**
+     * Button for onAction Exit.
+     */
     @FXML
-    private Button NEXT;
+    Button CLOSE;
+
+    /**
+     * Button for onAction DeleteTag.
+     */
     @FXML
-    private Button CLOSE;
+    Button Delete;
+
+    /**
+     * Button for onAction AddTags.
+     */
     @FXML
-    private Button Delete;
+    Button Add;
+
+    /**
+     * Button for onAction Rename.
+     */
     @FXML
-    private Button Add;
+    Button rename;
+
+    /**
+     * ListView to show all tags of this Image(selectedImage).
+     */
     @FXML
-    private Button rename;
+    ListView<String> listView;
+
+    /**
+     * ImageView to show this file(curFile).
+     */
     @FXML
-    private ListView<String> listView;
+    javafx.scene.image.ImageView show;
+
+    /**
+     * Label to show name of curFile.
+     */
     @FXML
-    private javafx.scene.image.ImageView show;
-    @FXML
-    private Label Name;
+    Label Name;
     // New Thing
+
+    /**
+     * ListView to show all Tags of TagManager.
+     */
     @FXML
-    private ListView<String> Tags;
+    ListView<String> Tags;
+
+    /**
+     * TextField to input new Tag.
+     */
     @FXML
-    private TextField newTag;
+    TextField newTag;
+
+    /**
+     * Button for onAction ButtonHistory.
+     */
     @FXML
-    private Button history;
+    Button history;
 
     private File curFile;
 
@@ -72,6 +119,12 @@ public class ImageViewController {
     private Controller controller;
 
 
+    /**
+     * Pass a file and let selectedImage be the Image which is connected to this file. Then pass selectedImage into
+     * initDate.
+     * @param image
+     * A file from Controller.
+     */
     void GetImage(File image) {
         curFile = image;
         try {
@@ -82,30 +135,24 @@ public class ImageViewController {
         initData(selectedImage);
     }
 
+    /**
+     * Pass a Controller into this.controller.
+     * @param controller
+     */
     void passController(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Update information of this image.
+     * @param image
+     */
     void initData(Image image){
-//        selectedImage = image;
         Name.setText(image.getName());
         Name.setText(image.getName());
-        //path = image.getFile().getAbsolutePath();
         ArrayList<String> col = image.getCurrentTags();
         listView.getItems().clear();
         listView.getItems().addAll(col);
-        // Create a listView for store all tags.
-//        path = image.getFile().getAbsolutePath();
-//        try {
-//            Collection<String> col = ImageManager.getTags(path);
-//            listView.getItems().clear();
-//            listView.getItems().addAll(col);
-//        }
-//        catch (IOException e){
-//            listView.getItems().addAll();
-//            e.printStackTrace();
-//        }
-        // Create a listView for store all tags.
         Collection<String> tags = TagManager.getTagList();
         Tags.getItems().clear();
         Tags.getItems().addAll(tags);
@@ -115,6 +162,11 @@ public class ImageViewController {
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         Tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
+
+    /**
+     * Go back to last image in listView of Controller.
+     * @throws IOException
+     */
 
     public void GoBack() throws IOException {
         try {
@@ -127,6 +179,13 @@ public class ImageViewController {
             alert.showAndWait();
         }
     }
+
+    /**
+     * Open RenameController to rename of this image file.
+     * @param event
+     * Click rename Button.
+     * @throws IOException
+     */
 
     public void Rename(ActionEvent event) throws IOException {
         Window window = rename.getScene().getWindow();
@@ -143,6 +202,11 @@ public class ImageViewController {
         primaryStage.showAndWait();
     }
 
+    /**
+     * Move this file.
+     * @throws IOException
+     */
+
     public void MoveFile() throws IOException {
         // Part of codes in this method is copied from http://java-buddy.blogspot.ca/2013/03/javafx-simple-example-of.html
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -155,6 +219,11 @@ public class ImageViewController {
         }
         Controller.nameToFile.put(selectedImage.getName() + selectedImage.getExtension(), selectedImage.getFile());
     }
+
+    /**
+     * Go to next image file in listView of Controller.
+     * @throws IOException
+     */
 
     public void GoNext() throws IOException {
         try {
@@ -169,10 +238,19 @@ public class ImageViewController {
 
     }
 
+    /**
+     * Close this Stage.
+     */
+
     public void Exit() {
         Stage stage = (Stage) CLOSE.getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Delete selected Tag of this image.
+     * @throws IOException
+     */
 
     public void DeleteTag() throws IOException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
@@ -189,6 +267,11 @@ public class ImageViewController {
         controller.initData(oldName, newName);
     }
 
+
+    /**
+     *
+     * @throws IOException
+     */
     public void InputNewTag() throws IOException {
         String input = newTag.getText();
         if (input != null) {
@@ -219,6 +302,11 @@ public class ImageViewController {
         }
     }
 
+    /**
+     * Add selected Tag for this image.
+     * @throws IOException
+     */
+
     public void AddTags() throws IOException{
         ObservableList<String> list = Tags.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
@@ -234,6 +322,11 @@ public class ImageViewController {
         Name.setText(selectedImage.getName());
         controller.initData(oldName, newName);
     }
+
+    /**
+     * Open an alert to view all history of this Image.
+     * @param event
+     */
 
     public void ButtonHistory(ActionEvent event) {
         try {
