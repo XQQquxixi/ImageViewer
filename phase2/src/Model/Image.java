@@ -276,4 +276,18 @@ public class Image implements Serializable {
       addTag(tag);
     }
   }
+
+  /**
+   * Returns if two images have the same tags, name, file location and log.
+   *
+   * @param other the other Image to compare with.
+   * @return true iff two images are the same by their name, tags, file and log. false otherwise.
+   */
+  public boolean equals(Object other) {
+    return (other instanceof Image)
+        && (this.currentTags.equals(((Image) other).currentTags))
+        && (this.name.equals(((Image) other).name))
+        && (this.file.equals(((Image) other).file))
+        && (this.log.toString().equals(((Image) other).log.toString()));
+  }
 }
