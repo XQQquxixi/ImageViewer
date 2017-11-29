@@ -131,17 +131,26 @@ public class Controller implements Initializable{
         listView.getItems().set(position, newName);
     }
 
-    public void ButtonSearch(KeyEvent event) {
+    public void keyEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            ArrayList<String> tagList = new ArrayList<>();
-            for (String tag : tags.getText().split(",")) {
-                tag.trim();
-                tagList.add(tag);
+            if (tags.getText().equals("")) {
+                listView.getItems().clear();
+                listView.getItems().addAll(nameToFile.keySet());
+            } else {
+                ArrayList<String> tagList = new ArrayList<>();
+                for (String tag : tags.getText().split(",")) {
+                    tagList.add(tag.trim());
+                }
+                listView.getItems().clear();
+                listView.getItems().addAll(ImageManager.getImagesWithSameTags(tagList));
+                System.out.println(ImageManager.getImagesWithSameTags(tagList));
             }
-            listView.getItems().clear();
-            listView.getItems().addAll(ImageManager.getImagesWithSameTags(tagList));
-            System.out.println(ImageManager.getImagesWithSameTags(tagList));
         }
+    }
+
+    public void buttonCancel(ActionEvent event) {
+        listView.getItems().clear();
+        listView.getItems().addAll(nameToFile.keySet());
     }
 
     public void ViewHistory() throws IOException{
