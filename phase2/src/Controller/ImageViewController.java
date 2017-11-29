@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -22,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 public class ImageViewController {
@@ -112,10 +110,10 @@ public class ImageViewController {
     // New Thing
 
     /**
-     * ListView to show all Tags of TagManager.
+     * ListView to show all tags of TagManager.
      */
     @FXML
-    ListView<String> Tags;
+    ListView<String> tags;
 
     /**
      * TextField to input new Tag.
@@ -181,6 +179,16 @@ public class ImageViewController {
             e.printStackTrace();
         }
         initData(selectedImage);
+    }
+
+    public void doubleClickTags(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            try {
+                AddTags();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void ButtonNextPage(ActionEvent event) {
@@ -282,13 +290,13 @@ public class ImageViewController {
         listView.getItems().clear();
         listView.getItems().addAll(col);
         Collection<String> tags = TagManager.getTagList();
-        Tags.getItems().clear();
-        Tags.getItems().addAll(tags);
+        this.tags.getItems().clear();
+        this.tags.getItems().addAll(tags);
         File imageFile = image.getFile();
         javafx.scene.image.Image image1 = new javafx.scene.image.Image(imageFile.toURI().toString());
         show.setImage(image1);
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        Tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        this.tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         int i = 0;
         ArrayList<javafx.scene.image.Image> list = new ArrayList<>();
         ArrayList<Image> list1 = new ArrayList<>();
@@ -453,12 +461,12 @@ public class ImageViewController {
                 alert.setTitle("Confirmation");
                 alert.setContentText("Are you sure you want to add an empty tag?");
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK && !Tags.getItems().contains(input)) {
+                if (result.isPresent() && result.get() == ButtonType.OK && !tags.getItems().contains(input)) {
                     // ... user chose OK
-                    Tags.getItems().add(input);
+                    tags.getItems().add(input);
                 }
-            } else if (!Tags.getItems().contains(input)) {
-                Tags.getItems().add(input);
+            } else if (!tags.getItems().contains(input)) {
+                tags.getItems().add(input);
             }
             String oldName = selectedImage.getName() + selectedImage.getExtension();
 
@@ -481,7 +489,7 @@ public class ImageViewController {
      */
 
     public void AddTags() throws IOException{
-        ObservableList<String> list = Tags.getSelectionModel().getSelectedItems();
+        ObservableList<String> list = tags.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
         for (String tag : list) {
             selectedImage = ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), tag);
