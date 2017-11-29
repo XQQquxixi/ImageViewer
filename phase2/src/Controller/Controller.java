@@ -178,6 +178,7 @@ public class Controller implements Initializable{
                     Model.Image image1 = new Model.Image(file);
                     iv1.setImage(image);
                     listView.getItems().add(file.getName());
+                    ImageManager.checkKey(file);
                 }
             }
         }
@@ -261,7 +262,7 @@ public class Controller implements Initializable{
             if (nameToFile.get(listView.getSelectionModel().getSelectedItem()).exists()) {
                 imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
                 primaryStage.setTitle("Image Viewer");
-                primaryStage.setScene(new Scene(root, 600, 400));
+                primaryStage.setScene(new Scene(root, 600, 600));
                 primaryStage.setX(window.getX() + DISTANCE);
                 primaryStage.setY(window.getY() + DISTANCE);
                 primaryStage.show();
