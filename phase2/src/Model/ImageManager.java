@@ -155,8 +155,6 @@ public class ImageManager {
     Image i = checkKey(file);
 
     i.setName(newName);
-    ArrayList<String> log = new ArrayList<>(Arrays.asList(i.getLog().split(" \\n")));
-    logs.append(log.get(log.size()- 1));
 
     updateKey(file, i);
 
@@ -267,6 +265,10 @@ public class ImageManager {
    * @return an ArrayList of imges with selected tags
    */
   public static String getLogs() {
+
+    for (Image i: images.values()) {
+      logs.append(i.getLog());
+    }
     return logs.toString();
   }
 
