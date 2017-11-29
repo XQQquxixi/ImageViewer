@@ -254,11 +254,11 @@ public class ImageViewController {
     public void DoubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             if (event.getSource().equals(sim1) || event.getSource().equals(name1)) {
-                initData(simUseList.get(curPage).get(0));
+                GetImage(simUseList.get(curPage).get(0).getFile());
             } else if (event.getSource().equals(sim2) || event.getSource().equals(name2)) {
-                initData(simUseList.get(curPage).get(1));
+                GetImage(simUseList.get(curPage).get(1).getFile());
             } else if (event.getSource().equals(sim3) || event.getSource().equals(name3)) {
-                initData(simUseList.get(curPage).get(2));
+                GetImage(simUseList.get(curPage).get(2).getFile());
             }
         }
     }
@@ -294,6 +294,8 @@ public class ImageViewController {
         ArrayList<Image> list1 = new ArrayList<>();
         ArrayList<Image> simList = Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath());
         System.out.println(simList);
+        simDisplayList.clear();
+        simUseList.clear();
         for (Image simImage : simList) {
             javafx.scene.image.Image sim = new javafx.scene.image.Image(simImage.getFile().toURI().toString());
             list.add(sim);
@@ -314,6 +316,9 @@ public class ImageViewController {
                 ArrayList<Image> newList1 = new ArrayList<>();
                 newList.addAll(list);
                 newList1.addAll(list1);
+                if (newList.size() == 1) {
+                    newList.add(null);
+                }
                 simDisplayList.add(newList);
                 simUseList.add(newList1);
             }
@@ -326,7 +331,8 @@ public class ImageViewController {
         name3.setText(simUseList.get(0).get(2).getName());
         curPage = 0;
         pageNum.setText("Page " + (curPage + 1));
-        System.out.println(simDisplayList);
+//        System.out.println(simDisplayList);
+        System.out.println(ImageManager.getImages());
     }
 
     /**
