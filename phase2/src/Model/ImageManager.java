@@ -272,8 +272,9 @@ public class ImageManager {
 
   public static ArrayList<String> getImagesWithSameTags(ArrayList<String> tags) {
     ArrayList<String> imageWithSameTags = new ArrayList<>();
-    boolean flag = true;
+    boolean flag;
     for (Image i : images.values()) {
+      flag = true;
       ArrayList<String> imageTags = new ArrayList<>(i.getCurrentTags());
       for (String tag : tags) {
         if (!imageTags.contains(tag)) {
