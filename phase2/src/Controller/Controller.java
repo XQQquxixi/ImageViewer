@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -26,10 +28,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -100,6 +99,9 @@ public class Controller implements Initializable{
     @FXML
     private Label path;
 
+    @FXML
+    private TextField tags;
+
     /**
      * HashMap for store and record name and image File.
      */
@@ -127,6 +129,19 @@ public class Controller implements Initializable{
     public void initData(String oldName, String newName) {
         int position = listView.getItems().indexOf(oldName);
         listView.getItems().set(position, newName);
+    }
+
+    public void ButtonSearch(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            ArrayList<String> tagList = new ArrayList<>();
+            for (String tag : tags.getText().split(",")) {
+                tag.trim();
+                tagList.add(tag);
+            }
+            listView.getItems().clear();
+            listView.getItems().addAll(ImageManager.getImagesWithSameTags(tagList));
+            System.out.println(ImageManager.getImagesWithSameTags(tagList));
+        }
     }
 
     public void ViewHistory() throws IOException{
