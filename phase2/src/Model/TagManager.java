@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 /**
  * A Tag Manager.
  */
+@SuppressWarnings("unchecked")
 public class TagManager {
 
   /**
@@ -21,7 +22,7 @@ public class TagManager {
   /**
    * The string path of the serialized file of this TagManager.
    */
-  private static String filePath = "./tags.ser";
+  private static final String filePath = "./tags.ser";
   /**
    * A Logger.
    */
@@ -44,7 +45,7 @@ public class TagManager {
 
     File file = new File(filePath);
     if (file.exists()) {
-      readFromFile(filePath);
+      readFromFile();
     } else {
       if (file.createNewFile()) {
         logger.log(Level.FINE, "created tag.ser");
@@ -70,7 +71,7 @@ public class TagManager {
   public static void addTag(String tag) throws IOException {
     if (!tagList.contains(tag)) {
       tagList.add(tag);
-      saveToFile(filePath);
+      saveToFile();
     } else {
       logger.log(Level.WARNING, "This tag already existed.");
     }
@@ -86,7 +87,7 @@ public class TagManager {
   public static void removeTag(String tag) throws IOException {
     if (tagList.contains(tag)) {
       tagList.remove(tag);
-      saveToFile(filePath);
+      saveToFile();
     } else {
       logger.log(Level.WARNING, "No such tag.");
     }
@@ -95,10 +96,8 @@ public class TagManager {
 
   /**
    * Save this TagManager to a serialized file to filePath.
-   *
-   * @param filePath the path to save the file.
    */
-  private static void saveToFile(String filePath) throws IOException {
+  public static void saveToFile() throws IOException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
@@ -107,18 +106,17 @@ public class TagManager {
     output.writeObject(tagList);
     output.close();
   }
+
   /**
    * Read a TagManager from the serialized file with path and update this TagManger's tagList with
    * the read TagManager's.
-   *
-   * @param path the path of this file to read.
    */
-  private void readFromFile(String path) throws ClassNotFoundException {
+  public void readFromFile() throws ClassNotFoundException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
     try {
-      ObjectInput input = fm.readFromFile(path);
+      ObjectInput input = fm.readFromFile(filePath);
       tagList = (ArrayList<String>) input.readObject();
       input.close();
     } catch (IOException ex) {
@@ -133,10 +131,17 @@ public class TagManager {
    */
   public String toString() {
     StringBuilder result = new StringBuilder();
-    for (String s: tagList) {
+    for (String s : tagList) {
       result.append(s);
       result.append(System.lineSeparator());
     }
     return result.toString();
+  }
+
+  /**
+   * Clear TagManager's tagList. For JUnit test purposes.
+   */
+  public static void clear() {
+    tagList.clear();
   }
 }
