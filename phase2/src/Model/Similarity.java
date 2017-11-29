@@ -21,6 +21,8 @@ public class Similarity {
             normA += Math.pow(vectorA.get(i), 2);
             normB += Math.pow(vectorB.get(i), 2);
         }
+        // assign the cosine value between zero vector and the other vector
+        // with 0.0 for purpose of comparing in this context
         if(normA == 0|normB == 0) {
             return 0.0;
         }
@@ -106,28 +108,5 @@ public class Similarity {
             result.add(entry.getKey());
         }
         return result;
-    }
-
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-
-        ImageManager im = new ImageManager();
-        TagManager tm = new TagManager();
-        //im.addTag("/Users/QiqiXu/phase2/group_0473/phase2/src/./C @csc.jpg", "258");
-        System.out.println(im);
-        System.out.println(tm);
-        String p = "/Users/QiqiXu/phase2/group_0473/phase2/src/./C @csc @258.jpg";
-        //Image i = new Image(new File(p));
-        ArrayList<Image> result = getSimilarImages(p);
-        //System.out.println(tm);
-        System.out.println(result);
-
-
-
-
-
-
-
-
     }
 }

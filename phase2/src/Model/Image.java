@@ -29,11 +29,11 @@ public class Image extends Observable implements Serializable {
   /* A ConsoleHandler. */
   private static final Handler consoleHandler = new ConsoleHandler();
 
-  /**
-   * A log of all changes
-   */
+  /* A log of all changes. */
   private StringBuilder log = new StringBuilder();
 
+
+  /* An ArrayList of observers. */
   private ArrayList<Observer> observers = new ArrayList<>();
 
   /**
@@ -117,11 +117,19 @@ public class Image extends Observable implements Serializable {
     notifyObservers(oldName);
   }
 
+  /**
+   * Notify the first observer of this image that it is changing its name.
+   * @param oldName the previous name of this image
+   */
   public void notifyObservers(String oldName) {
     observers.get(0).update(this, oldName);
 
   }
 
+  /**
+   * Add Observer to this image.
+   * @param o the Observer to be added
+   */
   public void addObserver(Observer o) {
     if (!observers.contains(o)) {
       observers.add(o);
@@ -285,6 +293,11 @@ public class Image extends Observable implements Serializable {
   }
 
 
+  /**
+   * Update this image's current tag list with tags shown in its name.
+   * @param name the name of this image
+   * @throws IOException if stream to file with newPath cannot be written or closed
+   */
   public void restoreTag(String name) throws IOException {
     ArrayList<String> tags = getTagsFromName(name);
     currentTags.clear();

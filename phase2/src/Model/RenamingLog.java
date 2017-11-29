@@ -13,14 +13,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RenamingLog implements Observer, Serializable {
+    /* A log of all renaming ever done to all files. */
     private static StringBuilder logs = new StringBuilder();
     /* A Logger. */
     private static final Logger logger = Logger.getLogger(Image.class.getName());
     /* A ConsoleHandler. */
     private static final Handler consoleHandler = new ConsoleHandler();
+    /* The path of logging file. */
     private static final String path = "./logs.ser";
 
 
+    /***
+     * A RenamingLog
+     * @throws ClassNotFoundException if the class path is not updated
+     * @throws IOException if stream to file with filePath cannot be written or closed
+     */
     public RenamingLog() throws IOException, ClassNotFoundException {
         //this.image.addObserver(this);
         File file = new File(path);
@@ -56,12 +63,16 @@ public class RenamingLog implements Observer, Serializable {
         }
     }
 
+    /**
+     * Add a new record in logs when changing the name of image whose old name is nameOld at time date.
+     * @param image The image to be renamed
+     * @param nameOld The previous name of image
+     * @param date the time of this renaming
+     */
     public void add(Image image, String nameOld, String date) {
         String newLog = nameOld + ", " + image.getName() + image.getExtension() + ", " + date;
         logs.append(newLog);
         logs.append(System.lineSeparator());
-
-        // LogObserver the addition of a student.
        logger.log(Level.FINE, "Added a new renaming " + image.toString());
     }
 
@@ -81,11 +92,20 @@ public class RenamingLog implements Observer, Serializable {
         output.close();
     }
 
+    /**
+     * Added this RenamingLog to image i's observers.
+     * @param i The image to be observed
+     */
     public void addObservable(Image i) {
         i.addObserver(this);
     }
 
 
+    /**
+     * Update the state of the observable object o and record its old name oldName.
+     * @param o the Observable object to be updated
+     * @param oldName the name to be recorded
+     */
     public void update(Observable o, Object oldName) {
         Date now = new Date();
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -104,19 +124,15 @@ public class RenamingLog implements Observer, Serializable {
     }
 
     /**
-     * Return the String representation of this ImageManager.
+     * Return the String representation of this RenamingLog.
      *
-     * @return the String representation of this ImageManager
+     * @return the String representation of this RenamingLog
      */
     @Override
     public String toString() {
         return logs.toString();
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        RenamingLog rl=  new RenamingLog();
-        System.out.println(rl.toString());
-    }
 
 
 }

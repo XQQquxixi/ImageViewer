@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * A Tag Manager.
  */
-@SuppressWarnings("unchecked")
+
 public class TagManager {
 
   /**
@@ -26,8 +26,7 @@ public class TagManager {
   /**
    * A Logger.
    */
-  private static final Logger logger =
-      Logger.getLogger(TagManager.class.getName());
+  private static final Logger logger = Logger.getLogger(TagManager.class.getName());
   /**
    * A Console Handler.
    */

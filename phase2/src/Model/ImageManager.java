@@ -20,7 +20,7 @@ public class ImageManager {
   private static final Handler consoleHandler = new ConsoleHandler();
   /* The file path for images. */
   private static final String path = "./images.ser";
-
+ /* A renamingLog Observer that observes all images of this ImageManager. */
   private static RenamingLog rl;
 
   /**
@@ -47,6 +47,10 @@ public class ImageManager {
     }
   }
 
+  /**
+   * Return the images of this ImageManager.
+   * @return the images of this ImageManager.
+   */
   public static Map<File, Image> getImages() {
     return images;
   }
@@ -270,6 +274,11 @@ public class ImageManager {
     return rl.toString();
   }
 
+  /**
+   * Return an ArrayList of images that have tags in the tags.
+   * @param tags An ArrayList of tag of interest
+   * @return An ArrayList of images that have tags in the tags.
+   */
   public static ArrayList<String> getImagesWithSameTags(ArrayList<String> tags) {
     ArrayList<String> imageWithSameTags = new ArrayList<>();
     boolean flag;
