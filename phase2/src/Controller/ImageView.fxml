@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ImageViewController">
     <left>
@@ -36,22 +37,22 @@
                         <Label fx:id="Name" prefHeight="30.0" prefWidth="385.0" text="Name" />
                     </children>
                 </HBox>
-                <ImageView fx:id="show" fitHeight="313.0" fitWidth="387.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="show" fitHeight="313.0" fitWidth="382.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </VBox>
     </center>
     <right>
-        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="322.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
                 <Label prefHeight="17.0" prefWidth="115.0" text="Add Tag:">
                <VBox.margin>
                   <Insets right="10.0" top="10.0" />
                </VBox.margin></Label>
-                <ListView fx:id="Tags" prefHeight="283.0" prefWidth="115.0">
+                <ListView fx:id="Tags" prefHeight="252.0" prefWidth="90.0">
                <VBox.margin>
                   <Insets right="10.0" />
                </VBox.margin></ListView>
-                <GridPane>
+                <GridPane prefHeight="64.0" prefWidth="100.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -59,20 +60,18 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="New:" />
-                        <TextField fx:id="newTag" GridPane.rowIndex="1" />
-                        <Button fx:id="input" mnemonicParsing="false" onAction="#InputNewTag" prefHeight="41.0" prefWidth="52.0" text="In" GridPane.rowIndex="2" />
-                        <Button fx:id="Add" mnemonicParsing="false" onAction="#AddTags" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="newTag" promptText="new..." GridPane.rowIndex="1" />
+                        <Button fx:id="input" mnemonicParsing="false" onAction="#InputNewTag" prefHeight="26.0" prefWidth="44.0" text="In" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="Add" mnemonicParsing="false" onAction="#AddTags" text="Add" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
             </children>
         </VBox>
     </right>
    <bottom>
-      <SplitPane dividerPositions="0.37305699481865284" orientation="VERTICAL" prefHeight="255.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.25461254612546125" orientation="VERTICAL" prefHeight="273.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="60.0" prefWidth="160.0">
                <children>
@@ -96,15 +95,20 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="160.0">
                <children>
-                  <ImageView fx:id="sim1" fitHeight="100.0" fitWidth="180.0" layoutX="29.0" layoutY="20.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="sim2" fitHeight="100.0" fitWidth="180.0" layoutX="209.0" layoutY="20.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="sim3" fitHeight="100.0" fitWidth="180.0" layoutX="389.0" layoutY="20.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
-                  <Button fx:id="prevPage" layoutY="63.0" mnemonicParsing="false" onAction="#ButtonPrevPage" prefHeight="33.0" prefWidth="20.0" text="&lt;" />
-                  <Button fx:id="nextPage" layoutX="570.0" layoutY="63.0" mnemonicParsing="false" onAction="#ButtonNextPage" prefHeight="33.0" prefWidth="20.0" text="&gt;" />
-                  <Label fx:id="pageNum" layoutX="29.0" prefHeight="28.0" prefWidth="161.0" text="Label" />
-                  <Label fx:id="name2" layoutX="209.0" layoutY="120.0" onMouseClicked="#DoubleClick" prefHeight="30.0" prefWidth="180.0" text="Label" />
-                  <Label fx:id="name1" layoutX="29.0" layoutY="120.0" onMouseClicked="#DoubleClick" prefHeight="30.0" prefWidth="180.0" text="Label" />
-                  <Label fx:id="name3" layoutX="389.0" layoutY="120.0" prefHeight="30.0" prefWidth="180.0" text="Label" />
+                  <ImageView fx:id="sim1" fitHeight="100.0" fitWidth="180.0" layoutX="29.0" layoutY="60.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="sim2" fitHeight="100.0" fitWidth="180.0" layoutX="209.0" layoutY="60.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="sim3" fitHeight="100.0" fitWidth="180.0" layoutX="389.0" layoutY="60.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="prevPage" layoutY="103.0" mnemonicParsing="false" onAction="#ButtonPrevPage" prefHeight="33.0" prefWidth="20.0" text="&lt;" />
+                  <Button fx:id="nextPage" layoutX="570.0" layoutY="103.0" mnemonicParsing="false" onAction="#ButtonNextPage" prefHeight="33.0" prefWidth="20.0" text="&gt;" />
+                  <Label fx:id="pageNum" layoutX="29.0" layoutY="32.0" prefHeight="28.0" prefWidth="161.0" text="Label" />
+                  <Label fx:id="name2" layoutX="209.0" layoutY="160.0" onMouseClicked="#DoubleClick" prefHeight="39.0" prefWidth="180.0" text="Label" wrapText="true" />
+                  <Label fx:id="name1" layoutX="29.0" layoutY="160.0" onMouseClicked="#DoubleClick" prefHeight="40.0" prefWidth="180.0" text="Label" wrapText="true" />
+                  <Label fx:id="name3" layoutX="389.0" layoutY="160.0" prefHeight="40.0" prefWidth="180.0" text="Label" wrapText="true" />
+                  <Label layoutX="9.0" layoutY="-6.0" prefHeight="40.0" prefWidth="220.0" text="Similar Images:" textFill="#6895e4">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </items>
