@@ -20,8 +20,8 @@ public class ImageManager {
   private static final Handler consoleHandler = new ConsoleHandler();
   /* The file path for images. */
   private static final String path = "./images.ser";
-  /* A logging history for all re-namings done to all files. */
-  private static StringBuilder logs = new StringBuilder();
+
+  private static RenamingLog rl;
 
   /**
    * An ImageManager with filePath.
@@ -30,6 +30,7 @@ public class ImageManager {
    * @throws IOException if stream to file with filePath cannot be written or closed
    */
   public ImageManager() throws ClassNotFoundException, IOException {
+    rl = new RenamingLog();
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     images = new HashMap<>();
@@ -126,6 +127,7 @@ public class ImageManager {
       add(new Image(file));
       saveToFile();
     }
+    rl.addObservable(images.get(file));
     return images.get(file);
   }
 
@@ -264,12 +266,8 @@ public class ImageManager {
    * Return an ArrayList of imges with selected tags.
    * @return an ArrayList of imges with selected tags
    */
-  public static String getLogs() {
-
-    for (Image i: images.values()) {
-      logs.append(i.getLog());
-    }
-    return logs.toString();
+  public String getLogs() {
+    return rl.toString();
   }
 
   public ArrayList<Image> getImagesWithSameTags(ArrayList<String> tags) {

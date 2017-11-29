@@ -34,6 +34,8 @@ public class Image implements Serializable {
    */
   private StringBuilder log = new StringBuilder();
 
+  private ArrayList<Observer> observers = new ArrayList<>();
+
   /**
    * A image associated with file.
    *
@@ -111,7 +113,21 @@ public class Image implements Serializable {
     this.name = newFile.getName();
     this.file = newFile;
     updateLog(oldName);
+    setChanged();
+    notifyObservers(oldName);
   }
+
+  public void notifyObservers(String oldName) {
+    observers.get(0).update(this, oldName);
+
+  }
+
+  public void addObserver(Observer o) {
+    if (!observers.contains(o)) {
+      observers.add(o);
+    }
+  }
+
 
   /**
    * Returns the String representation of this image.
