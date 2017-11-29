@@ -173,7 +173,7 @@ public class RenameController implements Initializable{
         FXMLLoader loader = new FXMLLoader();
         loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController controller = loader.getController();
-        controller.initData(image);
+        controller.GetImage(image.getFile());
         Window window = ok.getScene().getWindow();
         Stage stage = (Stage) window;
         stage.close();
