@@ -7,9 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -19,9 +20,9 @@ import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public class ImageViewController {
@@ -86,6 +87,24 @@ public class ImageViewController {
     javafx.scene.image.ImageView show;
 
     /**
+     * ImageView to show this file's similar image.
+     */
+    @FXML
+    javafx.scene.image.ImageView sim1;
+
+    /**
+     * ImageView to show this file's similar image.
+     */
+    @FXML
+    javafx.scene.image.ImageView sim2;
+
+    /**
+     * ImageView to show this file's similar image.
+     */
+    @FXML
+    javafx.scene.image.ImageView sim3;
+
+    /**
      * Label to show name of curFile.
      */
     @FXML
@@ -110,13 +129,42 @@ public class ImageViewController {
     @FXML
     Button history;
 
+    /**
+     * Label for displaying page number.
+     */
+    @FXML
+    Label pageNum;
+
+    /**
+     * Label for displaying image name.
+     */
+    @FXML
+    Label name1;
+
+    /**
+     * Label for displaying image name.
+     */
+    @FXML
+    Label name2;
+
+    /**
+     * Label for displaying image name.
+     */
+    @FXML
+    Label name3;
+
     private File curFile;
 
     private Image selectedImage;
 
-    private String path;
+//    private String path;
 
     private Controller controller;
+
+    private ArrayList<ArrayList<javafx.scene.image.Image>> simDisplayList = new ArrayList<>();
+    private ArrayList<ArrayList<Image>> simUseList = new ArrayList<>();
+
+    private static int curPage;
 
 
     /**
@@ -133,6 +181,68 @@ public class ImageViewController {
             e.printStackTrace();
         }
         initData(selectedImage);
+    }
+
+    public void ButtonNextPage(ActionEvent event) {
+        if (curPage != simDisplayList.size() - 1) {
+            if (simDisplayList.get(curPage+1).get(0) != null) {
+                sim1.setImage(simDisplayList.get(curPage+1).get(0));
+                name1.setText(simUseList.get(curPage+1).get(0).getName());
+            }
+            if (simDisplayList.get(curPage+1).get(1) != null) {
+                sim2.setImage(simDisplayList.get(curPage+1).get(1));
+                name2.setText(simUseList.get(curPage+1).get(1).getName());
+            }
+            if (simDisplayList.get(curPage+1).get(2) != null) {
+                sim3.setImage(simDisplayList.get(curPage+1).get(2));
+                name3.setText(simUseList.get(curPage+1).get(2).getName());
+            }
+            curPage += 1;
+            pageNum.setText("Page " + (curPage + 1));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Oops");
+            alert.setHeaderText(null);
+            alert.setContentText("This is already the last page!");
+            alert.showAndWait();
+        }
+    }
+
+    public void ButtonPrevPage(ActionEvent event) {
+        if (curPage != 0) {
+            if (simDisplayList.get(curPage - 1).get(0) != null) {
+                sim1.setImage(simDisplayList.get(curPage - 1).get(0));
+                name1.setText(simUseList.get(curPage-1).get(0).getName());
+            }
+            if (simDisplayList.get(curPage - 1).get(1) != null) {
+                sim2.setImage(simDisplayList.get(curPage - 1).get(1));
+                name2.setText(simUseList.get(curPage-1).get(1).getName());
+            }
+            if (simDisplayList.get(curPage - 1).get(2) != null) {
+                sim3.setImage(simDisplayList.get(curPage - 1).get(2));
+                name3.setText(simUseList.get(curPage-1).get(2).getName());
+            }
+            curPage -= 1;
+            pageNum.setText("Page " + (curPage + 1));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Oops");
+            alert.setHeaderText(null);
+            alert.setContentText("This is already the first page!");
+            alert.showAndWait();
+        }
+    }
+
+    public void DoubleClick(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            if (event.getSource().equals(sim1) || event.getSource().equals(name1)) {
+                initData(simUseList.get(curPage).get(0));
+            } else if (event.getSource().equals(sim2) || event.getSource().equals(name2)) {
+                initData(simUseList.get(curPage).get(1));
+            } else if (event.getSource().equals(sim3) || event.getSource().equals(name3)) {
+                initData(simUseList.get(curPage).get(2));
+            }
+        }
     }
 
     /**
@@ -161,6 +271,36 @@ public class ImageViewController {
         show.setImage(image1);
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         Tags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        int i = 0;
+        ArrayList<javafx.scene.image.Image> list = new ArrayList<>();
+        ArrayList<Image> list1 = new ArrayList<>();
+//        System.out.println(Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath()));
+        for (Image simImage : Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath())) {
+            javafx.scene.image.Image sim = new javafx.scene.image.Image(simImage.getFile().toURI().toString());
+            list.add(sim);
+            list1.add(simImage);
+            i += 1;
+            if (i % 3 == 0) {
+                ArrayList<javafx.scene.image.Image> newList = new ArrayList<>();
+                ArrayList<Image> newList1 = new ArrayList<>();
+                newList.addAll(list);
+                newList1.addAll(list1);
+                simDisplayList.add(newList);
+                simUseList.add(newList1);
+                list.clear();
+                list1.clear();
+                i = 0;
+            }
+        }
+        sim1.setImage(simDisplayList.get(0).get(0));
+        sim2.setImage(simDisplayList.get(0).get(1));
+        sim3.setImage(simDisplayList.get(0).get(2));
+        name1.setText(simUseList.get(0).get(0).getName());
+        name2.setText(simUseList.get(0).get(1).getName());
+        name3.setText(simUseList.get(0).get(2).getName());
+        curPage = 0;
+        pageNum.setText("Page " + (curPage + 1));
+        System.out.println(simDisplayList);
     }
 
     /**
