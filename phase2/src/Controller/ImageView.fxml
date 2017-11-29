@@ -48,7 +48,7 @@
                <VBox.margin>
                   <Insets right="10.0" top="10.0" />
                </VBox.margin></Label>
-                <ListView fx:id="Tags" prefHeight="252.0" prefWidth="90.0">
+                <ListView fx:id="tags" onMouseClicked="#doubleClickTags" prefHeight="252.0" prefWidth="90.0">
                <VBox.margin>
                   <Insets right="10.0" />
                </VBox.margin></ListView>
