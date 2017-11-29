@@ -12,7 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -43,6 +45,12 @@ public class Controller implements Initializable{
      */
 
     private static final double DISTANCE = 50.0;
+
+    /**
+     * Button for onAction ViewHistory
+     */
+    @FXML
+    Button Log;
 
     /**
      * Button for open DirectoryChooser.
@@ -119,6 +127,25 @@ public class Controller implements Initializable{
     public void initData(String oldName, String newName) {
         int position = listView.getItems().indexOf(oldName);
         listView.getItems().set(position, newName);
+    }
+
+    public void ViewHistory() throws IOException{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("History");
+        alert.setContentText("Here is your all history changes of all files:");
+        String history = ImageManager.getLogs();
+        TextArea textArea = new TextArea(history);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(textArea, 0, 0);
+        alert.getDialogPane().setExpandableContent(expContent);
+        alert.showAndWait();
     }
 
     /**

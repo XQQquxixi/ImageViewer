@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
     <children>
         <Button fx:id="btn1" layoutX="236.0" layoutY="49.0" mnemonicParsing="false" onAction="#Button1Action" text="Open" />
         <ListView fx:id="listView" layoutX="300.0" layoutY="58.0" onMouseClicked="#MouseClickList" prefHeight="278.0" prefWidth="281.0" />
@@ -32,5 +32,6 @@
       <Label layoutX="300.0" layoutY="41.0" text="(and hit OK to continue)" />
       <Label fx:id="path" layoutX="14.0" layoutY="285.0" prefHeight="53.0" prefWidth="281.0" text="Path" wrapText="true" />
       <Button fx:id="clear" layoutX="358.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonClear" prefHeight="26.0" prefWidth="106.0" text="Clear" />
+      <Button fx:id="Log" onAction="#ViewHistory" layoutX="175.0" layoutY="350.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="116.0" text="History" />
     </children>
 </AnchorPane>
