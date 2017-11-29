@@ -292,6 +292,7 @@ public class ImageViewController {
         int i = 0;
         ArrayList<javafx.scene.image.Image> list = new ArrayList<>();
         ArrayList<Image> list1 = new ArrayList<>();
+//        System.out.println("image:" + selectedImage);
         ArrayList<Image> simList = Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath());
         System.out.println(simList);
         simDisplayList.clear();
@@ -504,7 +505,8 @@ public class ImageViewController {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("History");
-            alert.setContentText("Here is your all history changes of this image:");
+            alert.setHeaderText("Here is your all history changes of this image:");
+//            alert.setContentText("Here is your all history changes of this image:");
             String history = ImageManager.getLog(selectedImage.getFile().getAbsolutePath());
             TextArea textArea = new TextArea(history);
             textArea.setEditable(false);
@@ -518,7 +520,8 @@ public class ImageViewController {
             expContent.setMaxWidth(Double.MAX_VALUE);
             expContent.add(textArea, 0, 0);
 
-            alert.getDialogPane().setExpandableContent(expContent);
+//            alert.getDialogPane().setExpandableContent(expContent);
+            alert.getDialogPane().setContent(expContent);
 
             alert.showAndWait();
         } catch (IOException e) {
