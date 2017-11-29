@@ -199,7 +199,7 @@ public class Controller implements Initializable{
                 if (file.exists() && !listView.getItems().contains(file.getName())) {
                     nameToFile.put(file.getName(), file);
                     Image image = new Image(file.toURI().toString());
-                    Model.Image image1 = new Model.Image(file);
+//                    Model.Image image1 = new Model.Image(file);
                     iv1.setImage(image);
                     listView.getItems().add(file.getName());
                     ImageManager.checkKey(file);
@@ -317,7 +317,7 @@ public class Controller implements Initializable{
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
         Parent root = FXMLLoader.load(getClass().getResource("TagsView.fxml"));
-        primaryStage.setTitle("Edit All Tags");
+        primaryStage.setTitle("Edit All tags");
         primaryStage.setScene(new Scene(root));
         primaryStage.showAndWait();
     }
