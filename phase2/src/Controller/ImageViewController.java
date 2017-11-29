@@ -185,17 +185,26 @@ public class ImageViewController {
 
     public void ButtonNextPage(ActionEvent event) {
         if (curPage != simDisplayList.size() - 1) {
-            if (simDisplayList.get(curPage+1).get(0) != null) {
+            if (simDisplayList.get(curPage+1).size() != 0) {
                 sim1.setImage(simDisplayList.get(curPage+1).get(0));
                 name1.setText(simUseList.get(curPage+1).get(0).getName());
+            } else {
+                sim1.setImage(null);
+                name1.setText("");
             }
-            if (simDisplayList.get(curPage+1).get(1) != null) {
+            if (simDisplayList.get(curPage+1).size() >= 2) {
                 sim2.setImage(simDisplayList.get(curPage+1).get(1));
                 name2.setText(simUseList.get(curPage+1).get(1).getName());
+            } else {
+                sim2.setImage(null);
+                name2.setText("");
             }
-            if (simDisplayList.get(curPage+1).get(2) != null) {
+            if (simDisplayList.get(curPage+1).size() == 3) {
                 sim3.setImage(simDisplayList.get(curPage+1).get(2));
                 name3.setText(simUseList.get(curPage+1).get(2).getName());
+            } else {
+                sim3.setImage(null);
+                name3.setText("");
             }
             curPage += 1;
             pageNum.setText("Page " + (curPage + 1));
@@ -210,17 +219,26 @@ public class ImageViewController {
 
     public void ButtonPrevPage(ActionEvent event) {
         if (curPage != 0) {
-            if (simDisplayList.get(curPage - 1).get(0) != null) {
+            if (simDisplayList.get(curPage - 1).size() != 0) {
                 sim1.setImage(simDisplayList.get(curPage - 1).get(0));
                 name1.setText(simUseList.get(curPage-1).get(0).getName());
+            } else {
+                sim1.setImage(null);
+                name1.setText("");
             }
-            if (simDisplayList.get(curPage - 1).get(1) != null) {
+            if (simDisplayList.get(curPage - 1).size() >= 2) {
                 sim2.setImage(simDisplayList.get(curPage - 1).get(1));
                 name2.setText(simUseList.get(curPage-1).get(1).getName());
+            } else {
+                sim2.setImage(null);
+                name2.setText("");
             }
-            if (simDisplayList.get(curPage - 1).get(2) != null) {
+            if (simDisplayList.get(curPage - 1).size() >= 2) {
                 sim3.setImage(simDisplayList.get(curPage - 1).get(2));
                 name3.setText(simUseList.get(curPage-1).get(2).getName());
+            } else {
+                sim3.setImage(null);
+                name3.setText("");
             }
             curPage -= 1;
             pageNum.setText("Page " + (curPage + 1));
@@ -274,8 +292,9 @@ public class ImageViewController {
         int i = 0;
         ArrayList<javafx.scene.image.Image> list = new ArrayList<>();
         ArrayList<Image> list1 = new ArrayList<>();
-//        System.out.println(Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath()));
-        for (Image simImage : Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath())) {
+        ArrayList<Image> simList = Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath());
+        System.out.println(simList);
+        for (Image simImage : simList) {
             javafx.scene.image.Image sim = new javafx.scene.image.Image(simImage.getFile().toURI().toString());
             list.add(sim);
             list1.add(simImage);
@@ -290,6 +309,13 @@ public class ImageViewController {
                 list.clear();
                 list1.clear();
                 i = 0;
+            } else if (simList.indexOf(simImage) == (simList.size() - 1)) {
+                ArrayList<javafx.scene.image.Image> newList = new ArrayList<>();
+                ArrayList<Image> newList1 = new ArrayList<>();
+                newList.addAll(list);
+                newList1.addAll(list1);
+                simDisplayList.add(newList);
+                simUseList.add(newList1);
             }
         }
         sim1.setImage(simDisplayList.get(0).get(0));
