@@ -114,7 +114,7 @@ public class SimilarityTest {
         unsortedMap.put(new Image(new File("b.jpg")), 0.4);
         unsortedMap.put(new Image(new File("c.jpg")), 0.2);
         unsortedMap.put(new Image(new File("d.jpg")), 0.6);
-        Map<Image, Double> sorted = sortByComparator(unsortedMap);
+      Map<Image, Double> sorted = getSorted(unsortedMap);
         ArrayList<Double> result = new ArrayList<>();
         for (Map.Entry<Image,Double> entry : sorted.entrySet()) {
             result.add(entry.getValue());
@@ -129,7 +129,7 @@ public class SimilarityTest {
         unsortedMap.put(new Image(new File("b.jpg")), 0.4);
         unsortedMap.put(new Image(new File("c.jpg")), 0.2);
         unsortedMap.put(new Image(new File("d.jpg")), 0.9);
-        Map<Image, Double> sorted = sortByComparator(unsortedMap);
+      Map<Image, Double> sorted = getSorted(unsortedMap);
         ArrayList<Double> result = new ArrayList<>();
         for (Map.Entry<Image,Double> entry : sorted.entrySet()) {
             result.add(entry.getValue());

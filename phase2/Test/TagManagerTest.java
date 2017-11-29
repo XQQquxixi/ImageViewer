@@ -17,7 +17,6 @@ import Model.TagManager;
 import java.io.File;
 import java.io.IOException;
 
-@SuppressWarnings("ignored")
 class TagManagerTest {
 
   private TagManager tagManger;
