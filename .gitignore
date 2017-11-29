@@ -1,0 +1,15 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# ser file
+*.ser
+
+phase2.iml
+
+.idea/
+out/
+
+/.DS_Store/
