@@ -266,18 +266,22 @@ public class ImageManager {
    * Return an ArrayList of imges with selected tags.
    * @return an ArrayList of imges with selected tags
    */
-  public String getLogs() {
+  public static String getLogs() {
     return rl.toString();
   }
 
-  public ArrayList<Image> getImagesWithSameTags(ArrayList<String> tags) {
-    ArrayList<Image> imageWithSameTags = new ArrayList<>();
-    for (Image i: images.values()) {
+  public static ArrayList<String> getImagesWithSameTags(ArrayList<String> tags) {
+    ArrayList<String> imageWithSameTags = new ArrayList<>();
+    boolean flag = true;
+    for (Image i : images.values()) {
       ArrayList<String> imageTags = new ArrayList<>(i.getCurrentTags());
-      Collections.sort(imageTags);
-      Collections.sort(tags);
-      if (imageTags.equals(tags)) {
-        imageWithSameTags.add(i);
+      for (String tag : tags) {
+        if (!imageTags.contains(tag)) {
+          flag = false;
+        }
+      }
+      if(flag) {
+        imageWithSameTags.add(i.getName());
       }
     }
     return imageWithSameTags;
