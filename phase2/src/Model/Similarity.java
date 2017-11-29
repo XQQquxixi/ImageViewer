@@ -21,6 +21,9 @@ public class Similarity {
             normA += Math.pow(vectorA.get(i), 2);
             normB += Math.pow(vectorB.get(i), 2);
         }
+        if(normA == 0|normB == 0) {
+            return 0.0;
+        }
         return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
     }
 
@@ -51,7 +54,7 @@ public class Similarity {
      */
     public static ArrayList<Image> getSimilarImages(String path) {
         HashMap<Image, Double> similar = new HashMap<>();
-        Map<File, Image> images = ImageManager.getImages();
+        Map<File, Image> images = new HashMap<>(ImageManager.getImages());
         Vector v = getVector(images.get(new File(path)));
         images.remove(new File(path));
         for (Image i: images.values()) {
