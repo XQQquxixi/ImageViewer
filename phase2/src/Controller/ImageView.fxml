@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ImageViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ImageViewController">
     <left>
         <VBox prefHeight="254.0" prefWidth="116.0" BorderPane.alignment="CENTER">
             <children>
@@ -72,9 +72,9 @@
         </VBox>
     </right>
    <bottom>
-      <SplitPane dividerPositions="0.42196531791907516" orientation="VERTICAL" prefHeight="177.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.37305699481865284" orientation="VERTICAL" prefHeight="255.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="66.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="60.0" prefWidth="160.0">
                <children>
                     <HBox prefHeight="70.0" prefWidth="600.0" spacing="10.0">
                         <children>
@@ -90,14 +90,21 @@
                         </padding>
                     </HBox>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="160.0">
                <children>
-                  <ImageView fitHeight="99.0" fitWidth="180.0" layoutX="28.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="99.0" fitWidth="180.0" layoutX="205.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="99.0" fitWidth="180.0" layoutX="385.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button layoutY="29.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="20.0" text="&lt;" />
-                  <Button layoutX="569.0" layoutY="29.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="20.0" text="&gt;" />
+                  <ImageView fx:id="sim1" fitHeight="100.0" fitWidth="180.0" layoutX="29.0" layoutY="20.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="sim2" fitHeight="100.0" fitWidth="180.0" layoutX="209.0" layoutY="20.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="sim3" fitHeight="100.0" fitWidth="180.0" layoutX="389.0" layoutY="20.0" onMouseClicked="#DoubleClick" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="prevPage" layoutY="63.0" mnemonicParsing="false" onAction="#ButtonPrevPage" prefHeight="33.0" prefWidth="20.0" text="&lt;" />
+                  <Button fx:id="nextPage" layoutX="570.0" layoutY="63.0" mnemonicParsing="false" onAction="#ButtonNextPage" prefHeight="33.0" prefWidth="20.0" text="&gt;" />
+                  <Label fx:id="pageNum" layoutX="29.0" prefHeight="28.0" prefWidth="161.0" text="Label" />
+                  <Label fx:id="name2" layoutX="209.0" layoutY="120.0" onMouseClicked="#DoubleClick" prefHeight="30.0" prefWidth="180.0" text="Label" />
+                  <Label fx:id="name1" layoutX="29.0" layoutY="120.0" onMouseClicked="#DoubleClick" prefHeight="30.0" prefWidth="180.0" text="Label" />
+                  <Label fx:id="name3" layoutX="389.0" layoutY="120.0" prefHeight="30.0" prefWidth="180.0" text="Label" />
                </children>
             </AnchorPane>
         </items>
