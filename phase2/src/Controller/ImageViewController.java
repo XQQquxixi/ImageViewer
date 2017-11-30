@@ -261,6 +261,7 @@ public class ImageViewController {
                                 }
                             }
                         }
+                        Name.setText(selectedImage.getName());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
