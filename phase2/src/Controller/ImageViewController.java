@@ -236,49 +236,63 @@ public class ImageViewController {
             delete.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    try {
-                        String tag = tags.getSelectionModel().getSelectedItems().get(0);
-                        if (selectedImage.getCurrentTags().contains(tag)) {
-                            listView.getItems().remove(tag);
+                    String tag = tags.getSelectionModel().getSelectedItems().get(0);
+                    Map<File, Image> map = ImageManager.getImages();
+                    ArrayList<Image> images = new ArrayList<>(map.values());
+                    ArrayList<Image> imWithTag = new ArrayList<>();
+                    for (Image image: images) {
+                        if (image.getCurrentTags().contains(tag)) {
+                            imWithTag.add(image);
                         }
-                        TagManager.removeTag(tag);
-                        Map<File, Image> map = ImageManager.getImages();
-                        ArrayList<Image> images = new ArrayList<>(map.values());
-                        for (Image image: images) {
-                            if (image.getCurrentTags().contains(tag)) {
-                                String oldName = image.getName() + image.getExtension();
-                                ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
-                                for (String key : Controller.nameToFile.keySet()) {
-                                    if (Controller.nameToFile.get(key).equals(image.getFile())) {
-                                        oldName = key;
-                                    }
+                    }
+                    if (imWithTag.size() != 0) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Confirm Deletion");
+                        alert.setHeaderText("Are you sure you want to delete " + tag + "?");
+                        alert.setContentText(tag + " involved in " + imWithTag.toString() + " will also be deleted.");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.isPresent()) {
+                            if (result.get() == ButtonType.OK) {
+                                if (selectedImage.getCurrentTags().contains(tag)) {
+                                    listView.getItems().remove(tag);
                                 }
-                                if (Controller.nameToFile.containsKey(oldName)) {
-                                    String newName = image.getName() + image.getExtension();
-                                    Controller.nameToFile.remove(oldName);
-                                    Controller.nameToFile.put(newName, image.getFile());
-                                    controller.initData(oldName, newName);
+                                try {
+                                    TagManager.removeTag(tag);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
                             }
+                            for (Image image : imWithTag) {
+                                if (image.getCurrentTags().contains(tag)) {
+                                    String oldName = image.getName() + image.getExtension();
+                                    try {
+                                        ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    for (String key : Controller.nameToFile.keySet()) {
+                                        if (Controller.nameToFile.get(key).equals(image.getFile())) {
+                                            oldName = key;
+                                        }
+                                    }
+                                    if (Controller.nameToFile.containsKey(oldName)) {
+                                        String newName = image.getName() + image.getExtension();
+                                        Controller.nameToFile.remove(oldName);
+                                        Controller.nameToFile.put(newName, image.getFile());
+                                        controller.initData(oldName, newName);
+                                    }
+                                }
+                            }
+                            Name.setText(selectedImage.getName());
+                            name1.setText(simUseList.get(0).get(0).getName());
+                            name2.setText(simUseList.get(0).get(1).getName());
+                            name3.setText(simUseList.get(0).get(2).getName());
                         }
-                        Name.setText(selectedImage.getName());
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
                     tags.getItems().clear();
                     tags.getItems().addAll(TagManager.getTagList());
                 }
             });
-        }
-    }
-
-    public void editTagInPool(MouseEvent event) {
-        if (event.getClickCount() == 3) {
-            try {
-                TagManager.removeTag(listView.getSelectionModel().getSelectedItem());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 

@@ -6,16 +6,14 @@ import Model.TagManager;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TagsView implements Initializable{
@@ -78,24 +76,40 @@ public class TagsView implements Initializable{
     public void DeleteSelectedTags() throws IOException {
         ObservableList<String> listForDelete = listOfTags.getSelectionModel().getSelectedItems();
         for (String tag : listForDelete) {
-            TagManager.removeTag(tag);
             Map<File, Image> map = ImageManager.getImages();
             ArrayList<Image> images = new ArrayList<>(map.values());
-            for (Image image: images){
-                if (image.getCurrentTags().contains(tag)){
-                    String oldName = image.getName() + image.getExtension();
-                    ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
-                    System.out.println(oldName);
-                    for (String key: Controller.nameToFile.keySet()){
-                        if (Controller.nameToFile.get(key).equals(image.getFile())){
-                            oldName = key;
+            ArrayList<Image> imWithTag = new ArrayList<>();
+            for (Image image : images) {
+                if (image.getCurrentTags().contains(tag)) {
+                    imWithTag.add(image);
+                }
+            }
+            if (imWithTag.size() != 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirm Deletion");
+                alert.setHeaderText("Are you sure you want to delete " + tag + "?");
+                alert.setContentText(tag + " involved in " + imWithTag.toString() + " will also be deleted.");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent()) {
+                    if (result.get() == ButtonType.OK) {
+                        TagManager.removeTag(tag);
+                        for (Image image : imWithTag) {
+                            String oldName = image.getName() + image.getExtension();
+                            ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
+                            System.out.println(oldName);
+                            for (String key : Controller.nameToFile.keySet()) {
+                                if (Controller.nameToFile.get(key).equals(image.getFile())) {
+                                    oldName = key;
+                                }
+                            }
+                            if (Controller.nameToFile.containsKey(oldName)) {
+                                String newName = image.getName() + image.getExtension();
+                                Controller.nameToFile.remove(oldName);
+                                Controller.nameToFile.put(newName, image.getFile());
+                                controller.initData(oldName, newName);
+                            }
                         }
-                    }
-                    if (Controller.nameToFile.containsKey(oldName)) {
-                        String newName = image.getName() + image.getExtension();
-                        Controller.nameToFile.remove(oldName);
-                        Controller.nameToFile.put(newName, image.getFile());
-                        controller.initData(oldName, newName);
                     }
                 }
             }
