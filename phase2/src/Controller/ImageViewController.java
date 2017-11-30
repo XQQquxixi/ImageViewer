@@ -3,7 +3,6 @@ package Controller;
 import Model.Image;
 import Model.ImageManager;
 import Model.TagManager;
-import com.sun.tools.classfile.ConstantPool;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,7 +27,7 @@ import java.util.Optional;
 
 public class ImageViewController {
 
-    /**
+    /*
      * All codes with Alert are learned from website: http://code.makery.ch/blog/javafx-dialogs-official/
      */
 
@@ -62,12 +61,6 @@ public class ImageViewController {
      */
     @FXML
     Button Delete;
-
-    /**
-     * Button for onAction AddTags.
-     */
-    @FXML
-    Button Add;
 
     /**
      * Button for onAction Rename.
@@ -267,10 +260,9 @@ public class ImageViewController {
     /**
      * OnAction for Button NextPage.
      * The container of similar Image will go to next page.
-     * @param event
      */
 
-    public void ButtonNextPage(ActionEvent event) {
+    public void ButtonNextPage() {
         if (curPage != simDisplayList.size() - 1) {
             if (simDisplayList.get(curPage+1).size() != 0) {
                 sim1.setImage(simDisplayList.get(curPage+1).get(0));
@@ -307,10 +299,9 @@ public class ImageViewController {
     /**
      * OnAction for Button prePage.
      * The container of similar Image will go to previous page.
-     * @param event
      */
 
-    public void ButtonPrevPage(ActionEvent event) {
+    public void ButtonPrevPage() {
         if (curPage != 0) {
             if (simDisplayList.get(curPage - 1).size() != 0) {
                 sim1.setImage(simDisplayList.get(curPage - 1).get(0));
@@ -347,7 +338,7 @@ public class ImageViewController {
     /**
      * When user double click one of three images for current page of container for similar Image, we can view and
      * operate the image which is double clicked by user.
-     * @param event
+     * @param event Double click one of three images.
      */
 
     public void DoubleClick(MouseEvent event) {
@@ -364,7 +355,7 @@ public class ImageViewController {
 
     /**
      * Pass a Controller into this.controller.
-     * @param controller
+     * @param controller The Controller we want to pass into
      */
     void passController(Controller controller) {
         this.controller = controller;
@@ -372,7 +363,7 @@ public class ImageViewController {
 
     /**
      * Update information of this image.
-     * @param image
+     * @param image The image file we update
      */
     void initData(Image image){
         Name.setText(image.getName());
@@ -454,13 +445,11 @@ public class ImageViewController {
 
     /**
      * Open RenameController to rename of this image file.
-     * @param event
-     * Click rename Button.
      * @throws IOException
      * if saving serialized file fails.
      */
 
-    public void Rename(ActionEvent event) throws IOException {
+    public void Rename() throws IOException {
         Window window = rename.getScene().getWindow();
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
@@ -592,7 +581,7 @@ public class ImageViewController {
      * if saving serialized file fails.
      */
 
-    public void AddTags() throws IOException{
+    private void AddTags() throws IOException{
         ObservableList<String> list = tags.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
         for (String key: Controller.nameToFile.keySet()){
@@ -616,10 +605,9 @@ public class ImageViewController {
 
     /**
      * Open an alert to view all history of this Image file.
-     * @param event
      */
 
-    public void ButtonHistory(ActionEvent event) {
+    public void ButtonHistory() {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("History");

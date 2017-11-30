@@ -63,7 +63,7 @@ public class TagsView implements Initializable{
     /**
      * Update data for any change in listOfTags.
      */
-    void initData(){
+    private void initData(){
         listOfTags.getItems().clear();
         listOfTags.getItems().addAll(TagManager.getTagList());
         listOfTags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -105,7 +105,7 @@ public class TagsView implements Initializable{
 
     /**
      * Pass a Controller into this.controller.
-     * @param controller
+     * @param controller The controller we want to pass into.
      */
     void passController(Controller controller) {
         this.controller = controller;

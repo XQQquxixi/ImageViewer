@@ -2,10 +2,8 @@ package Controller;
 
 import Model.Image;
 import Model.ImageManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -13,9 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class RenameController{
 
@@ -124,10 +120,9 @@ public class RenameController{
 
     /**
      * Choose one of previous name, then Label will change by user's decision.
-     * @param event
      */
 
-    public void ChoosePrevName(ActionEvent event) {
+    public void ChoosePrevName() {
         if (prevNames.getValue() != null) {
             curName.setText(prevNames.getValue());
         }
@@ -155,11 +150,10 @@ public class RenameController{
 
     /**
      * Update all change to this image's name into Controller and ImageViewController and close this stage.
-     * @param event
      * @throws IOException if saving serialized file fails.
      */
 
-    public void ButtonOkAction(ActionEvent event) throws IOException {
+    public void ButtonOkAction() throws IOException {
         //image.setName(curName.getText());
         try {
             if (!(curName.getText() + image.getExtension()).equals(oldName)) {
@@ -191,10 +185,9 @@ public class RenameController{
 
     /**
      * Close this Stage.
-     * @param event
      */
 
-    public void ButtonCancelAction(ActionEvent event) {
+    public void ButtonCancelAction() {
         ((Stage) cancel.getScene().getWindow()).close();
     }
 }

@@ -18,7 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -27,7 +26,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -35,7 +33,7 @@ import java.util.stream.Stream;
 
 public class Controller implements Initializable{
 
-    /**
+    /*
      * All codes with Alert are learned from website: http://code.makery.ch/blog/javafx-dialogs-official/
      */
 
@@ -200,11 +198,10 @@ public class Controller implements Initializable{
      *
      * If there is more than one image file with same name, their name will include parent directory path to show their
      * differences. But notice, if the file is in Main directory we choose, its name will stay constant.
-     * @param event
-     * @throws Exception
+     * @throws Exception If it can't find any files through a wrong path.
      */
 
-    public void Button1Action(ActionEvent event) throws Exception {
+    public void Button1Action() throws Exception {
         DirectoryChooser dc = new DirectoryChooser();
         File directory = dc.showDialog(btn1.getScene().getWindow());
         if (directory != null) {
@@ -249,9 +246,8 @@ public class Controller implements Initializable{
 
     /**
      * Select a Image file to view its detail.
-     * @param event
      */
-    public void MouseClickList(MouseEvent event) {
+    public void MouseClickList() {
         if (listView.getSelectionModel().getSelectedItem() != null) {
             Image image = new Image(nameToFile.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
             iv1.setImage(image);
@@ -261,10 +257,9 @@ public class Controller implements Initializable{
 
     /**
      * Clear all files in listView.
-     * @param event
      */
 
-    public void ButtonClear(ActionEvent event) {
+    public void ButtonClear() {
         listView.getItems().subList(0, listView.getItems().size()).clear();
         iv1.setImage(null);
         path.setText("Path");
@@ -273,7 +268,7 @@ public class Controller implements Initializable{
 
     /**
      * Open ImageViewController to operate Image file user selected.
-     * @throws IOException
+     * @throws IOException If loader can't find resource to load.
      */
     public void ButtonOkAction() throws IOException {
         Window window = ok.getScene().getWindow();
@@ -308,7 +303,7 @@ public class Controller implements Initializable{
 
     /**
      * Open TagManager for this App. Then, user can delete or add tags into Tags pool.
-     * @throws IOException
+     * @throws IOException If loader can't find resource to load.
      */
 
     public void ButtonEditTags() throws IOException {
@@ -326,11 +321,9 @@ public class Controller implements Initializable{
 
     /**
      * Return the previous image for this curImage in listView.
-     * @param curImage
-     * The image file user selected now.
+     * @param curImage The image file user selected now.
      * @return Last image file in listView.
-     * @throws IndexOutOfBoundsException
-     * If curImage is not in listView, there will be IndexOutOfBoundsException.
+     * @throws IndexOutOfBoundsException If curImage is not in listView, there will be IndexOutOfBoundsException.
      */
 
     File getPrevImage(File curImage) throws IndexOutOfBoundsException {
@@ -363,8 +356,8 @@ public class Controller implements Initializable{
 
     /**
      * Initialize Controller.
-     * @param location
-     * @param resources
+     * @param location URL for the Controller
+     * @param resources ResourceBundle for the Controller
      */
 
     @Override
