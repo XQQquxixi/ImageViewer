@@ -329,7 +329,10 @@ public class Controller implements Initializable{
         Window window = editTags.getScene().getWindow();
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
-        Parent root = FXMLLoader.load(getClass().getResource("TagsView.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getResource("TagsView.fxml").openStream());
+        TagsView tagsView = loader.getController();
+        tagsView.passController(this);
         primaryStage.setTitle("Edit All tags");
         primaryStage.setScene(new Scene(root));
         primaryStage.showAndWait();

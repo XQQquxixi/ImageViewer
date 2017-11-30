@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Image;
+import Model.ImageManager;
 import Model.TagManager;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,8 +11,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class TagsView implements Initializable{
@@ -39,6 +44,8 @@ public class TagsView implements Initializable{
     @FXML
     ListView<String> listOfTags;
 
+    private Controller controller;
+
     /**
      * Initialize TagsView.
      * @param location
@@ -56,7 +63,7 @@ public class TagsView implements Initializable{
     /**
      * Update data for any change in listOfTags.
      */
-    private void initData(){
+    void initData(){
         listOfTags.getItems().clear();
         listOfTags.getItems().addAll(TagManager.getTagList());
         listOfTags.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -72,8 +79,36 @@ public class TagsView implements Initializable{
         ObservableList<String> listForDelete = listOfTags.getSelectionModel().getSelectedItems();
         for (String tag : listForDelete) {
             TagManager.removeTag(tag);
+            Map<File, Image> map = ImageManager.getImages();
+            ArrayList<Image> images = new ArrayList<>(map.values());
+            for (Image image: images){
+                if (image.getCurrentTags().contains(tag)){
+                    String oldName = image.getName() + image.getExtension();
+                    ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
+                    System.out.println(oldName);
+                    for (String key: Controller.nameToFile.keySet()){
+                        if (Controller.nameToFile.get(key).equals(image.getFile())){
+                            oldName = key;
+                        }
+                    }
+                    if (Controller.nameToFile.containsKey(oldName)) {
+                        String newName = image.getName() + image.getExtension();
+                        Controller.nameToFile.remove(oldName);
+                        Controller.nameToFile.put(newName, image.getFile());
+                        controller.initData(oldName, newName);
+                    }
+                }
+            }
         }
         initData();
+    }
+
+    /**
+     * Pass a Controller into this.controller.
+     * @param controller
+     */
+    void passController(Controller controller) {
+        this.controller = controller;
     }
 
     /**
