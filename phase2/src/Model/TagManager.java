@@ -78,6 +78,14 @@ public class TagManager {
   }
 
   /**
+   * temp
+   */
+  public static void editTag(String oldTag, String tag) throws IOException {
+    tagList.set(tagList.indexOf(oldTag), tag);
+    saveToFile();
+  }
+
+  /**
    * Remove a tag from tagList then update the serialized file if it exists in it. Otherwise add a
    * WARNING log.
    *
