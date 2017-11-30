@@ -134,6 +134,7 @@ public class Controller implements Initializable{
     public void initData(String oldName, String newName) {
         int position = listView.getItems().indexOf(oldName);
         listView.getItems().set(position, newName);
+        path.setText(nameToFile.get(newName).getAbsolutePath());
     }
 
     /**
@@ -153,7 +154,7 @@ public class Controller implements Initializable{
                 }
                 listView.getItems().clear();
                 listView.getItems().addAll(ImageManager.getImagesWithSameTags(tagList));
-                System.out.println(ImageManager.getImagesWithSameTags(tagList));
+//                System.out.println(ImageManager.getImagesWithSameTags(tagList));
             }
         }
     }
@@ -226,12 +227,12 @@ public class Controller implements Initializable{
                         int i = dir.toString().length();
                         // Check whether the parentFile is belong to Main Directory.
                         if (!dir.toString().equals(parentFile.getParent())){
-//                            nameToFile.remove(name);
+                            nameToFile.remove(name);
                             listView.getItems().remove(name);
-//                            nameToFile.put(parentFile.getAbsolutePath(), parentFile);
-                            listView.getItems().add(parentFile.getAbsolutePath().substring(i));
+                            nameToFile.put(parentFile.getAbsolutePath().substring(i+1), parentFile);
+                            listView.getItems().add(parentFile.getAbsolutePath().substring(i+1));
                         }
-                        name = file.getAbsolutePath().substring(i);
+//                        name = file.getAbsolutePath().substring(i+1);
                     }
                     nameToFile.put(name, file);
                     Image image = new Image(file.toURI().toString());
@@ -242,6 +243,7 @@ public class Controller implements Initializable{
                 }
             }
         }
+//        System.out.println(nameToFile);
     }
 
     /**
@@ -250,14 +252,11 @@ public class Controller implements Initializable{
     public void MouseClickList() {
         String imageName = listView.getSelectionModel().getSelectedItem();
         if (imageName != null) {
-            if (imageName.contains("/")) {
-                int i = imageName.lastIndexOf("/");
-                imageName = imageName.substring(i+1);
-            } else {
-                Image image = new Image(nameToFile.get(imageName).toURI().toString());
-                iv1.setImage(image);
-                path.setText(nameToFile.get(imageName).getAbsolutePath());
-            }
+//            System.out.println(nameToFile);
+//            System.out.println(imageName);
+            Image image = new Image(nameToFile.get(imageName).toURI().toString());
+            iv1.setImage(image);
+            path.setText(nameToFile.get(imageName).getAbsolutePath());
         }
     }
 
@@ -286,10 +285,6 @@ public class Controller implements Initializable{
         imageView.passController(this);
         String imageName = listView.getSelectionModel().getSelectedItem();
         if (imageName != null) {
-            if (imageName.contains("/")) {
-                int i = imageName.lastIndexOf("/");
-                imageName = imageName.substring(i+1);
-            }
             if (nameToFile.get(imageName).exists()) {
                 imageView.GetImage(nameToFile.get(imageName));
                 primaryStage.setTitle("Image Viewer");
