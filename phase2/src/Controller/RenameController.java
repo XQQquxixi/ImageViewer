@@ -100,7 +100,7 @@ public class RenameController{
             inputName.setText(image.getName());
         }
         curName.setText(image.getName());
-        oldName = image.getName() + image.getExtension();
+//        oldName = image.getName() + image.getExtension();
         for (String key: Controller.nameToFile.keySet()){
             if (Controller.nameToFile.get(key).equals(image.getFile())){
                 oldName = key;
@@ -169,11 +169,11 @@ public class RenameController{
             e.printStackTrace();
         }
         image.restoreTag(image.getName());
+        Controller.nameToFile.remove(oldName);
+        Controller.nameToFile.put(image.getName() + image.getExtension(), image.getFile());
         controller.initData(oldName, image.getName() + image.getExtension());
         imageViewController.GetImage(image.getFile());
         imageViewController.initData(image);
-        Controller.nameToFile.remove(oldName);
-        Controller.nameToFile.put(image.getName() + image.getExtension(), image.getFile());
         FXMLLoader loader = new FXMLLoader();
         loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController controller = loader.getController();
