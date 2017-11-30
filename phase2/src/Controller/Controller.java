@@ -196,12 +196,25 @@ public class Controller implements Initializable{
             paths.addAll(pathStream5.collect(Collectors.toList()));
             for (Path path : paths) {
                 File file = path.toFile();
-                if (file.exists() && !listView.getItems().contains(file.getName())) {
-                    nameToFile.put(file.getName(), file);
+                if (file.exists()) {
+                    String name = file.getName();
+                    if (nameToFile.containsKey(name)) {
+                        File parentFile = nameToFile.get(name);
+                        int i = dir.toString().length();
+                        // Check whether the parentFile is belong to Main Directory.
+                        if (!dir.toString().equals(parentFile.getParent())){
+                            nameToFile.remove(name);
+                            listView.getItems().remove(name);
+                            nameToFile.put(parentFile.getAbsolutePath(), parentFile);
+                            listView.getItems().add(parentFile.getAbsolutePath().substring(i));
+                        }
+                        name = file.getAbsolutePath().substring(i);
+                    }
+                    nameToFile.put(name, file);
                     Image image = new Image(file.toURI().toString());
-//                    Model.Image image1 = new Model.Image(file);
+                    Model.Image image1 = new Model.Image(file);
                     iv1.setImage(image);
-                    listView.getItems().add(file.getName());
+                    listView.getItems().add(name);
                     ImageManager.checkKey(file);
                 }
             }
