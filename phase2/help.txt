@@ -1,0 +1,15 @@
+# cd into the directory where you cloned our project, then you need to copy and paste following lines into your
+terminal.
+
+cd group_0473
+cd phase2
+cd src
+javac */*.java -Xlint
+java Controller.Main
+
+
+# Some Instruction tips for using our App
+1. In our design, if you want to delete a tag from tag pool, then all images with this tag will delete this tag, and as a result, their name will also change following the deletion of tag.
+2. You can open a directoryChooser to choose a directory when you press “Open” in our App. And all files’s name will be added into listView in the right side. If there are some different files with same name, it will add path in the front if they are in subdirectory.
+3. Our new feature is “Similar Image”. When you open a image, it will introduce some similar image according to similar tags. And also you can open these similar images.
+4. For each image file, you can change name part when you try to rename, and change tags part when you add or delete tag.
