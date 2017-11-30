@@ -226,9 +226,9 @@ public class Controller implements Initializable{
                         int i = dir.toString().length();
                         // Check whether the parentFile is belong to Main Directory.
                         if (!dir.toString().equals(parentFile.getParent())){
-                            nameToFile.remove(name);
+//                            nameToFile.remove(name);
                             listView.getItems().remove(name);
-                            nameToFile.put(parentFile.getAbsolutePath(), parentFile);
+//                            nameToFile.put(parentFile.getAbsolutePath(), parentFile);
                             listView.getItems().add(parentFile.getAbsolutePath().substring(i));
                         }
                         name = file.getAbsolutePath().substring(i);
@@ -248,10 +248,16 @@ public class Controller implements Initializable{
      * Select a Image file to view its detail.
      */
     public void MouseClickList() {
-        if (listView.getSelectionModel().getSelectedItem() != null) {
-            Image image = new Image(nameToFile.get(listView.getSelectionModel().getSelectedItem()).toURI().toString());
-            iv1.setImage(image);
-            path.setText(nameToFile.get(listView.getSelectionModel().getSelectedItem()).getAbsolutePath());
+        String imageName = listView.getSelectionModel().getSelectedItem();
+        if (imageName != null) {
+            if (imageName.contains("/")) {
+                int i = imageName.lastIndexOf("/");
+                imageName = imageName.substring(i+1);
+            } else {
+                Image image = new Image(nameToFile.get(imageName).toURI().toString());
+                iv1.setImage(image);
+                path.setText(nameToFile.get(imageName).getAbsolutePath());
+            }
         }
     }
 
@@ -278,9 +284,14 @@ public class Controller implements Initializable{
         Pane root = loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController imageView = loader.getController();
         imageView.passController(this);
-        if (listView.getSelectionModel().getSelectedItem() != null) {
-            if (nameToFile.get(listView.getSelectionModel().getSelectedItem()).exists()) {
-                imageView.GetImage(nameToFile.get(listView.getSelectionModel().getSelectedItem()));
+        String imageName = listView.getSelectionModel().getSelectedItem();
+        if (imageName != null) {
+            if (imageName.contains("/")) {
+                int i = imageName.lastIndexOf("/");
+                imageName = imageName.substring(i+1);
+            }
+            if (nameToFile.get(imageName).exists()) {
+                imageView.GetImage(nameToFile.get(imageName));
                 primaryStage.setTitle("Image Viewer");
                 primaryStage.setScene(new Scene(root, 600, 600));
                 primaryStage.setX(window.getX() + DISTANCE);
