@@ -238,26 +238,26 @@ public class ImageViewController {
                 public void handle(ActionEvent event) {
                     try {
                         String tag = tags.getSelectionModel().getSelectedItems().get(0);
-                        if (!selectedImage.getCurrentTags().contains(tag)){
-                            TagManager.removeTag(tag);
-                            Map<File, Image> map = ImageManager.getImages();
-                            ArrayList<Image> images = new ArrayList<>(map.values());
-                            for (Image image: images) {
-                                if (image.getCurrentTags().contains(tag)) {
-                                    String oldName = image.getName() + image.getExtension();
-                                    ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
-                                    System.out.println(oldName);
-                                    for (String key : Controller.nameToFile.keySet()) {
-                                        if (Controller.nameToFile.get(key).equals(image.getFile())) {
-                                            oldName = key;
-                                        }
+                        if (selectedImage.getCurrentTags().contains(tag)) {
+                            listView.getItems().remove(tag);
+                        }
+                        TagManager.removeTag(tag);
+                        Map<File, Image> map = ImageManager.getImages();
+                        ArrayList<Image> images = new ArrayList<>(map.values());
+                        for (Image image: images) {
+                            if (image.getCurrentTags().contains(tag)) {
+                                String oldName = image.getName() + image.getExtension();
+                                ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
+                                for (String key : Controller.nameToFile.keySet()) {
+                                    if (Controller.nameToFile.get(key).equals(image.getFile())) {
+                                        oldName = key;
                                     }
-                                    if (Controller.nameToFile.containsKey(oldName)) {
-                                        String newName = image.getName() + image.getExtension();
-                                        Controller.nameToFile.remove(oldName);
-                                        Controller.nameToFile.put(newName, image.getFile());
-                                        controller.initData(oldName, newName);
-                                    }
+                                }
+                                if (Controller.nameToFile.containsKey(oldName)) {
+                                    String newName = image.getName() + image.getExtension();
+                                    Controller.nameToFile.remove(oldName);
+                                    Controller.nameToFile.put(newName, image.getFile());
+                                    controller.initData(oldName, newName);
                                 }
                             }
                         }
