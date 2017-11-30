@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 
 public class ImageViewController {
@@ -236,7 +237,30 @@ public class ImageViewController {
                 @Override
                 public void handle(ActionEvent event) {
                     try {
-                        TagManager.removeTag(tags.getSelectionModel().getSelectedItems().get(0));
+                        String tag = tags.getSelectionModel().getSelectedItems().get(0);
+                        if (!selectedImage.getCurrentTags().contains(tag)){
+                            TagManager.removeTag(tag);
+                            Map<File, Image> map = ImageManager.getImages();
+                            ArrayList<Image> images = new ArrayList<>(map.values());
+                            for (Image image: images) {
+                                if (image.getCurrentTags().contains(tag)) {
+                                    String oldName = image.getName() + image.getExtension();
+                                    ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
+                                    System.out.println(oldName);
+                                    for (String key : Controller.nameToFile.keySet()) {
+                                        if (Controller.nameToFile.get(key).equals(image.getFile())) {
+                                            oldName = key;
+                                        }
+                                    }
+                                    if (Controller.nameToFile.containsKey(oldName)) {
+                                        String newName = image.getName() + image.getExtension();
+                                        Controller.nameToFile.remove(oldName);
+                                        Controller.nameToFile.put(newName, image.getFile());
+                                        controller.initData(oldName, newName);
+                                    }
+                                }
+                            }
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -524,7 +548,6 @@ public class ImageViewController {
         for (String key: Controller.nameToFile.keySet()){
             if (Controller.nameToFile.get(key).equals(curFile)){
                 oldName = key;
-                System.out.println(key);
             }
         }
         for (String tag : delete) {
