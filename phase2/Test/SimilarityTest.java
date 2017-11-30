@@ -41,14 +41,21 @@ class SimilarityTest {
         File ser = new File("./images.ser");
         if (ser.exists()) {
             if (!ser.renameTo(new File("./tempIm.ser"))) {
-                logger.log(Level.WARNING, "Deleting ser file failed!");
+                logger.log(Level.WARNING, "Moving ser file failed!");
             }
         }
 
         File ser2 = new File("./tags.ser");
         if (ser2.exists()) {
             if (!ser2.renameTo(new File("./tempTags.ser"))) {
-                logger.log(Level.WARNING, "Deleting ser file failed!");
+                logger.log(Level.WARNING, "Moving ser file failed!");
+            }
+        }
+
+        File ser3 = new File("./logs.ser");
+        if (ser3.exists()) {
+            if (!ser2.renameTo(new File("./tempLogs.ser"))) {
+                logger.log(Level.WARNING, "Moving ser file failed!");
             }
         }
     }
@@ -414,6 +421,12 @@ class SimilarityTest {
             }
         }
 
+        File ser3 = new File("./tempLogs.ser");
+        if (ser3.exists()) {
+            if (!ser2.renameTo(new File("./logs.ser"))) {
+                logger.log(Level.WARNING, "Restoring ser file failed!");
+            }
+        }
     }
 
 
