@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class RenameController implements Initializable{
+public class RenameController{
 
     /**
      * Label for show current name for this image.
@@ -88,6 +88,7 @@ public class RenameController implements Initializable{
     /**
      * Load the information of this image.
      * @param image
+     * The image we want to load.
      */
 
     void getImage(Image image) {
@@ -133,6 +134,7 @@ public class RenameController implements Initializable{
     /**
      * Pass a Controller into this RenameController.controller.
      * @param controller
+     * The Controller we want to pass into.
      */
 
     void passController(Controller controller) {
@@ -142,6 +144,7 @@ public class RenameController implements Initializable{
     /**
      * Pass a ImageViewController into this RenameController.imageViewController.
      * @param controller
+     * The ImageViewController we want to pass into.
      */
 
     void passIMController(ImageViewController controller) {
@@ -151,7 +154,7 @@ public class RenameController implements Initializable{
     /**
      * Update all change to this image's name into Controller and ImageViewController and close this stage.
      * @param event
-     * @throws IOException
+     * @throws IOException if saving serialized file fails.
      */
 
     public void ButtonOkAction(ActionEvent event) throws IOException {
@@ -191,17 +194,5 @@ public class RenameController implements Initializable{
 
     public void ButtonCancelAction(ActionEvent event) {
         ((Stage) cancel.getScene().getWindow()).close();
-    }
-
-    /**
-     * Initialize RenameController.
-     * @param location
-     * @param resources
-     */
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-
     }
 }

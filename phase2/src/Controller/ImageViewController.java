@@ -154,17 +154,34 @@ public class ImageViewController {
     @FXML
     Label name3;
 
+    /**
+     * The current file which user is checking and operating.
+     */
     private File curFile;
 
+    /**
+     * The current Image which user is checking and operating
+     */
     private Image selectedImage;
 
-//    private String path;
-
+    /**
+     * The Controller which is passed from Main scene.
+     */
     private Controller controller;
 
+    /**
+     * Container for containers which is for show similar Image with this current Image.
+     */
     private ArrayList<ArrayList<javafx.scene.image.Image>> simDisplayList = new ArrayList<>();
+
+    /**
+     * Container for store similar Image with this current Image.
+     */
     private ArrayList<ArrayList<Image>> simUseList = new ArrayList<>();
 
+    /**
+     * The page number of containers for show similar Image user is checking for now.
+     */
     private static int curPage;
 
 
@@ -184,6 +201,10 @@ public class ImageViewController {
         initData(selectedImage);
     }
 
+    /**
+     *
+     * @param event
+     */
     public void doubleClickTags(MouseEvent event) {
         if (event.getClickCount() == 2) {
             ObservableList<String> list = tags.getSelectionModel().getSelectedItems();
@@ -243,6 +264,12 @@ public class ImageViewController {
         }
     }
 
+    /**
+     * OnAction for Button NextPage.
+     * The container of similar Image will go to next page.
+     * @param event
+     */
+
     public void ButtonNextPage(ActionEvent event) {
         if (curPage != simDisplayList.size() - 1) {
             if (simDisplayList.get(curPage+1).size() != 0) {
@@ -277,6 +304,12 @@ public class ImageViewController {
         }
     }
 
+    /**
+     * OnAction for Button prePage.
+     * The container of similar Image will go to previous page.
+     * @param event
+     */
+
     public void ButtonPrevPage(ActionEvent event) {
         if (curPage != 0) {
             if (simDisplayList.get(curPage - 1).size() != 0) {
@@ -310,6 +343,12 @@ public class ImageViewController {
             alert.showAndWait();
         }
     }
+
+    /**
+     * When user double click one of three images for current page of container for similar Image, we can view and
+     * operate the image which is double clicked by user.
+     * @param event
+     */
 
     public void DoubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -399,8 +438,8 @@ public class ImageViewController {
     /**
      * Go back to last image in listView of Controller.
      * @throws IOException
+     * If curFile is not in listView, there will be IOException.
      */
-
     public void GoBack() throws IOException {
         try {
             GetImage(controller.getPrevImage(curFile));
@@ -418,6 +457,7 @@ public class ImageViewController {
      * @param event
      * Click rename Button.
      * @throws IOException
+     * if saving serialized file fails.
      */
 
     public void Rename(ActionEvent event) throws IOException {
@@ -437,7 +477,9 @@ public class ImageViewController {
 
     /**
      * Move this file.
+     * It will open a directoryChooser, user can choose any directory which they prefer.
      * @throws IOException
+     * if saving serialized file fails.
      */
 
     public void MoveFile() throws IOException {
@@ -456,6 +498,7 @@ public class ImageViewController {
     /**
      * Go to next image file in listView of Controller.
      * @throws IOException
+     * If curFile is not in listView, there will be IOException.
      */
 
     public void GoNext() throws IOException {
@@ -483,6 +526,7 @@ public class ImageViewController {
     /**
      * Delete selected Tag of this image.
      * @throws IOException
+     * if saving serialized file fails.
      */
 
     public void DeleteTag() throws IOException {
@@ -507,8 +551,10 @@ public class ImageViewController {
 
 
     /**
-     *
+     * Input the String in textField into new Tag of this Image file and TagManager. If the tag is already in
+     * tags(or listView), the tags(or listView) will not change.
      * @throws IOException
+     * if saving serialized file fails.
      */
     public void InputNewTag() throws IOException {
         String input = newTag.getText();
@@ -543,6 +589,7 @@ public class ImageViewController {
     /**
      * Add selected Tag for this image.
      * @throws IOException
+     * if saving serialized file fails.
      */
 
     public void AddTags() throws IOException{
@@ -568,7 +615,7 @@ public class ImageViewController {
     }
 
     /**
-     * Open an alert to view all history of this Image.
+     * Open an alert to view all history of this Image file.
      * @param event
      */
 

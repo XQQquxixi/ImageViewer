@@ -39,8 +39,9 @@ public class Controller implements Initializable{
      * All codes with Alert are learned from website: http://code.makery.ch/blog/javafx-dialogs-official/
      */
 
+
     /**
-     *
+     * The distance between Controller scene and ImageViewController.
      */
 
     private static final double DISTANCE = 50.0;
@@ -99,6 +100,10 @@ public class Controller implements Initializable{
     @FXML
     private Label path;
 
+    /**
+     * TextField for search tag???????????.
+     */
+
     @FXML
     private TextField tags;
 
@@ -112,24 +117,31 @@ public class Controller implements Initializable{
      * Static ImageManager.
      */
 
-    private static ImageManager imageManager;
+    static ImageManager imageManager;
 
     /**
      * Static TagManager.
      */
 
-    private static TagManager tagManager;
+    static TagManager tagManager;
 
     /**
-     * Update Data when user change something in other Scene.
+     * Update new name of one file in listViews when user change one Image's name in other Scene.
      * @param oldName
+     * old name for image which is renamed.
      * @param newName
+     * new name for image which is renamed.
      */
 
     public void initData(String oldName, String newName) {
         int position = listView.getItems().indexOf(oldName);
         listView.getItems().set(position, newName);
     }
+
+    /**
+     *
+     * @param event
+     */
 
     public void keyEnter(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -148,10 +160,20 @@ public class Controller implements Initializable{
         }
     }
 
+    /**
+     *
+     * @param event
+     */
+
     public void buttonCancel(ActionEvent event) {
         listView.getItems().clear();
         listView.getItems().addAll(nameToFile.keySet());
     }
+
+    /**
+     * Open a Alert to view all logs for all files.
+     * @throws IOException
+     */
 
     public void ViewHistory() throws IOException{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -173,7 +195,11 @@ public class Controller implements Initializable{
     }
 
     /**
-     * Open a directoryChooser to choose a directory. Then all image files in this directory will show in listView.
+     * Open a directoryChooser to choose a directory. Then all image files in this directory will show in listView and
+     * user can view and operate to this Image.
+     *
+     * If there is more than one image file with same name, their name will include parent directory path to show their
+     * differences. But notice, if the file is in Main directory we choose, its name will stay constant.
      * @param event
      * @throws Exception
      */
@@ -220,43 +246,9 @@ public class Controller implements Initializable{
             }
         }
     }
-//        File directory = new File(initDirectory.getText().replaceAll("/", "//"));
-//        FileChooser fc = new FileChooser();
-//        if (directory.exists() && directory.isDirectory() || initDirectory.getText().equals("")) {
-//            if (initDirectory.getText().equals("")) {
-//                fc.setInitialDirectory(new File(System.getProperty("user.home")));
-//            } else {
-//                fc.setInitialDirectory(directory);
-//            }
-//            fc.getExtensionFilters().addAll(
-//                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg", "*.bmp", "*.BMP", "*.PNG", "*.JPG", "*.JPEG"));
-//
-//            List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-//            if (selectedFiles != null) {
-//                for (File file : selectedFiles) {
-//                    if (file != null && !listView.getItems().contains(file.getName())) {
-//                        nameToFile.put(file.getName(), file);
-//                        Image image = new Image(file.toURI().toString());
-//                        iv1.setImage(image);
-//                        listView.getItems().add(file.getName());
-//                    } else if (listView.getItems().contains(file.getName())) {
-//                        Alert alert = new Alert(Alert.AlertType.ERROR);
-//                        alert.setTitle("Uh-oh");
-//                        alert.setContentText("This image is already in your list. QwQ");
-//                        alert.showAndWait();
-//                    }
-//                }
-//            }
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Uh-oh");
-//            alert.setContentText("Wrong Directory!!! Please check and enter again.");
-//            alert.showAndWait();
-//        }
-//    }
 
     /**
-     * Select a Image file to check its detail.
+     * Select a Image file to view its detail.
      * @param event
      */
     public void MouseClickList(MouseEvent event) {
@@ -281,13 +273,9 @@ public class Controller implements Initializable{
 
     /**
      * Open ImageViewController to operate Image file user selected.
-     * @param event
      * @throws IOException
      */
-    public void ButtonOkAction(ActionEvent event) throws IOException {
-//        ObservableList<String> pictures;
-//        pictures = listView.getSelectionModel().getSelectedItems();
-//        for (String pic : pictures) {
+    public void ButtonOkAction() throws IOException {
         Window window = ok.getScene().getWindow();
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
@@ -315,17 +303,15 @@ public class Controller implements Initializable{
             alert.setContentText("Sorry, you need to select a image. QwQ");
             alert.showAndWait();
         }
-//        }
 
     }
 
     /**
-     * Open TagManager for this App.
-     * @param event
+     * Open TagManager for this App. Then, user can delete or add tags into Tags pool.
      * @throws IOException
      */
 
-    public void ButtonEditTags(ActionEvent event) throws IOException {
+    public void ButtonEditTags() throws IOException {
         Window window = editTags.getScene().getWindow();
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
@@ -341,8 +327,10 @@ public class Controller implements Initializable{
     /**
      * Return the previous image for this curImage in listView.
      * @param curImage
-     * @return
+     * The image file user selected now.
+     * @return Last image file in listView.
      * @throws IndexOutOfBoundsException
+     * If curImage is not in listView, there will be IndexOutOfBoundsException.
      */
 
     File getPrevImage(File curImage) throws IndexOutOfBoundsException {
@@ -358,8 +346,10 @@ public class Controller implements Initializable{
     /**
      * Return the next image for this curImage in listView.
      * @param curImage
-     * @return
+     * The image file user selected now.
+     * @return Next image file in listView.
      * @throws IndexOutOfBoundsException
+     * If curImage is not in listView, there will be IndexOutOfBoundsException.
      */
 
     File getNextImage(File curImage) throws IndexOutOfBoundsException {
