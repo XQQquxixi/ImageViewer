@@ -94,7 +94,9 @@ public class RenameController{
     void getImage(Image image) {
         this.image = image;
         ArrayList<String> listOfPrevNames = ImageManager.getPastName(image.getFile().getAbsolutePath());
-        prevNames.getItems().addAll(listOfPrevNames);
+        if (listOfPrevNames != null) {
+            prevNames.getItems().addAll(listOfPrevNames);
+        }
         int i = image.getName().indexOf(" @");
         if(i != (-1)) {
             inputName.setText(image.getName().substring(0, i));
