@@ -446,7 +446,8 @@ public class ImageViewController {
                 ArrayList<Image> newList1 = new ArrayList<>();
                 newList.addAll(list);
                 newList1.addAll(list1);
-                if (newList.size() == 1) {
+                newList.add(null);
+                if (newList.size() == 2) {
                     newList.add(null);
                 }
                 simDisplayList.add(newList);
