@@ -5,10 +5,12 @@ import Model.ImageManager;
 import Model.TagManager;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -183,8 +185,57 @@ public class ImageViewController {
 
     public void doubleClickTags(MouseEvent event) {
         if (event.getClickCount() == 2) {
+            ObservableList<String> list = tags.getSelectionModel().getSelectedItems();
+            TextInputDialog dialog = new TextInputDialog(list.get(0));
+            dialog.setTitle("Text Input Dialog");
+            dialog.setHeaderText("Look, a Text Input Dialog");
+            dialog.setContentText("Please enter your name:");
+
+            // Traditional way to get the response value.
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                try {
+                    TagManager.editTag(list.get(0), result.get());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                this.tags.getItems().clear();
+                this.tags.getItems().addAll(TagManager.getTagList());
+            }
+        } else if (event.getButton().equals(MouseButton.SECONDARY)) {
+            MenuItem delete = new MenuItem("delete");
+            MenuItem add = new MenuItem("add");
+            ContextMenu contextMenu = new ContextMenu(add, delete);
+            contextMenu.show(listView, event.getScreenX(), event.getScreenY());
+            add.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        AddTags();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            delete.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        TagManager.removeTag(tags.getSelectionModel().getSelectedItems().get(0));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    tags.getItems().clear();
+                    tags.getItems().addAll(TagManager.getTagList());
+                }
+            });
+        }
+    }
+
+    public void editTagInPool(MouseEvent event) {
+        if (event.getClickCount() == 3) {
             try {
-                AddTags();
+                TagManager.removeTag(listView.getSelectionModel().getSelectedItem());
             } catch (IOException e) {
                 e.printStackTrace();
             }
