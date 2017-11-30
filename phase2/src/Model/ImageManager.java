@@ -9,7 +9,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+@SuppressWarnings("unchecked")
 public class ImageManager {
 
   /* A map with file as key and its corresponding image as value. */
@@ -20,8 +20,8 @@ public class ImageManager {
   private static final Handler consoleHandler = new ConsoleHandler();
   /* The file path for images. */
   private static final String path = "./images.ser";
- /* A renamingLog Observer that observes all images of this ImageManager. */
-  private static RenamingLog rl;
+  /* A renamingLog Observer that observes all images of this ImageManager. */
+  public static RenamingLog rl;
 
   /**
    * An ImageManager with filePath.
@@ -142,7 +142,7 @@ public class ImageManager {
    * @param i the Image to add
    * @throws IOException if saving serialized file fails.
    */
-  private static void updateKey(File f1, Image i) throws IOException {
+  public static void updateKey(File f1, Image i) throws IOException {
     images.remove(f1);
     add(i);
     saveToFile();
@@ -267,8 +267,8 @@ public class ImageManager {
 
 
   /**
-   * Return an ArrayList of imges with selected tags.
-   * @return an ArrayList of imges with selected tags
+   * Return an ArrayList of images with selected tags.
+   * @return an ArrayList of images with selected tags
    */
   public static String getLogs() {
     return rl.toString();

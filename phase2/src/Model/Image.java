@@ -99,12 +99,12 @@ public class Image extends Observable implements Serializable {
     String absolutePath = file.getAbsolutePath();
     String path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
     File newFile = new File(path + File.separator + name + getExtension());
-    int i = 1;
-    while (newFile.exists()) {
-      path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-      newFile = new File(
-          path + File.separator + name + "(" + Integer.toString(i++) + ")" + getExtension());
-    }
+//    int i = 1;
+//    while (newFile.exists()) {
+//      path = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
+//      newFile = new File(
+//          path + File.separator + name + "(" + Integer.toString(i++) + ")" + getExtension());
+//    }
     if (file.renameTo(newFile)) {
       logger.log(Level.FINE, "rename successfully");
     } else {
@@ -121,7 +121,7 @@ public class Image extends Observable implements Serializable {
    * Notify the first observer of this image that it is changing its name.
    * @param oldName the previous name of this image
    */
-  public void notifyObservers(String oldName) {
+  private void notifyObservers(String oldName) {
     observers.get(0).update(this, oldName);
 
   }
@@ -228,7 +228,7 @@ public class Image extends Observable implements Serializable {
    *
    * @return a String version of this Image's log.
    */
-  String getLog() {
+  public String getLog() {
     return log.toString();
   }
 
