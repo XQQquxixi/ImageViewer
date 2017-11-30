@@ -3,6 +3,7 @@ package Controller;
 import Model.Image;
 import Model.ImageManager;
 import Model.TagManager;
+import com.sun.tools.classfile.ConstantPool;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -487,7 +488,12 @@ public class ImageViewController {
     public void DeleteTag() throws IOException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
-
+        for (String key: Controller.nameToFile.keySet()){
+            if (Controller.nameToFile.get(key).equals(curFile)){
+                oldName = key;
+                System.out.println(key);
+            }
+        }
         for (String tag : delete) {
             selectedImage = ImageManager.deleteTag(selectedImage.getFile().getAbsolutePath(), tag);
             listView.getItems().remove(tag);
@@ -542,6 +548,12 @@ public class ImageViewController {
     public void AddTags() throws IOException{
         ObservableList<String> list = tags.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
+        for (String key: Controller.nameToFile.keySet()){
+            if (Controller.nameToFile.get(key).equals(curFile)){
+                oldName = key;
+                System.out.println(key);
+            }
+        }
         for (String tag : list) {
             selectedImage = ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), tag);
             if (!listView.getItems().contains(tag)) {

@@ -102,6 +102,11 @@ public class RenameController implements Initializable{
         }
         curName.setText(image.getName());
         oldName = image.getName() + image.getExtension();
+        for (String key: Controller.nameToFile.keySet()){
+            if (Controller.nameToFile.get(key).equals(image.getFile())){
+                oldName = key;
+            }
+        }
         pic.setImage(new javafx.scene.image.Image(image.getFile().toURI().toString()));
     }
 
