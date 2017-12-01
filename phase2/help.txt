@@ -20,7 +20,7 @@ If you want to try JUniTest:
 2. You can open a directoryChooser to choose a directory when you press “Open” in our App. And all files’s name will be added into listView in the right side. If there are some different files with same name, it will add path in the front if they are in subdirectory.
 3. We have 4 new features:
     I.“Similar Image”
-        When you open a image, it will introduce some similar image according to similar tags. And also you can open these similar images.
+        When you open a image, it will introduce some similar image according to similar tags. And also you can open these similar images by DOUBLE click.
     II."Search image by Tag"
         In Main Scene(Controller) with some Images, you can type a tag and press "enter(return)", then system will search these images with the tag and show in listView.
     III."Change Tag"
