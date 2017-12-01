@@ -640,6 +640,7 @@ public class ImageViewController {
      */
     public void inputNewTag() throws IOException {
         String input = newTag.getText();
+        boolean flag = false;
         if (input != null) {
             if (input.length() == 0) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -649,22 +650,26 @@ public class ImageViewController {
                 if (result.isPresent() && result.get() == ButtonType.OK && !tags.getItems().contains(input)) {
                     // ... user chose OK
                     tags.getItems().add(input);
+                    flag = true;
                 }
             } else if (!tags.getItems().contains(input)) {
                 tags.getItems().add(input);
+                flag = true;
             }
-            String oldName = selectedImage.getName() + selectedImage.getExtension();
+            if (flag) {
+                String oldName = selectedImage.getName() + selectedImage.getExtension();
 
-            selectedImage = ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), input);
-            if (!listView.getItems().contains(input)) {
-                listView.getItems().add(input);
+                selectedImage = ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), input);
+                if (!listView.getItems().contains(input)) {
+                    listView.getItems().add(input);
+                }
+                String newName = selectedImage.getName() + selectedImage.getExtension();
+                Controller.nameToFile.remove(oldName);
+                Controller.nameToFile.put(newName, selectedImage.getFile());
+                Name.setText(selectedImage.getName());
+                controller.initData(oldName, newName);
+                newTag.clear();
             }
-            String newName = selectedImage.getName() + selectedImage.getExtension();
-            Controller.nameToFile.remove(oldName);
-            Controller.nameToFile.put(newName, selectedImage.getFile());
-            Name.setText(selectedImage.getName());
-            controller.initData(oldName, newName);
-            newTag.clear();
         }
     }
 
