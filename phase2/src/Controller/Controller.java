@@ -2,7 +2,6 @@ package Controller;
 
 import Model.ImageManager;
 import Model.TagManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -45,7 +43,7 @@ public class Controller implements Initializable{
     private static final double DISTANCE = 50.0;
 
     /**
-     * Button for onAction ViewHistory
+     * Button for onAction viewHistory
      */
     @FXML
     Button Log;
@@ -69,13 +67,6 @@ public class Controller implements Initializable{
 
     @FXML
     private ListView<String> listView;
-
-    /**
-     * Button for clear all image files.
-     */
-
-    @FXML
-    private Button clear;
 
     /**
      * Button for open ImageViewController to operate the image file user choose.
@@ -131,15 +122,17 @@ public class Controller implements Initializable{
      * new name for image which is renamed.
      */
 
-    public void initData(String oldName, String newName) {
+    void initData(String oldName, String newName) {
         int position = listView.getItems().indexOf(oldName);
         listView.getItems().set(position, newName);
         path.setText(nameToFile.get(newName).getAbsolutePath());
     }
 
     /**
-     *
+     * Make listview display a list of images with the tags that the user typed.
+     * User can type nothing and go back to original set of images.
      * @param event
+     * the key on keyboard that user hit.
      */
 
     public void keyEnter(KeyEvent event) {
@@ -154,27 +147,17 @@ public class Controller implements Initializable{
                 }
                 listView.getItems().clear();
                 listView.getItems().addAll(ImageManager.getImagesWithSameTags(tagList));
-//                System.out.println(ImageManager.getImagesWithSameTags(tagList));
             }
         }
     }
 
     /**
-     *
-     * @param event
-     */
-
-    public void buttonCancel(ActionEvent event) {
-        listView.getItems().clear();
-        listView.getItems().addAll(nameToFile.keySet());
-    }
-
-    /**
      * Open a Alert to view all logs for all files.
      * @throws IOException
+     * If log doesn't exist.
      */
 
-    public void ViewHistory() throws IOException{
+    public void viewHistory() throws IOException{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("History");
         alert.setContentText("Here is your all history changes of all files:");
@@ -202,7 +185,7 @@ public class Controller implements Initializable{
      * @throws Exception If it can't find any files through a wrong path.
      */
 
-    public void Button1Action() throws Exception {
+    public void button1Action() throws Exception {
         DirectoryChooser dc = new DirectoryChooser();
         File directory = dc.showDialog(btn1.getScene().getWindow());
         if (directory != null) {
@@ -232,28 +215,24 @@ public class Controller implements Initializable{
                             nameToFile.put(parentFile.getAbsolutePath().substring(i+1), parentFile);
                             listView.getItems().add(parentFile.getAbsolutePath().substring(i+1));
                         }
-//                        name = file.getAbsolutePath().substring(i+1);
                     }
                     nameToFile.put(name, file);
                     Image image = new Image(file.toURI().toString());
-                    Model.Image image1 = new Model.Image(file);
+//                    Model.Image image1 = new Model.Image(file);
                     iv1.setImage(image);
                     listView.getItems().add(name);
                     ImageManager.checkKey(file);
                 }
             }
         }
-//        System.out.println(nameToFile);
     }
 
     /**
      * Select a Image file to view its detail.
      */
-    public void MouseClickList() {
+    public void mouseClickList() {
         String imageName = listView.getSelectionModel().getSelectedItem();
         if (imageName != null) {
-//            System.out.println(nameToFile);
-//            System.out.println(imageName);
             Image image = new Image(nameToFile.get(imageName).toURI().toString());
             iv1.setImage(image);
             path.setText(nameToFile.get(imageName).getAbsolutePath());
@@ -264,7 +243,7 @@ public class Controller implements Initializable{
      * Clear all files in listView.
      */
 
-    public void ButtonClear() {
+    public void buttonClear() {
         listView.getItems().subList(0, listView.getItems().size()).clear();
         iv1.setImage(null);
         path.setText("Path");
@@ -275,7 +254,7 @@ public class Controller implements Initializable{
      * Open ImageViewController to operate Image file user selected.
      * @throws IOException If loader can't find resource to load.
      */
-    public void ButtonOkAction() throws IOException {
+    public void buttonOkAction() throws IOException {
         Window window = ok.getScene().getWindow();
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
@@ -312,7 +291,7 @@ public class Controller implements Initializable{
      * @throws IOException If loader can't find resource to load.
      */
 
-    public void ButtonEditTags() throws IOException {
+    public void buttonEditTags() throws IOException {
         Window window = editTags.getScene().getWindow();
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
@@ -370,18 +349,13 @@ public class Controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tagManager = new TagManager();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
         try {
             imageManager = new ImageManager();
         }
-        catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        catch (IOException e){
+        catch (ClassNotFoundException | IOException e){
             e.printStackTrace();
         }
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
