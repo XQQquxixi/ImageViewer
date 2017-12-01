@@ -22,8 +22,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="Delete" mnemonicParsing="false" onAction="#DeleteSelectedTags" prefHeight="28.0" prefWidth="101.0" text="Delete" GridPane.rowIndex="2" />
-                <Button fx:id="Add" mnemonicParsing="false" onAction="#AddNewTag" prefHeight="32.0" prefWidth="97.0" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button fx:id="Delete" mnemonicParsing="false" onAction="#deleteSelectedTags" prefHeight="28.0" prefWidth="101.0" text="Delete" GridPane.rowIndex="2" />
+                <Button fx:id="Add" mnemonicParsing="false" onAction="#addNewTag" prefHeight="32.0" prefWidth="97.0" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="newTag" prefHeight="27.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
