@@ -73,7 +73,7 @@ public class TagsView implements Initializable{
      * @throws IOException
      * When user delete Tag, there might be IOException.
      */
-    public void DeleteSelectedTags() throws IOException {
+    public void deleteSelectedTags() throws IOException {
         ObservableList<String> listForDelete = listOfTags.getSelectionModel().getSelectedItems();
         for (String tag : listForDelete) {
             Map<File, Image> map = ImageManager.getImages();
@@ -130,7 +130,7 @@ public class TagsView implements Initializable{
      * @throws IOException
      * When user add Tag, there might be IOException.
      */
-    public void AddNewTag() throws IOException {
+    public void addNewTag() throws IOException {
         String input = newTag.getText();
         if (input != null) {
             TagManager.addTag(input);
