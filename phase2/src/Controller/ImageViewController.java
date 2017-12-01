@@ -548,7 +548,7 @@ public class ImageViewController {
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
         FXMLLoader loader = new FXMLLoader();
-        Pane root = loader.load(getClass().getResource("rename.fxml").openStream());
+        Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
         RenameController rename = loader.getController();
         rename.passController(controller);
         rename.passIMController(this);
