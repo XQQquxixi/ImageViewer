@@ -149,7 +149,7 @@ public class ImageManager {
   }
 
   /**
-   * Rename this image with string path filePath to newName and save serialized file.
+   * rename this image with string path filePath to newName and save serialized file.
    *
    * @param filePath the path of this image file.
    * @param newName the name to change to.
