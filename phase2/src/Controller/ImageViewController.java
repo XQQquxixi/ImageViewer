@@ -34,37 +34,37 @@ public class ImageViewController {
 
 
     /**
-     * Button for onAction MoveFile.
+     * Button for onAction moveFile.
      */
     @FXML
     Button Move;
 
     /**
-     * Button for onAction GoBack.
+     * Button for onAction goBack.
      */
     @FXML
     Button PREV;
 
     /**
-     * Button for onAction GoNext.
+     * Button for onAction goNext.
      */
     @FXML
     Button NEXT;
 
     /**
-     * Button for onAction Exit.
+     * Button for onAction exit.
      */
     @FXML
     Button CLOSE;
 
     /**
-     * Button for onAction DeleteTag.
+     * Button for onAction deleteTag.
      */
     @FXML
     Button Delete;
 
     /**
-     * Button for onAction Rename.
+     * Button for onAction rename.
      */
     @FXML
     Button rename;
@@ -119,7 +119,7 @@ public class ImageViewController {
     TextField newTag;
 
     /**
-     * Button for onAction ButtonHistory.
+     * Button for onAction buttonHistory.
      */
     @FXML
     Button history;
@@ -185,7 +185,7 @@ public class ImageViewController {
      *
      * @param image A file from Controller.
      */
-    void GetImage(File image) {
+    void getImage(File image) {
         curFile = image;
         try {
             selectedImage = ImageManager.checkKey(image);
@@ -282,7 +282,7 @@ public class ImageViewController {
                 @Override
                 public void handle(ActionEvent event) {
                     try {
-                        AddTags();
+                        addTags();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -356,7 +356,7 @@ public class ImageViewController {
      * The container of similar Image will go to next page.
      */
 
-    public void ButtonNextPage() {
+    public void buttonNextPage() {
         if (curPage != simDisplayList.size() - 1) {
             if (simDisplayList.get(curPage + 1).size() != 0) {
                 sim1.setImage(simDisplayList.get(curPage + 1).get(0));
@@ -395,7 +395,7 @@ public class ImageViewController {
      * The container of similar Image will go to previous page.
      */
 
-    public void ButtonPrevPage() {
+    public void buttonPrevPage() {
         if (curPage != 0) {
             if (simDisplayList.get(curPage - 1).size() != 0) {
                 sim1.setImage(simDisplayList.get(curPage - 1).get(0));
@@ -436,14 +436,14 @@ public class ImageViewController {
      * @param event Double click one of three images.
      */
 
-    public void DoubleClick(MouseEvent event) {
+    public void doubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             if (event.getSource().equals(sim1) || event.getSource().equals(name1)) {
-                GetImage(simUseList.get(curPage).get(0).getFile());
+                getImage(simUseList.get(curPage).get(0).getFile());
             } else if (event.getSource().equals(sim2) || event.getSource().equals(name2)) {
-                GetImage(simUseList.get(curPage).get(1).getFile());
+                getImage(simUseList.get(curPage).get(1).getFile());
             } else if (event.getSource().equals(sim3) || event.getSource().equals(name3)) {
-                GetImage(simUseList.get(curPage).get(2).getFile());
+                getImage(simUseList.get(curPage).get(2).getFile());
             }
         }
     }
@@ -525,9 +525,9 @@ public class ImageViewController {
      *
      * @throws IOException If curFile is not in listView, there will be IOException.
      */
-    public void GoBack() throws IOException {
+    public void goBack() throws IOException {
         try {
-            GetImage(controller.getPrevImage(curFile));
+            getImage(controller.getPrevImage(curFile));
         } catch (IndexOutOfBoundsException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Oops");
@@ -543,17 +543,17 @@ public class ImageViewController {
      * @throws IOException if saving serialized file fails.
      */
 
-    public void Rename() throws IOException {
+    public void rename() throws IOException {
         Window window = rename.getScene().getWindow();
         Stage primaryStage = new Stage();
         primaryStage.initOwner(window);
         FXMLLoader loader = new FXMLLoader();
-        Pane root = loader.load(getClass().getResource("Rename.fxml").openStream());
+        Pane root = loader.load(getClass().getResource("rename.fxml").openStream());
         RenameController rename = loader.getController();
         rename.passController(controller);
         rename.passIMController(this);
         rename.getImage(selectedImage);
-        primaryStage.setTitle("Rename");
+        primaryStage.setTitle("rename");
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.showAndWait();
     }
@@ -565,7 +565,7 @@ public class ImageViewController {
      * @throws IOException if saving serialized file fails.
      */
 
-    public void MoveFile() throws IOException {
+    public void moveFile() throws IOException {
         // Part of codes in this method is copied from http://java-buddy.blogspot.ca/2013/03/javafx-simple-example-of.html
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose directory which you wanna move into");
@@ -584,9 +584,9 @@ public class ImageViewController {
      * @throws IOException If curFile is not in listView, there will be IOException.
      */
 
-    public void GoNext() throws IOException {
+    public void goNext() throws IOException {
         try {
-            GetImage(controller.getNextImage(curFile));
+            getImage(controller.getNextImage(curFile));
         } catch (IndexOutOfBoundsException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Oops");
@@ -601,7 +601,7 @@ public class ImageViewController {
      * Close this Stage.
      */
 
-    public void Exit() {
+    public void exit() {
         Stage stage = (Stage) CLOSE.getScene().getWindow();
         stage.close();
     }
@@ -612,7 +612,7 @@ public class ImageViewController {
      * @throws IOException if saving serialized file fails.
      */
 
-    public void DeleteTag() throws IOException {
+    public void deleteTag() throws IOException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
         for (String key : Controller.nameToFile.keySet()) {
@@ -638,7 +638,7 @@ public class ImageViewController {
      *
      * @throws IOException if saving serialized file fails.
      */
-    public void InputNewTag() throws IOException {
+    public void inputNewTag() throws IOException {
         String input = newTag.getText();
         if (input != null) {
             if (input.length() == 0) {
@@ -674,7 +674,7 @@ public class ImageViewController {
      * @throws IOException if saving serialized file fails.
      */
 
-    private void AddTags() throws IOException {
+    private void addTags() throws IOException {
         ObservableList<String> list = tags.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
         for (String key : Controller.nameToFile.keySet()) {
@@ -699,7 +699,7 @@ public class ImageViewController {
      * Open an alert to view all history of this Image file.
      */
 
-    public void ButtonHistory() {
+    public void buttonHistory() {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("History");
