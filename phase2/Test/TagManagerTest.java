@@ -1,8 +1,3 @@
-import Model.Image;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,50 +12,61 @@ import Model.TagManager;
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 class TagManagerTest {
 
+  /**
+   * A TagManager.
+   */
   private TagManager tagManger;
-  /* A Logger. */
-  private static final Logger logger = Logger.getLogger(Image.class.getName());
 
-  /* A ConsoleHandler. */
-  private static final Handler consoleHandler = new ConsoleHandler();
-
+  /**
+   * Delete the old serialized file for TagManager
+   */
   @BeforeAll
   static void clearSer() {
-    logger.setLevel(Level.OFF);
-    consoleHandler.setLevel(Level.OFF);
-    logger.addHandler((consoleHandler));
-
     File ser = new File("tags.ser");
     if (ser.exists()) {
-      if (!ser.delete()) {
-        logger.log(Level.WARNING, "Deleting ser file failed!");
-      }
+      ser.delete();
     }
   }
 
+  /**
+   * Assign tagManager with a new TagManager object, and clear it.
+   *
+   * @throws IOException if stream to TagManager's ser file cannot be written or closed
+   * @throws ClassNotFoundException if the class path is not updated.
+   */
   @BeforeEach
   void setUp() throws IOException, ClassNotFoundException {
     tagManger = new TagManager();
     TagManager.clear();
   }
 
+  /**
+   * Delete the tags.ser serialization file to remove history for the next test.
+   */
   @AfterEach
   void tearDown() {
     File ser = new File("tags.ser");
     if (ser.exists()) {
-      if (!ser.delete()) {
-        logger.log(Level.WARNING, "Deleting ser file failed!");
-      }
+      ser.delete();
     }
   }
 
+  /**
+   * Test returning the tagList of an empty TagManager.
+   */
   @Test
   void testEmptyGetTagList() {
     assertTrue(TagManager.getTagList().isEmpty());
   }
 
+  /**
+   * Test adding one tag to the tagList of the TagManager.
+   *
+   * @throws IOException if stream to TagManager's ser file cannot be written or closed
+   */
   @Test
   void testAddOneTag() throws IOException {
     TagManager.addTag("f4f");
@@ -68,6 +74,10 @@ class TagManagerTest {
         && TagManager.getTagList().get(0).equals("f4f"));
   }
 
+  /**
+   * Test adding multiple tags to the tagList of the TagManager.
+   * @throws IOException if stream to TagManager's ser file cannot be written or closed
+   */
   @Test
   void testAddMultipleTags() throws IOException {
     TagManager.addTag("Rick");
@@ -81,6 +91,10 @@ class TagManagerTest {
     );
   }
 
+  /**
+   * Test removing one tag from the tagList of the TagManager.
+   * @throws IOException if stream to TagManager's ser file cannot be written or closed
+   */
   @Test
   void testRemoveOneTag() throws IOException {
     TagManager.addTag("university");
@@ -92,6 +106,10 @@ class TagManagerTest {
     );
   }
 
+  /**
+   * Test removing multiple tags from the tagList of the TagManager.
+   * @throws IOException if stream to TagManager's ser file cannot be written or closed
+   */
   @Test
   void testRemoveMultipleTags() throws IOException {
     TagManager.addTag("university");
@@ -105,6 +123,12 @@ class TagManagerTest {
     );
   }
 
+  /**
+   * Test reading stored information from a serialized file and update the current
+   * TagManager.
+   * @throws IOException if stream to TagManager's ser file cannot be written or closed
+   * @throws ClassNotFoundException if the class path is not updated
+   */
   @Test
   void testReadFromFile() throws IOException, ClassNotFoundException {
     TagManager.addTag("a tag");
@@ -120,6 +144,10 @@ class TagManagerTest {
     );
   }
 
+  /**
+   * Test saving the current TagManager information to a file.
+   * @throws IOException if stream to TagManager's ser file cannot be written or closed
+   */
   @Test
   void testSaveToFile() throws IOException {
     TagManager.addTag("wonder woman");
@@ -130,3 +158,4 @@ class TagManagerTest {
     assertTrue(ser.exists() && ser.isFile());
   }
 }
+
