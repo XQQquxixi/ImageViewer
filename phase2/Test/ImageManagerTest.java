@@ -31,11 +31,11 @@ class ImageManagerTest {
     if (ser.exists()) {
       ser.delete();
     }
-    ImageManager.rl = new RenamingLog();
     File log = new File("logs.ser");
     if (log.exists()) {
       log.delete();
     }
+    ImageManager.rl = new RenamingLog();
   }
 
   @BeforeEach
@@ -58,11 +58,7 @@ class ImageManagerTest {
     if (ser.exists()) {
       ser.delete();
     }
-    ImageManager.rl = new RenamingLog();
-    File log = new File("logs.ser");
-    if (log.exists()) {
-      log.delete();
-    }
+    ImageManager.rl.clear();
   }
 
   @Test
@@ -326,18 +322,23 @@ class ImageManagerTest {
     I3.getFile().renameTo(f1);
   }
 
-//  @Test
-//  void testGetLogs() throws IOException, ClassNotFoundException {
-//    ImageManager.rl = new RenamingLog();
-//    ImageManager.add(i1);
-//    ImageManager.add(i2);
-//    Image I1 = ImageManager.addTag(i1.getFile().getPath(), "a");
-//    Image I2 = ImageManager.addTag(i2.getFile().getPath(), "b");
-//    String expected = I1.getLog() + I2.getLog();
-//    assertEquals(expected, ImageManager.getLogs());
-//    I1.getFile().renameTo(f1);
-//    I2.getFile().renameTo(f2);
-//  }
+  @Test
+  void testGetLogs() throws IOException, ClassNotFoundException {
+    ImageManager.add(i1);
+    ImageManager.add(i2);
+    Image I1 = ImageManager.addTag(i1.getFile().getPath(), "a");
+    Image I2 = ImageManager.addTag(i2.getFile().getPath(), "b");
+
+    Date now = new Date();
+    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    String date = dt.format(now);
+    String expected = "a.jpg, a @a.jpg, " + date + "\n"
+        + "b.jpg, b @b.jpg, " + date + "\n";
+
+    assertEquals(expected, ImageManager.getLogs());
+    I1.getFile().renameTo(f1);
+    I2.getFile().renameTo(f2);
+  }
 
   @Test
   void testGetImagesWithSameTags() throws IOException {
@@ -360,4 +361,5 @@ class ImageManagerTest {
     I2_.getFile().renameTo(f2);
   }
 }
+
 
