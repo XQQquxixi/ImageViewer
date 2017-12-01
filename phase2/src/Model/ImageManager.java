@@ -48,6 +48,15 @@ public class ImageManager {
   }
 
   /**
+   * Return the RenamingLog of the ImageManager.
+   *
+   * @return the RenamingLog that keeps track of all changes
+   */
+  public static RenamingLog getRl() {
+    return rl;
+  }
+
+  /**
    * Return the images of this ImageManager.
    * @return the images of this ImageManager.
    */
@@ -60,7 +69,7 @@ public class ImageManager {
    *
    * @throws ClassNotFoundException if the class path is not updated
    */
-  private static void readFromFile() throws ClassNotFoundException {
+  public static void readFromFile() throws ClassNotFoundException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
@@ -142,7 +151,7 @@ public class ImageManager {
    * @param i the Image to add
    * @throws IOException if saving serialized file fails.
    */
-  private static void updateKey(File f1, Image i) throws IOException {
+  public static void updateKey(File f1, Image i) throws IOException {
     images.remove(f1);
     add(i);
     saveToFile();

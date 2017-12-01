@@ -79,7 +79,7 @@ class ImageManagerTest {
     if (ser.exists()) {
       ser.delete();
     }
-    ImageManager.rl.clear();
+    ImageManager.getRl().clear();
   }
 
   /**
@@ -345,7 +345,7 @@ class ImageManagerTest {
   /**
    * Test moving one image to another directory.
    *
-   * @throws IOException
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
    */
   @Test
   void testMoveOneImage() throws IOException {
