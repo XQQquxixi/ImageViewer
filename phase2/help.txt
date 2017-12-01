@@ -22,9 +22,11 @@ If you want to try JUniTest:
     I.“Similar Image”
         When you open a image, it will introduce some similar image according to similar tags. And also you can open these similar images.
     II."Search image by Tag"
-        In Main Scene(Controller) with some Images, you can input a tag and press "enter(return)", then system will search these images with the tag and show in listView.
+        In Main Scene(Controller) with some Images, you can type a tag and press "enter(return)", then system will search these images with the tag and show in listView.
     III."Change Tag"
         Sometimes, user want to change a tag's content when they operate a Image. So user can double click tag from tags pool in ImageView. Then user can change content of this Tag. As a result, all image file will change automatically!
     IV."Go Next(Prev)"
         You can go next or back image in listView. It is not new feature compared with Phase1, but there is no requirement for this function.
 4. For each image file, you can change name part when you try to rename, and change tags part when you add or delete tag.
+5. If you want to add a tag for a particular image, you can right click the tag in right side of ImageView, and choose add. If you choose delete, then the tag will delete and result is exactly same as deletion in tags pool.
+6. If you want to add a tag which is not in tags pool for a particular image, you can type in left side and press In button.

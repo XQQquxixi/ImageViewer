@@ -22,13 +22,13 @@ public class TagsView implements Initializable{
      * Button for delete some particular tags.
      */
     @FXML
-    Button Delete;
+    Button delete;
 
     /**
      * Button for add some particular tags.
      */
     @FXML
-    Button Add;
+    Button add;
 
     /**
      * TextField for input new tag.
