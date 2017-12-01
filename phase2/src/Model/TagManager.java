@@ -13,6 +13,7 @@ import java.util.logging.Logger;
  * A Tag Manager.
  */
 
+@SuppressWarnings("unchecked")
 public class TagManager {
 
   /**
@@ -107,7 +108,7 @@ public class TagManager {
   /**
    * Save this TagManager to a serialized file to filePath.
    */
-  private static void saveToFile() throws IOException {
+  public static void saveToFile() throws IOException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
@@ -121,7 +122,7 @@ public class TagManager {
    * Read a TagManager from the serialized file with path and update this TagManger's tagList with
    * the read TagManager's.
    */
-  private void readFromFile() throws ClassNotFoundException {
+  public void readFromFile() throws ClassNotFoundException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
