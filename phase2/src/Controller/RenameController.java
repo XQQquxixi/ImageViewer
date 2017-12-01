@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -54,8 +53,6 @@ public class RenameController{
 
     @FXML
     private ImageView pic;
-
-//    private ArrayList<String> listOfPrevNames = new ArrayList<>();
 
     /**
      * This image.
@@ -111,10 +108,9 @@ public class RenameController{
 
     /**
      * Let Label curName show inputName.
-     * @param event
      */
 
-    public void TypeName(KeyEvent event) {
+    public void typeName() {
         curName.setText(inputName.getText() + image.getTagPartOfName());
     }
 
@@ -122,7 +118,7 @@ public class RenameController{
      * Choose one of previous name, then Label will change by user's decision.
      */
 
-    public void ChoosePrevName() {
+    public void choosePrevName() {
         if (prevNames.getValue() != null) {
             curName.setText(prevNames.getValue());
         }
@@ -153,7 +149,7 @@ public class RenameController{
      * @throws IOException if saving serialized file fails.
      */
 
-    public void ButtonOkAction() throws IOException {
+    public void buttonOkAction() throws IOException {
         //image.setName(curName.getText());
         try {
             if (!(curName.getText() + image.getExtension()).equals(oldName)) {
@@ -172,12 +168,12 @@ public class RenameController{
         Controller.nameToFile.remove(oldName);
         Controller.nameToFile.put(image.getName() + image.getExtension(), image.getFile());
         controller.initData(oldName, image.getName() + image.getExtension());
-        imageViewController.GetImage(image.getFile());
+        imageViewController.getImage(image.getFile());
         imageViewController.initData(image);
         FXMLLoader loader = new FXMLLoader();
         loader.load(getClass().getResource("ImageView.fxml").openStream());
         ImageViewController controller = loader.getController();
-        controller.GetImage(image.getFile());
+        controller.getImage(image.getFile());
         Window window = ok.getScene().getWindow();
         Stage stage = (Stage) window;
         stage.close();
@@ -187,7 +183,7 @@ public class RenameController{
      * Close this Stage.
      */
 
-    public void ButtonCancelAction() {
+    public void buttonCancelAction() {
         ((Stage) cancel.getScene().getWindow()).close();
     }
 }
