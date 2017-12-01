@@ -90,7 +90,7 @@ public class Image extends Observable implements Serializable {
   }
 
   /**
-   * Rename the image to a new name.
+   * rename the image to a new name.
    *
    * @param name the new name for the image
    */
