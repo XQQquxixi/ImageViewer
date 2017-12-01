@@ -1,0 +1,26 @@
+Duties:
+
+Xueqing Yang (yangxu19):
+    Front-end for Controller package.
+    Classes: Controller.java, sample.fxml, RenameController.java, Rename.fxml
+    Some methods in ImageViewController.java and ImageView.fxml
+    Bug fixing in all classes in Controller package
+
+Wen Li (liwen21):
+    Front-end for Controller package.
+    Classes: TagsView.java, TagsView.fxml
+    Some methods in ImageViewController.java and ImageView.fxml
+    Bug fixing in all classes in Controller package
+
+Qiqi Xu(xuqiqi);
+    Back-end for Model and Utility package.
+    Explored design patterns. Implemented TagManager, FileManager and ImageManager
+    Implemented renaming and logging system.
+    Collaborated with Xingyu writing JavaDocs and UML diagram.
+    Fixed bugs in all classes in Model and Utility.
+
+Xingyu Wang (wangx482):
+    Back-end for Model package.
+    Implemented moving and tagging system.
+    Collaborated with Qiqi writing JavaDocs and UML diagram.
+	  Bug fixing in various methods in Model package
