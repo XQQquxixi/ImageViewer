@@ -265,7 +265,7 @@ public class Controller implements Initializable{
         String imageName = listView.getSelectionModel().getSelectedItem();
         if (imageName != null) {
             if (nameToFile.get(imageName).exists()) {
-                imageView.GetImage(nameToFile.get(imageName));
+                imageView.getImage(nameToFile.get(imageName));
                 primaryStage.setTitle("Image Viewer");
                 primaryStage.setScene(new Scene(root, 600, 600));
                 primaryStage.setX(window.getX() + DISTANCE);
