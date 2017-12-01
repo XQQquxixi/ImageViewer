@@ -1,5 +1,4 @@
 
-import Model.RenamingLog;
 import java.text.SimpleDateFormat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,12 +20,24 @@ import java.util.*;
 @SuppressWarnings("ResultOfMethodCallIgnored")
 class ImageManagerTest {
 
+  /**
+   * An ImageManager.
+   */
   private ImageManager im;
+  /**
+   * Files of images to test with.
+   */
   private File f1, f2, f3, f4;
+  /**
+   * Images to test with with respect to Files f1, f2, f3, f4
+   */
   private Image i1, i2, i3, i4;
 
+  /**
+   * Delete all serialized files to make sure every test starts with no history.
+   */
   @BeforeAll
-  static void clearSer() throws IOException, ClassNotFoundException {
+  static void clearSer() {
     File ser = new File("images.ser");
     if (ser.exists()) {
       ser.delete();
@@ -35,9 +46,14 @@ class ImageManagerTest {
     if (log.exists()) {
       log.delete();
     }
-    ImageManager.rl = new RenamingLog();
   }
 
+  /**
+   * Set up f1, f2, f3, f4 and i1, i2, i3, i4 for testing
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   * @throws ClassNotFoundException if the class path is not updated
+   */
   @BeforeEach
   void setUp() throws IOException, ClassNotFoundException {
     f1 = new File("pics/a.jpg");
@@ -49,11 +65,16 @@ class ImageManagerTest {
     i3 = new Image(f3);
     i4 = new Image(f4);
     im = new ImageManager();
-    tearDown();
   }
 
+  /**
+   * Remove the ImageManager serialized file to clear history.
+   * Clear ImageManager's RenamingLog.
+   *
+   * @throws IOException if stream to RenamingLog's ser file cannot be written or closed
+   */
   @AfterEach
-  void tearDown() throws IOException, ClassNotFoundException {
+  void tearDown() throws IOException {
     File ser = new File("images.ser");
     if (ser.exists()) {
       ser.delete();
@@ -61,8 +82,12 @@ class ImageManagerTest {
     ImageManager.rl.clear();
   }
 
+  /**
+   * Test adding one Image to ImageManager.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
-  void addOnePic() throws IOException, ClassNotFoundException {
+  void addOneImage() throws IOException {
     ImageManager.add(i1);
     assertAll(
         () -> assertEquals(1, ImageManager.getImages().size()),
@@ -71,8 +96,13 @@ class ImageManagerTest {
     );
   }
 
+
+  /**
+   * Test adding multiple images to ImageManager.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
-  void addMultiplePic() throws IOException, ClassNotFoundException {
+  void addMultipleImages() throws IOException {
     ImageManager.add(i1);
     ImageManager.add(i2);
     ImageManager.add(i3);
@@ -84,6 +114,10 @@ class ImageManagerTest {
     );
   }
 
+  /**
+   * Test getting all added Images.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testGetImages() throws IOException {
     ImageManager.add(i4);
@@ -92,6 +126,11 @@ class ImageManagerTest {
     assertEquals(expected, ImageManager.getImages());
   }
 
+  /**
+   * Test reading and loading serialized file's information.
+   * @throws ClassNotFoundException if the class path is not updated
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testReadFromFile() throws ClassNotFoundException, IOException {
     ImageManager.add(i1);
@@ -105,6 +144,11 @@ class ImageManagerTest {
     );
   }
 
+  /**
+   * Test the String representation of an ImageManager.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testToString() throws IOException {
     ImageManager.add(i1);
@@ -116,6 +160,12 @@ class ImageManagerTest {
     assertEquals(expected, im.toString());
   }
 
+  /**
+   * Test method checkKey returns the corresponding Image in images
+   * when there is no image in images.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testCheckKeyWithNoKey() throws IOException {
     Image image = ImageManager.checkKey(f1);
@@ -125,6 +175,12 @@ class ImageManagerTest {
     );
   }
 
+  /**
+   * Test method checkKey returns the corresponding Image in images
+   * when images is not empty.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testCheckKeyWithKeys() throws IOException {
     ImageManager.add(i1);
@@ -136,6 +192,10 @@ class ImageManagerTest {
     );
   }
 
+  /**
+   * Test method updateKey updates the key of the image in images to the new File.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testUpdateKey() throws IOException {
     ImageManager.add(i1);
@@ -150,6 +210,11 @@ class ImageManagerTest {
     );
   }
 
+  /**
+   * Test renaming an Image.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testRenameImage() throws IOException {
     ImageManager.add(i1);
@@ -166,6 +231,11 @@ class ImageManagerTest {
     F1.renameTo(f1);
   }
 
+  /**
+   * Test adding one tag to one image in images won't affect others.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testAddOneTagToOneImage() throws IOException {
     ImageManager.add(i1);
@@ -182,6 +252,11 @@ class ImageManagerTest {
     F1.renameTo(f1);
   }
 
+  /**
+   * Test adding multiple tags to one image won't affect other images.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testAddMultipleTagsToOneImage() throws IOException {
     ImageManager.add(i1);
@@ -199,6 +274,11 @@ class ImageManagerTest {
     I2.getFile().renameTo(f1);
   }
 
+  /**
+   * Test adding multiple tags to different images.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testAddMultipleTagsToImages() throws IOException {
     ImageManager.add(i1);
@@ -223,6 +303,11 @@ class ImageManagerTest {
     F2.renameTo(f2);
   }
 
+  /**
+   * Test deleting one tag in one image.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testDeleteOneTagInOneImage() throws IOException {
     ImageManager.add(i1);
@@ -239,6 +324,11 @@ class ImageManagerTest {
     F1.renameTo(f1);
   }
 
+  /**
+   * Test deleting multiple tags in one image.
+   *
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testDeleteTagsInOneImage() throws IOException {
     ImageManager.add(i1);
@@ -252,6 +342,11 @@ class ImageManagerTest {
     );
   }
 
+  /**
+   * Test moving one image to another directory.
+   *
+   * @throws IOException
+   */
   @Test
   void testMoveOneImage() throws IOException {
     ImageManager.add(i1);
@@ -260,11 +355,16 @@ class ImageManagerTest {
     File newFile = new File("pics/move here/a.jpg");
     assertAll(
         () -> assertFalse(f1.exists() && f1.isFile()),
-        () -> assertTrue(newFile.exists() && newFile.isFile())
+        () -> assertTrue(newFile.exists() && newFile.isFile()),
+        () -> assertTrue(f2.exists() && f2.isFile())
     );
     ImageManager.move("pics/move here/a.jpg", "pics/a.jpg");
   }
 
+  /**
+   * Test moving multiple images in images.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testMoveMultipleImages() throws IOException {
     ImageManager.add(i1);
@@ -283,6 +383,10 @@ class ImageManagerTest {
     ImageManager.move("pics/move here/b.jpg", "pics/b.jpg");
   }
 
+  /**
+   * Test if getLog can return each image's individual log in images.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testGetLog() throws IOException {
     ImageManager.add(i1);
@@ -295,6 +399,10 @@ class ImageManagerTest {
         ImageManager.getLog(I1.getFile().getPath()));
   }
 
+  /**
+   * Test getTags can return an ArrayList of tags of each image.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testGetTags() throws IOException {
     ImageManager.add(i1);
@@ -307,6 +415,10 @@ class ImageManagerTest {
     ImageManager.deleteTag("pics/a @a.jpg", "a");
   }
 
+  /**
+   * Test getPastNames returns an ArrayList of past names.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testGetPastNames() throws IOException {
     ImageManager.add(i1);
@@ -322,8 +434,12 @@ class ImageManagerTest {
     I3.getFile().renameTo(f1);
   }
 
+  /**
+   * Test getLogs returns a log of all changes ever done.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
-  void testGetLogs() throws IOException, ClassNotFoundException {
+  void testGetLogs() throws IOException {
     ImageManager.add(i1);
     ImageManager.add(i2);
     Image I1 = ImageManager.addTag(i1.getFile().getPath(), "a");
@@ -340,6 +456,11 @@ class ImageManagerTest {
     I2.getFile().renameTo(f2);
   }
 
+  /**
+   * Test getImagesWithSameTags returns an ArrayList of images that has the
+   * exact same set of tags.
+   * @throws IOException if stream to ImageManager's ser file cannot be written or closed
+   */
   @Test
   void testGetImagesWithSameTags() throws IOException {
     ImageManager.add(i1);
