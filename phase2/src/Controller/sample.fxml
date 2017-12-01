@@ -10,8 +10,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
     <children>
-        <Button fx:id="btn1" layoutX="236.0" layoutY="49.0" mnemonicParsing="false" onAction="#Button1Action" text="Open" />
-        <ListView fx:id="listView" layoutX="300.0" layoutY="85.0" onMouseClicked="#MouseClickList" prefHeight="251.0" prefWidth="281.0" />
+        <Button fx:id="btn1" layoutX="236.0" layoutY="49.0" mnemonicParsing="false" onAction="#button1Action" text="Open" />
+        <ListView fx:id="listView" layoutX="300.0" layoutY="85.0" onMouseClicked="#mouseClickList" prefHeight="251.0" prefWidth="281.0" />
         <ImageView fx:id="iv1" fitHeight="187.0" fitWidth="261.0" layoutX="24.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
         <Label fx:id="labelEnter" layoutX="14.0" layoutY="9.0" prefHeight="36.0" prefWidth="261.0" text="Please choose a directory:">
             <font>
@@ -23,8 +23,8 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="ok" layoutX="476.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonOkAction" prefHeight="26.0" prefWidth="106.0" text="OK" />
-        <Button fx:id="editTags" layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonEditTags" prefHeight="26.0" prefWidth="143.0" text="Edit Your Tag Pool" />
+        <Button fx:id="ok" layoutX="476.0" layoutY="350.0" mnemonicParsing="false" onAction="#buttonOkAction" prefHeight="26.0" prefWidth="106.0" text="OK" />
+        <Button fx:id="editTags" layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#buttonEditTags" prefHeight="26.0" prefWidth="143.0" text="Edit Your Tag Pool" />
         <Label layoutX="300.0" layoutY="14.0" prefHeight="26.0" prefWidth="281.0" text="Please select a picture:&#10;">
             <font>
                 <Font size="18.0" />
@@ -32,9 +32,8 @@
         </Label>
       <Label layoutX="300.0" layoutY="41.0" text="(and hit OK to continue)" />
       <Label fx:id="path" layoutX="14.0" layoutY="285.0" prefHeight="53.0" prefWidth="281.0" text="Path" wrapText="true" />
-      <Button fx:id="clear" layoutX="358.0" layoutY="350.0" mnemonicParsing="false" onAction="#ButtonClear" prefHeight="26.0" prefWidth="106.0" text="Clear" />
-      <Button fx:id="Log" layoutX="175.0" layoutY="350.0" mnemonicParsing="false" onAction="#ViewHistory" prefHeight="27.0" prefWidth="116.0" text="History" />
-      <TextField fx:id="tags" layoutX="301.0" layoutY="57.0" onKeyPressed="#keyEnter" onKeyReleased="#keyEnter" onKeyTyped="#keyEnter" prefHeight="26.0" prefWidth="217.0" />
-      <Button layoutX="522.0" layoutY="57.0" mnemonicParsing="false" onAction="#buttonCancel" prefHeight="26.0" prefWidth="59.0" text="cancel" />
+      <Button fx:id="clear" layoutX="358.0" layoutY="350.0" mnemonicParsing="false" onAction="#buttonClear" prefHeight="26.0" prefWidth="106.0" text="Clear" />
+      <Button fx:id="Log" layoutX="175.0" layoutY="350.0" mnemonicParsing="false" onAction="#viewHistory" prefHeight="27.0" prefWidth="116.0" text="History" />
+      <TextField fx:id="tags" layoutX="301.0" layoutY="57.0" onKeyPressed="#keyEnter" onKeyReleased="#keyEnter" onKeyTyped="#keyEnter" prefHeight="26.0" prefWidth="281.0" />
     </children>
 </AnchorPane>
