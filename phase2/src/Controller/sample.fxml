@@ -34,6 +34,6 @@
       <Label fx:id="path" layoutX="14.0" layoutY="285.0" prefHeight="53.0" prefWidth="281.0" text="Path" wrapText="true" />
       <Button fx:id="clear" layoutX="358.0" layoutY="350.0" mnemonicParsing="false" onAction="#buttonClear" prefHeight="26.0" prefWidth="106.0" text="Clear" />
       <Button fx:id="Log" layoutX="175.0" layoutY="350.0" mnemonicParsing="false" onAction="#viewHistory" prefHeight="27.0" prefWidth="116.0" text="History" />
-      <TextField fx:id="tags" layoutX="301.0" layoutY="57.0" onKeyPressed="#keyEnter" onKeyReleased="#keyEnter" onKeyTyped="#keyEnter" prefHeight="26.0" prefWidth="281.0" />
+      <TextField fx:id="tags" layoutX="301.0" layoutY="57.0" onKeyPressed="#keyEnter" onKeyReleased="#keyEnter" onKeyTyped="#keyEnter" prefHeight="26.0" prefWidth="281.0" promptText="search by tags(please use &quot;,&quot; to seperate)" />
     </children>
 </AnchorPane>
