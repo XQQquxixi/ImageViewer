@@ -97,7 +97,6 @@ public class TagsView implements Initializable{
                         for (Image image : imWithTag) {
                             String oldName = image.getName() + image.getExtension();
                             ImageManager.deleteTag(image.getFile().getAbsolutePath(), tag);
-                            System.out.println(oldName);
                             for (String key : Controller.nameToFile.keySet()) {
                                 if (Controller.nameToFile.get(key).equals(image.getFile())) {
                                     oldName = key;
