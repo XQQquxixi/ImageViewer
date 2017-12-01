@@ -182,8 +182,8 @@ public class ImageViewController {
     /**
      * Pass a file and let selectedImage be the Image which is connected to this file. Then pass selectedImage into
      * initDate.
-     * @param image
-     * A file from Controller.
+     *
+     * @param image A file from Controller.
      */
     void GetImage(File image) {
         curFile = image;
@@ -196,8 +196,11 @@ public class ImageViewController {
     }
 
     /**
+     * If user double click the tag, then user can change tag's content, and then, all images with this tag will change
+     * the tag. If user right click, then user can choose to add this tag into this Image, or delete the tag
+     * from tag pools.
      *
-     * @param event
+     * @param event Double click the tag in the right side.
      */
     public void doubleClickTags(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -211,7 +214,59 @@ public class ImageViewController {
             Optional<String> result = dialog.showAndWait();
             if (result.isPresent()) {
                 try {
-                    TagManager.editTag(list.get(0), result.get());
+                    String oldTag = list.get(0);
+                    String newTag = result.get();
+                    if (!tags.getItems().contains(newTag)) {
+                        TagManager.editTag(oldTag, newTag);
+                        if (selectedImage.getCurrentTags().contains(oldTag)) {
+                            String oldName = selectedImage.getName() + selectedImage.getExtension();
+                            for (String key : Controller.nameToFile.keySet()) {
+                                if (Controller.nameToFile.get(key).equals(curFile)) {
+                                    oldName = key;
+                                }
+                            }
+                            selectedImage = ImageManager.deleteTag(selectedImage.getFile().getAbsolutePath(), oldTag);
+                            selectedImage = ImageManager.addTag(selectedImage.getFile().getAbsolutePath(), newTag);
+                            listView.getItems().clear();
+                            listView.getItems().addAll(selectedImage.getCurrentTags());
+                            Name.setText(selectedImage.getName());
+                            String newName = selectedImage.getName() + selectedImage.getExtension();
+                            Controller.nameToFile.remove(oldName);
+                            Controller.nameToFile.put(newName, selectedImage.getFile());
+                            Name.setText(selectedImage.getName());
+                            controller.initData(oldName, newName);
+                        }
+                        Map<File, Image> map = ImageManager.getImages();
+                        ArrayList<Image> images = new ArrayList<>(map.values());
+                        ArrayList<Image> imWithTag = new ArrayList<>();
+                        for (Image image : images) {
+                            if (image.getCurrentTags().contains(oldTag)) {
+                                imWithTag.add(image);
+                            }
+                        }
+                        for (Image image : imWithTag) {
+                            if (image.getCurrentTags().contains(oldTag)) {
+                                String oldName = image.getName() + image.getExtension();
+                                try {
+                                    ImageManager.deleteTag(image.getFile().getAbsolutePath(), oldTag);
+                                    ImageManager.addTag(image.getFile().getAbsolutePath(), newTag);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                for (String key : Controller.nameToFile.keySet()) {
+                                    if (Controller.nameToFile.get(key).equals(image.getFile())) {
+                                        oldName = key;
+                                    }
+                                }
+                                if (Controller.nameToFile.containsKey(oldName)) {
+                                    String newName = image.getName() + image.getExtension();
+                                    Controller.nameToFile.remove(oldName);
+                                    Controller.nameToFile.put(newName, image.getFile());
+                                    controller.initData(oldName, newName);
+                                }
+                            }
+                        }
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -240,7 +295,7 @@ public class ImageViewController {
                     Map<File, Image> map = ImageManager.getImages();
                     ArrayList<Image> images = new ArrayList<>(map.values());
                     ArrayList<Image> imWithTag = new ArrayList<>();
-                    for (Image image: images) {
+                    for (Image image : images) {
                         if (image.getCurrentTags().contains(tag)) {
                             imWithTag.add(image);
                         }
@@ -303,23 +358,23 @@ public class ImageViewController {
 
     public void ButtonNextPage() {
         if (curPage != simDisplayList.size() - 1) {
-            if (simDisplayList.get(curPage+1).size() != 0) {
-                sim1.setImage(simDisplayList.get(curPage+1).get(0));
-                name1.setText(simUseList.get(curPage+1).get(0).getName());
+            if (simDisplayList.get(curPage + 1).size() != 0) {
+                sim1.setImage(simDisplayList.get(curPage + 1).get(0));
+                name1.setText(simUseList.get(curPage + 1).get(0).getName());
             } else {
                 sim1.setImage(null);
                 name1.setText("");
             }
-            if (simDisplayList.get(curPage+1).size() >= 2) {
-                sim2.setImage(simDisplayList.get(curPage+1).get(1));
-                name2.setText(simUseList.get(curPage+1).get(1).getName());
+            if (simDisplayList.get(curPage + 1).size() >= 2) {
+                sim2.setImage(simDisplayList.get(curPage + 1).get(1));
+                name2.setText(simUseList.get(curPage + 1).get(1).getName());
             } else {
                 sim2.setImage(null);
                 name2.setText("");
             }
-            if (simDisplayList.get(curPage+1).size() == 3) {
-                sim3.setImage(simDisplayList.get(curPage+1).get(2));
-                name3.setText(simUseList.get(curPage+1).get(2).getName());
+            if (simDisplayList.get(curPage + 1).size() == 3) {
+                sim3.setImage(simDisplayList.get(curPage + 1).get(2));
+                name3.setText(simUseList.get(curPage + 1).get(2).getName());
             } else {
                 sim3.setImage(null);
                 name3.setText("");
@@ -344,21 +399,21 @@ public class ImageViewController {
         if (curPage != 0) {
             if (simDisplayList.get(curPage - 1).size() != 0) {
                 sim1.setImage(simDisplayList.get(curPage - 1).get(0));
-                name1.setText(simUseList.get(curPage-1).get(0).getName());
+                name1.setText(simUseList.get(curPage - 1).get(0).getName());
             } else {
                 sim1.setImage(null);
                 name1.setText("");
             }
             if (simDisplayList.get(curPage - 1).size() >= 2) {
                 sim2.setImage(simDisplayList.get(curPage - 1).get(1));
-                name2.setText(simUseList.get(curPage-1).get(1).getName());
+                name2.setText(simUseList.get(curPage - 1).get(1).getName());
             } else {
                 sim2.setImage(null);
                 name2.setText("");
             }
             if (simDisplayList.get(curPage - 1).size() >= 2) {
                 sim3.setImage(simDisplayList.get(curPage - 1).get(2));
-                name3.setText(simUseList.get(curPage-1).get(2).getName());
+                name3.setText(simUseList.get(curPage - 1).get(2).getName());
             } else {
                 sim3.setImage(null);
                 name3.setText("");
@@ -377,6 +432,7 @@ public class ImageViewController {
     /**
      * When user double click one of three images for current page of container for similar Image, we can view and
      * operate the image which is double clicked by user.
+     *
      * @param event Double click one of three images.
      */
 
@@ -394,6 +450,7 @@ public class ImageViewController {
 
     /**
      * Pass a Controller into this.controller.
+     *
      * @param controller The Controller we want to pass into
      */
     void passController(Controller controller) {
@@ -402,9 +459,10 @@ public class ImageViewController {
 
     /**
      * Update information of this image.
+     *
      * @param image The image file we update
      */
-    void initData(Image image){
+    void initData(Image image) {
         Name.setText(image.getName());
         Name.setText(image.getName());
         ArrayList<String> col = image.getCurrentTags();
@@ -421,9 +479,7 @@ public class ImageViewController {
         int i = 0;
         ArrayList<javafx.scene.image.Image> list = new ArrayList<>();
         ArrayList<Image> list1 = new ArrayList<>();
-//        System.out.println("image:" + selectedImage);
         ArrayList<Image> simList = Model.Similarity.getSimilarImages(selectedImage.getFile().getAbsolutePath());
-        System.out.println(simList);
         simDisplayList.clear();
         simUseList.clear();
         for (Image simImage : simList) {
@@ -462,14 +518,12 @@ public class ImageViewController {
         name3.setText(simUseList.get(0).get(2).getName());
         curPage = 0;
         pageNum.setText("Page " + (curPage + 1));
-//        System.out.println(simDisplayList);
-        System.out.println(ImageManager.getImages());
     }
 
     /**
      * Go back to last image in listView of Controller.
-     * @throws IOException
-     * If curFile is not in listView, there will be IOException.
+     *
+     * @throws IOException If curFile is not in listView, there will be IOException.
      */
     public void GoBack() throws IOException {
         try {
@@ -485,8 +539,8 @@ public class ImageViewController {
 
     /**
      * Open RenameController to rename of this image file.
-     * @throws IOException
-     * if saving serialized file fails.
+     *
+     * @throws IOException if saving serialized file fails.
      */
 
     public void Rename() throws IOException {
@@ -507,8 +561,8 @@ public class ImageViewController {
     /**
      * Move this file.
      * It will open a directoryChooser, user can choose any directory which they prefer.
-     * @throws IOException
-     * if saving serialized file fails.
+     *
+     * @throws IOException if saving serialized file fails.
      */
 
     public void MoveFile() throws IOException {
@@ -526,8 +580,8 @@ public class ImageViewController {
 
     /**
      * Go to next image file in listView of Controller.
-     * @throws IOException
-     * If curFile is not in listView, there will be IOException.
+     *
+     * @throws IOException If curFile is not in listView, there will be IOException.
      */
 
     public void GoNext() throws IOException {
@@ -554,15 +608,15 @@ public class ImageViewController {
 
     /**
      * Delete selected Tag of this image.
-     * @throws IOException
-     * if saving serialized file fails.
+     *
+     * @throws IOException if saving serialized file fails.
      */
 
     public void DeleteTag() throws IOException {
         ObservableList<String> delete = listView.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
-        for (String key: Controller.nameToFile.keySet()){
-            if (Controller.nameToFile.get(key).equals(curFile)){
+        for (String key : Controller.nameToFile.keySet()) {
+            if (Controller.nameToFile.get(key).equals(curFile)) {
                 oldName = key;
             }
         }
@@ -581,8 +635,8 @@ public class ImageViewController {
     /**
      * Input the String in textField into new Tag of this Image file and TagManager. If the tag is already in
      * tags(or listView), the tags(or listView) will not change.
-     * @throws IOException
-     * if saving serialized file fails.
+     *
+     * @throws IOException if saving serialized file fails.
      */
     public void InputNewTag() throws IOException {
         String input = newTag.getText();
@@ -616,17 +670,16 @@ public class ImageViewController {
 
     /**
      * Add selected Tag for this image.
-     * @throws IOException
-     * if saving serialized file fails.
+     *
+     * @throws IOException if saving serialized file fails.
      */
 
-    private void AddTags() throws IOException{
+    private void AddTags() throws IOException {
         ObservableList<String> list = tags.getSelectionModel().getSelectedItems();
         String oldName = selectedImage.getName() + selectedImage.getExtension();
-        for (String key: Controller.nameToFile.keySet()){
-            if (Controller.nameToFile.get(key).equals(curFile)){
+        for (String key : Controller.nameToFile.keySet()) {
+            if (Controller.nameToFile.get(key).equals(curFile)) {
                 oldName = key;
-                System.out.println(key);
             }
         }
         for (String tag : list) {
@@ -651,7 +704,6 @@ public class ImageViewController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("History");
             alert.setHeaderText("Here is your all history changes of this image:");
-//            alert.setContentText("Here is your all history changes of this image:");
             String history = ImageManager.getLog(selectedImage.getFile().getAbsolutePath());
             TextArea textArea = new TextArea(history);
             textArea.setEditable(false);
@@ -665,7 +717,6 @@ public class ImageViewController {
             expContent.setMaxWidth(Double.MAX_VALUE);
             expContent.add(textArea, 0, 0);
 
-//            alert.getDialogPane().setExpandableContent(expContent);
             alert.getDialogPane().setContent(expContent);
 
             alert.showAndWait();
@@ -673,6 +724,4 @@ public class ImageViewController {
             e.printStackTrace();
         }
     }
-
-
 }
