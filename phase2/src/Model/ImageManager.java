@@ -21,7 +21,7 @@ public class ImageManager {
   /* The file path for images. */
   private static final String path = "./images.ser";
   /* A renamingLog Observer that observes all images of this ImageManager. */
-  public static RenamingLog rl;
+  private static RenamingLog rl;
 
   /**
    * An ImageManager with filePath.
@@ -60,7 +60,7 @@ public class ImageManager {
    *
    * @throws ClassNotFoundException if the class path is not updated
    */
-  public static void readFromFile() throws ClassNotFoundException {
+  private static void readFromFile() throws ClassNotFoundException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
@@ -142,7 +142,7 @@ public class ImageManager {
    * @param i the Image to add
    * @throws IOException if saving serialized file fails.
    */
-  public static void updateKey(File f1, Image i) throws IOException {
+  private static void updateKey(File f1, Image i) throws IOException {
     images.remove(f1);
     add(i);
     saveToFile();
