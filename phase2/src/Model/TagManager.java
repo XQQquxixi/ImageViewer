@@ -78,7 +78,10 @@ public class TagManager {
   }
 
   /**
-   * temp
+   * Edit a tag from tagList then update the serialized file.
+   *
+   * @param oldTag the original tag
+   * @param tag the new tag
    */
   public static void editTag(String oldTag, String tag) throws IOException {
     tagList.set(tagList.indexOf(oldTag), tag);
@@ -104,7 +107,7 @@ public class TagManager {
   /**
    * Save this TagManager to a serialized file to filePath.
    */
-  public static void saveToFile() throws IOException {
+  private static void saveToFile() throws IOException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
@@ -118,7 +121,7 @@ public class TagManager {
    * Read a TagManager from the serialized file with path and update this TagManger's tagList with
    * the read TagManager's.
    */
-  public void readFromFile() throws ClassNotFoundException {
+  private void readFromFile() throws ClassNotFoundException {
     //Code adapted from Paul's slides
     //http://www.teach.cs.toronto.edu/~csc207h/fall/lectures.shtml
     FileManager fm = new FileManager();
