@@ -24,3 +24,5 @@ Xingyu Wang (wangx482):
     Implemented moving and tagging system.
     Collaborated with Qiqi writing JavaDocs and UML diagram.
 	  Bug fixing in various methods in Model package
+	  Writing ImageManagerTest and TagManagerTest and their JavaDocs
+	  Created .gitignore file
