@@ -9,7 +9,11 @@
 
 phase2.iml
 
+# IDEA files
 .idea/
 out/
 
 /.DS_Store/
+
+# Images
+*.jpg
