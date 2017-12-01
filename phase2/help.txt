@@ -7,9 +7,24 @@ cd src
 javac */*.java -Xlint
 java Controller.Main
 
+If you want to try JUniTest:
+
+1. Open IntelliJ IDEA, and import our project into IntelliJ
+2. Built Test Module for Test package.
+3. Sometimes you need to import Junit5.
+4. Then, you can run 3 files in Test.
+
 
 # Some Instruction tips for using our App
 1. In our design, if you want to delete a tag from tag pool, then all images with this tag will delete this tag, and as a result, their name will also change following the deletion of tag.
 2. You can open a directoryChooser to choose a directory when you press “Open” in our App. And all files’s name will be added into listView in the right side. If there are some different files with same name, it will add path in the front if they are in subdirectory.
-3. Our new feature is “Similar Image”. When you open a image, it will introduce some similar image according to similar tags. And also you can open these similar images.
+3. We have 4 new features:
+    I.“Similar Image”
+        When you open a image, it will introduce some similar image according to similar tags. And also you can open these similar images.
+    II."Search image by Tag"
+        In Main Scene(Controller) with some Images, you can input a tag and press "enter(return)", then system will search these images with the tag and show in listView.
+    III."Change Tag"
+        Sometimes, user want to change a tag's content when they operate a Image. So user can double click tag from tags pool in ImageView. Then user can change content of this Tag. As a result, all image file will change automatically!
+    IV."Go Next(Prev)"
+        You can go next or back image in listView. It is not new feature compared with Phase1, but there is no requirement for this function.
 4. For each image file, you can change name part when you try to rename, and change tags part when you add or delete tag.
